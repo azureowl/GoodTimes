@@ -2,7 +2,7 @@ function main () {
     app.fourSquare();
     // app.darkSkyTest();
     // app.directions();
-    eventbrite();
+    app.eventbrite();
 }
 
 $(main);
