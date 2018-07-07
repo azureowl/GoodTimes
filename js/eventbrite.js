@@ -39,12 +39,13 @@ app.eventbrite = function () {
         const test = {
             url: 'https://www.eventbriteapi.com/v3/events/search/',
             data: {
-                q: 'rap music'
+                q: 'jazz',
+                ['location.address']: userSeedData.city
             },
             beforeSend: function (xhr) {
                 xhr.setRequestHeader("Authorization", `Bearer ${oAuth.access_token}`);
             }
-        }
+        };
         $.ajax(test).done(function (data) {
             console.log(data);
         });
@@ -56,6 +57,7 @@ app.eventbrite = function () {
 
     function main () {
         oAuthAuthenticate();
+        seedEventbriteEvents();
     }
 
     $(main);
