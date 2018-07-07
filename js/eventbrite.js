@@ -37,8 +37,10 @@ app.eventbrite = function () {
     // Always make requests with user's OAuth token
     function requestEventbriteData (settings) {
         const test = {
-            url: server.userEndpoint,
-            q: 'food',
+            url: 'https://www.eventbriteapi.com/v3/events/search/',
+            data: {
+                q: 'rap music'
+            },
             beforeSend: function (xhr) {
                 xhr.setRequestHeader("Authorization", `Bearer ${oAuth.access_token}`);
             }
