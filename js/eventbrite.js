@@ -43,7 +43,7 @@ app.eventbrite = function () {
         $.ajax(test).done(function (data) {
             console.log(data.events);
             data.events.forEach(event => {
-                console.log(event);
+                // console.log(event);
                 // need venue_id to get address
                 // to get venue address url: https://www.eventbriteapi.com/v3/venues/${data.events[0].venue_id}/
             });
