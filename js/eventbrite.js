@@ -21,17 +21,28 @@ app.eventbrite = function () {
 
     function getUserLoc () {
         $.getJSON(`http://api.ipstack.com/check?access_key=${config.ipstack.key}`, function (response) {
-            console.log(response);
             seedEventbriteEvents(response);
         });
     }
 
-    // Seed events below Eventbrite form
+    // Generate Eventbrite with event information
+    function generateEventbriteEvents() {
+        // event, event.venue_id
+        // to get venue address url: https://www.eventbriteapi.com/v3/venues/${data.events[0].venue_id}/
+        console.log(userSeedData);
+        console.log('generateEventbriteEvents ran!');
+        appendEventbriteEvents();
+    }
+
+    function appendEventbriteEvents () {
+        console.log('appendEventbriteEvents ran!');
+        // should append the Eventbrite elements to the DOM
+    }
+
+    // Seed with Eventbrite data based on user location
     function seedEventbriteEvents (response) {
-        console.log("seedEventbriteEvents ran!")
-        // seed div with eventbrite data based on user location
-        // ipstack
-        const test = {
+        userSeedData.city = response.city;
+        const settings = {
             url: 'https://www.eventbriteapi.com/v3/events/search/',
             data: {
                 ['location.address']: response.city
@@ -40,13 +51,15 @@ app.eventbrite = function () {
                 xhr.setRequestHeader("Authorization", `Bearer ${oAuth.access_token}`);
             }
         };
-        $.ajax(test).done(function (data) {
-            console.log(data.events);
+        $.ajax(settings).done(function (data) {
+            userSeedData.eventbrite = [];
             data.events.forEach(event => {
-                // console.log(event);
-                // need venue_id to get address
-                // to get venue address url: https://www.eventbriteapi.com/v3/venues/${data.events[0].venue_id}/
+                // push events to userSeedData object
+                userSeedData.eventbrite.push(event);
             });
+            generateEventbriteEvents();
+        }).fail(function () {
+            console.log("Call failed!");
         });
     }
 
