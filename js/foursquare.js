@@ -5,6 +5,7 @@ app.fourSquare = function () {
     };
 
     let currentVenuesReturned = [];
+    const userSeedData = {};
 
     const getCredentials = () => {
         console.log('getCredentials ran!');
@@ -15,6 +16,39 @@ app.fourSquare = function () {
     };
 
     // should take queries from a form
+
+    // Generate Foursquare with places information
+    function generateFoursquarePlaces() {
+        console.log(userSeedData);
+        console.log('generateFoursquarePlaces ran!');
+        appendFoursquarePlaces();
+    }
+
+    function appendFoursquarePlaces () {
+        console.log('appendFoursquarePlaces ran!');
+        // should append the Foursquare elements to the DOM
+    }
+
+    // Seed with Recommended places data based on user location
+    function seedFoursquarePlaces () {
+        const query = {
+            near: 'Redwood City, Ca',
+            client_id: getCredentials().id,
+            client_secret: getCredentials().secret,
+            v: '20180323'
+        };
+
+        $.getJSON('https://api.foursquare.com/v2/venues/explore', query, function (response) {
+            let responseItems = response.response.groups[0].items;
+            userSeedData.foursquare = [];
+            responseItems.forEach(venue => {
+                userSeedData.foursquare.push(venue);
+            });
+            generateFoursquarePlaces();
+        });
+
+        console.log('seedFoursquarePlaces ran!');
+    }
 
     // should get list of searched venues
     function searchVenues () {
@@ -71,6 +105,7 @@ app.fourSquare = function () {
         getVenueDetails();
         getVenueLikes();
         getSimilarVenues();
+        seedFoursquarePlaces();
         console.log('main is now running!');
     }
 
