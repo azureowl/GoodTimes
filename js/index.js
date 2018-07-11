@@ -11,15 +11,23 @@
 // As a user, I should be able to go to the homepage on either Eventbrite or Foursquare for the particular selection.
 // As a user, I should be able to tab and select events or places with a keyboard; everything should be accessible.
 
+function getUserLoc () {
+    $.getJSON(`http://api.ipstack.com/check?access_key=${config.ipstack.key}`, function (response) {
+        data.seed = response;
+        main();
+    });
+}
+
 function addToEventListOrCalendar () {
     console.log('addToEventListOrCalendar ran!');
 }
 
 function main () {
     app.eventbrite();
+    app.darksky.getUserLocWeather();
     app.fourSquare();
     // app.directions();
     addToEventListOrCalendar();
 }
 
-$(main);
+$(getUserLoc);

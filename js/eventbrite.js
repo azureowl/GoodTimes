@@ -19,14 +19,6 @@ app.eventbrite = function () {
         console.log("toggleEventbriteForm ran!")
     }
 
-    function getUserLoc () {
-        $.getJSON(`http://api.ipstack.com/check?access_key=${config.ipstack.key}`, function (response) {
-            data.seed = response;
-            seedEventbriteEvents(data.seed.city);
-            app.darksky.getUserLocWeather();
-        });
-    }
-
     // Generate Eventbrite with event information
     function generateEventbriteEvents() {
         // event, event.venue_id
@@ -45,11 +37,11 @@ app.eventbrite = function () {
     }
 
     // Seed with Eventbrite data based on user location
-    function seedEventbriteEvents (city) {
+    function seedEventbriteEvents () {
         const settings = {
             url: 'https://www.eventbriteapi.com/v3/events/search/',
             data: {
-                ['location.address']: city
+                ['location.address']: data.seed.city
             },
             beforeSend: function (xhr) {
                 xhr.setRequestHeader("Authorization", `Bearer ${oAuth.access_token}`);
@@ -105,7 +97,7 @@ app.eventbrite = function () {
 
     function main () {
         oAuthAuthenticate();
-        getUserLoc();
+        seedEventbriteEvents();
     }
 
     $(main);
