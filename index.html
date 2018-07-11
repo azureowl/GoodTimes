@@ -9,12 +9,187 @@
     <title>Document</title>
 </head>
 <body>
-    <input type="text">add stuff
-    <button id='js-eventbrite-login'>Login to Explore Eventbrite</button>
-    <button id='js-explore-event'>Explore Events</button>
+    <div class="row">
+        <div class="col col-12">
+            <header role="banner">
+                <h1>Good Times</h1>
+            </header>
+        </div>
+    </div>
+
+    <main role="main">
+        <div class="container">
+            <!-- Form -->
+            <div class="row">
+                <div class="col col-12">
+                    <form>
+                        <fieldset>
+                            <legend>Select</legend>
+                            <label for="search">
+                                <input type="search" id="search" placeholder="Explore events and places">
+                            </label>
+                            <label for="event">
+                                <input type="checkbox" name="event" id="event">
+                            </label>
+                            <label for="place">
+                                <input type="checkbox" name="place" id="place">
+                            </label>
+                            <label for="date">
+                                <select name="date" id="date">
+                                    <option value="today">Today</option>
+                                    <option value="tomorrow">Tomorrow</option>
+                                    <option value="thisweek">This Week</option>
+                                    <option value="thisweekend">This Weekend</option>
+                                    <option value="nextweek">Next Week</option>
+                                    <option value="nextmonth">Next Month</option>
+                                </select>
+                            </label>
+                        </fieldset>
+                        <button id='js-explore-event'>Search</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col col-12">
+                    <h2>Experiences near you (City, State)</h2>
+                </div>
+            </div>
+
+            <!-- eventbrite section -->
+
+            <section role="region" class="">
+                <h2>Explore Eventbrite</h2>
+                <button id='js-eventbrite-login' class="hidden">Login to Explore Eventbrite</button>
+                <div class="row">
+                    <div class="col col-8">
+                        <div class="col col-4">
+                            <div>
+                                <button><img src="" alt=""></button>
+                            </div>
+                        </div>
+                        <div class="col col-4">
+                            <div>
+                                <button><img src="" alt=""></button>
+                            </div>
+                        </div>
+                        <div class="col col-4">
+                            <div>
+                                <button><img src="" alt=""></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col col-4">
+                        <h3>Local weather</h3>
+                        <div class="weather-container">
+                            <p>weather box here</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col col-8">
+                        <div class="col col-4">
+                            <div>
+                                <button><img src="" alt=""></button>
+                            </div>
+                        </div>
+                        <div class="col col-4">
+                            <div>
+                                <button><img src="" alt=""></button>
+                            </div>
+                        </div>
+                        <div class="col col-4">
+                            <div>
+                                <button><img src="" alt=""></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 
+                <div class="row">
+                    <div class="col col-8 pagination">
+                        <button>Prev</button> <button>Next</button>
+                    </div>
+                </div>
+            </section>
 
+            <!-- foursquare section -->
+            <section role="region" class="">
+                <h2>Explore Foursquare</h2>
+                <div class="row">
+                    <div class="col col-8">
+                        <div class="col col-4">
+                            <div>
+                                <button><img src="" alt=""></button>
+                            </div>
+                        </div>
+                        <div class="col col-4">
+                            <div>
+                                <button><img src="" alt=""></button>
+                            </div>
+                        </div>
+                        <div class="col col-4">
+                            <div>
+                                <button><img src="" alt=""></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col col-4">
+                        <h3>My Planner</h3>
+                        <div class="planner-container">
+                            <button>
+                                some image
+                                <img src="" alt="">
+                            </button>
+                            <ul>
+                                <h3>Next two weeks</h3>
+                                <li>July 15 Dinner at LV Mar</li>
+                                <li>July 22 Dance festival</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col col-8">
+                        <div class="col col-4">
+                            <div>
+                                <button><img src="" alt=""></button>
+                            </div>
+                        </div>
+                        <div class="col col-4">
+                            <div>
+                                <button><img src="" alt=""></button>
+                            </div>
+                        </div>
+                        <div class="col col-4">
+                            <div>
+                                <button><img src="" alt=""></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col col-8 pagination">
+                        <button>Prev</button> <button>Next</button>
+                    </div>
+                </div>
+            </section>
+
+            <div class="lightbox"></div>
+            <div class="planner"></div>
+        </div>
+    </main>
+
+    <footer role="contentinfo">
+
+    </footer>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="config/config.js"></script>
