@@ -29,8 +29,11 @@ app.eventbrite = function () {
     function generateEventbriteEvents() {
         // event, event.venue_id
         // to get venue address url: https://www.eventbriteapi.com/v3/venues/${data.events[0].venue_id}/
-        console.log(userSeedData);
         console.log('generateEventbriteEvents ran!');
+        $('.test-image').css({
+            "background-image": `url('${userSeedData.eventbrite[0].logo.original.url}')`
+        });
+        $('.test-title').text(`${userSeedData.eventbrite[0].name.text}`);
         appendEventbriteEvents();
     }
 
@@ -56,6 +59,7 @@ app.eventbrite = function () {
             userSeedData.eventbrite = [];
             data.events.forEach(event => {
                 // push events to userSeedData object
+                // console.log(event);
                 userSeedData.eventbrite.push(event);
             });
             generateEventbriteEvents();

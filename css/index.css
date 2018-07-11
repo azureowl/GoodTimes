@@ -6,6 +6,17 @@
     margin-bottom: 10px;
 }
 
+.test-image {
+    cursor: pointer;
+    background-size: cover;
+    width: 100%;
+    height: 100px;
+}
+
 section {
     margin-bottom: 10px;
+}
+
+img {
+    width: 100%;
 }
