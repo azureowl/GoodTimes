@@ -18,7 +18,6 @@ function addToEventListOrCalendar () {
 function main () {
     app.eventbrite();
     app.fourSquare();
-    app.darksky();
     // app.directions();
     addToEventListOrCalendar();
 }
