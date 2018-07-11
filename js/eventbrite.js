@@ -42,6 +42,7 @@ app.eventbrite = function () {
     // Seed with Eventbrite data based on user location
     function seedEventbriteEvents (response) {
         userSeedData.city = response.city;
+        console.log(userSeedData.city);
         const settings = {
             url: 'https://www.eventbriteapi.com/v3/events/search/',
             data: {
@@ -58,8 +59,8 @@ app.eventbrite = function () {
                 userSeedData.eventbrite.push(event);
             });
             generateEventbriteEvents();
-        }).fail(function () {
-            console.log("Call failed!");
+        }).fail(function (e) {
+            console.log(e.statusText, e.responseText, "Call failed!");
         });
     }
 
