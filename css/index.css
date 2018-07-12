@@ -1,3 +1,4 @@
+
 body {
     margin: 0;
 }
@@ -34,6 +35,11 @@ fieldset {
     border: none;
 }
 
+.mob-scroll {
+    overflow: scroll;
+    height: 200px;
+}
+
 .hero {
     background-image: url("../images/alin-meceanu-830-unsplash.jpg");
     background-color: darkblue;
@@ -42,4 +48,11 @@ fieldset {
     height: 350px;
     width: 100%;
     margin-bottom: 100px;
+}
+
+@media (min-width: 650px) {
+    .mob-scroll {
+        overflow: initial;
+        height: initial;
+    }
 }
