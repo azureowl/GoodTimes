@@ -1,5 +1,7 @@
 
 body {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
     margin: 0;
 }
 
@@ -15,12 +17,26 @@ body {
     height: 100px;
 }
 
+header {
+    color: #F26959;
+    font-family: 'Itim', cursive;
+    font-size: 18px;
+}
+
+header h1 {
+    margin: 15px 0 15px 10px;
+}
+
+h2 {
+    margin: 0;
+}
+
 form {
     background-color: white;
     border: 1px solid gray;
     height: 160px;
     padding: 10px;
-    transform: translateY(250px);
+    transform: translateY(-100px);
 }
 
 section {
@@ -44,10 +60,17 @@ fieldset {
     background-image: url("../images/alin-meceanu-830-unsplash.jpg");
     background-color: darkblue;
     background-size: cover;
-    background-position: center bottom;
-    height: 350px;
+    background-position: center center;
+    height: 500px;
     width: 100%;
     margin-bottom: 100px;
+}
+
+.hero-title {
+    color: #005070;
+    font-size: 45px;
+    line-height: 500px;
+    text-align: center;
 }
 
 @media (min-width: 650px) {
