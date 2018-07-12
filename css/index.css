@@ -1,5 +1,6 @@
 
 body {
+    background-color: #f1f1f1;
     font-family: 'Montserrat', sans-serif;
     font-weight: 300;
     margin: 0;
@@ -18,13 +19,15 @@ body {
 }
 
 header {
+    background-color: #fff;
     color: #F26959;
     font-family: 'Itim', cursive;
     font-size: 18px;
 }
 
 header h1 {
-    margin: 15px 0 15px 10px;
+    padding: 10px 0;
+    margin: 0 0 0 10px;
 }
 
 h2 {
@@ -36,7 +39,7 @@ h2 {
     background-color: darkblue;
     background-size: cover;
     height: 200px;
-    margin-bottom: 150px;
+    margin-bottom: 210px;
     width: 100%;
     position: relative;
 }
@@ -54,14 +57,53 @@ h2 {
 }
 
 .form-container {
-    transform: translateY(100%);
+    transform: translateY(200px);
 }
 
 form {
-    background-color: white;
-    border: 1px solid #e4e4e4;
-    height: 160px;
+    /* height: 160px; */
+    padding: 20px 0;
+    font-size: 20px;
+}
+
+form button {
+    background-color: #F26959;
+    border: 1px solid #F26959;
+    border-radius: 5px;
+    color: #fff;
+    margin-top: 5px;
     padding: 10px;
+    font-size: 16px;
+    width: 90px;
+}
+
+input {
+    border: 1px solid #e4e4e4;
+    padding: 2px;
+}
+
+legend {
+    margin-bottom: 8px;
+}
+
+label {
+    display: inline-block;
+    margin: 6px 0;
+}
+
+.search {
+    width: 100%;
+}
+
+.search input {
+    font-size: 16px;
+    height: 40px;
+    padding-left: 5px;
+    width: 100%;
+}
+
+.mob-hide {
+    display: none;
 }
 
 section {
@@ -74,6 +116,7 @@ img {
 
 fieldset {
     border: none;
+    padding: 0;
 }
 
 .mob-scroll {
@@ -82,6 +125,14 @@ fieldset {
 }
 
 @media (min-width: 650px) {
+    body {
+        background-color: #fff;
+    }
+
+    header h1 {
+        margin: 15px 0 15px 10px;
+    }
+
     .hero {
         height: 500px;
         background-attachment: fixed;
@@ -93,6 +144,11 @@ fieldset {
         border-radius: 10px;
         font-size: 45px;
         width: initial;
+    }
+
+    form {
+        background-color: white;
+        border: 1px solid #e4e4e4;
     }
 
     .form-container {
