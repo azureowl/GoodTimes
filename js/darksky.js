@@ -12,7 +12,9 @@ app.darksky = {
             dataType: "JSONP"
         }).done(function (data) {
             console.log(data);
-            console.log('feels like:', data.currently.apparentTemperature, 'Temp is: ', data.currently.temperature, 'Outside is: ', data.currently.summary);
+            $('.temp').text(data.currently.temperature);
+            $('.summary').text(data.currently.summary);
+            $('.feels-like').text( data.currently.apparentTemperature);
         });
     },
     getLocalWeather: function () {
