@@ -23,7 +23,7 @@
 }
 
 /* Mobile defaults */
-.col-3, .col-4, .col-7, .col-8, .col-9, .col-12 {
+.col-3, .col-4, .col-7, .col-8, .col-9, .col-10-single, .col-12 {
     width: 100%;
 }
 
@@ -67,8 +67,17 @@
         width: 66.6666667%;
     }
 
-    .col-9 {
+    .col-9, .col-9-single {
         width: 75%;
+    }
+
+    .col-10, .col-10-single {
+        width: 83.333333333%;
+    }
+
+    .col-9-single, .col-10-single {
+        float: none;
+        margin: 0 auto;
     }
 
     .col-12 {

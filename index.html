@@ -9,46 +9,44 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="row">
-        <div class="col col-12">
-            <header role="banner">
-                <h1>Good Times</h1>
-            </header>
-        </div>
-    </div>
+    <header role="banner">
+        <h1>Good Times</h1>
+    </header>
 
     <main role="main">
         <div class="container">
             <!-- Form -->
-            <div class="row hero">
-                <div class="col col-12">
-                    <form>
-                        <fieldset>
-                            <legend>Find something fun</legend>
-                            <label for="search">
-                                <input type="search" id="search" placeholder="Explore events and places">
-                            </label>
-                            <label for="event">
-                                Events
-                                <input type="checkbox" name="event" id="event">
-                            </label>
-                            <label for="place">
-                                Places
-                                <input type="checkbox" name="place" id="place">
-                            </label>
-                            <label for="date">
-                                <select name="date" id="date">
-                                    <option value="today">Today</option>
-                                    <option value="tomorrow">Tomorrow</option>
-                                    <option value="thisweek">This Week</option>
-                                    <option value="thisweekend">This Weekend</option>
-                                    <option value="nextweek">Next Week</option>
-                                    <option value="nextmonth">Next Month</option>
-                                </select>
-                            </label>
-                        </fieldset>
-                        <button id='js-explore-event'>Search</button>
-                    </form>
+            <div class="hero">
+                <div class="row">
+                    <div class="col col-10-single">
+                        <form>
+                            <fieldset>
+                                <legend>Find something fun</legend>
+                                <label for="search">
+                                    <input type="search" id="search" placeholder="Explore events and places">
+                                </label>
+                                <label for="event">
+                                    Events
+                                    <input type="checkbox" name="event" id="event">
+                                </label>
+                                <label for="place">
+                                    Places
+                                    <input type="checkbox" name="place" id="place">
+                                </label>
+                                <label for="date">
+                                    <select name="date" id="date">
+                                        <option value="today">Today</option>
+                                        <option value="tomorrow">Tomorrow</option>
+                                        <option value="thisweek">This Week</option>
+                                        <option value="thisweekend">This Weekend</option>
+                                        <option value="nextweek">Next Week</option>
+                                        <option value="nextmonth">Next Month</option>
+                                    </select>
+                                </label>
+                            </fieldset>
+                            <button id='js-explore-event'>Search</button>
+                        </form>
+                    </div>
                 </div>
             </div>
 
