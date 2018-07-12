@@ -31,12 +31,37 @@ h2 {
     margin: 0;
 }
 
+.hero {
+    background: url("../images/alin-meceanu-830-unsplash-short.jpg") no-repeat center center;
+    background-color: darkblue;
+    background-size: cover;
+    height: 200px;
+    margin-bottom: 150px;
+    width: 100%;
+    position: relative;
+}
+
+.hero-title {
+    background-color: rgba(255, 255, 255, 0.58);
+    color: #005070;
+    padding: 10px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 100%;
+}
+
+.form-container {
+    transform: translateY(100%);
+}
+
 form {
     background-color: white;
-    border: 1px solid gray;
+    border: 1px solid #e4e4e4;
     height: 160px;
     padding: 10px;
-    transform: translateY(-100px);
 }
 
 section {
@@ -56,24 +81,24 @@ fieldset {
     height: 200px;
 }
 
-.hero {
-    background-image: url("../images/alin-meceanu-830-unsplash.jpg");
-    background-color: darkblue;
-    background-size: cover;
-    background-position: center center;
-    height: 500px;
-    width: 100%;
-    margin-bottom: 100px;
-}
-
-.hero-title {
-    color: #005070;
-    font-size: 45px;
-    line-height: 500px;
-    text-align: center;
-}
-
 @media (min-width: 650px) {
+    .hero {
+        height: 500px;
+        background-attachment: fixed;
+        margin-bottom: 100px;
+        width: 100%;
+    }
+
+    .hero-title {
+        border-radius: 10px;
+        font-size: 45px;
+        width: initial;
+    }
+
+    .form-container {
+        transform: translateY(420px);
+    }
+
     .mob-scroll {
         overflow: initial;
         height: initial;
