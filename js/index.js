@@ -18,6 +18,26 @@ function getUserLoc () {
     });
 }
 
+var skycons = new Skycons({"monochrome": false});
+
+var skycons = new Skycons({
+"monochrome": false,
+"colors" : {
+    "cloud" : "#cae9ff",
+    "fog" : "#8c8598",
+    "fogbank" : "#8c8598",
+    "leaf" : "#93bb1f",
+    "moon" : "#8c8598",
+    "rain" : "#74bdf3",
+    "snow" : "#cae9ff",
+    "sun" : "#fff17c",
+    "wind" : "#5695bd"
+}
+});
+
+skycons.add("icon", Skycons.CLEAR_DAY);
+skycons.play();
+
 function addToEventListOrCalendar () {
     console.log('addToEventListOrCalendar ran!');
 }
