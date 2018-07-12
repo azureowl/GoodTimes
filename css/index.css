@@ -1,4 +1,3 @@
-
 body {
     background-color: #f1f1f1;
     font-family: 'Montserrat', sans-serif;
@@ -34,6 +33,51 @@ h2 {
     margin: 0;
 }
 
+section {
+    margin-bottom: 10px;
+}
+
+img {
+    width: 100%;
+}
+
+form {
+    /* height: 160px; */
+    padding: 20px 0;
+    font-size: 20px;
+}
+
+fieldset {
+    border: none;
+    padding: 0;
+}
+
+legend {
+    margin-bottom: 8px;
+}
+
+label {
+    display: inline-block;
+    margin: 6px 0;
+}
+
+form button {
+    background-color: #F26959;
+    border: 1px solid #F26959;
+    border-radius: 5px;
+    color: #fff;
+    margin-top: 5px;
+    padding: 10px;
+    font-size: 16px;
+    width: 90px;
+}
+
+input {
+    border: 1px solid #e4e4e4;
+    padding: 2px;
+}
+
+
 .hero {
     background: url("../images/alin-meceanu-830-unsplash-short.jpg") no-repeat center center;
     background-color: darkblue;
@@ -60,37 +104,6 @@ h2 {
     transform: translateY(200px);
 }
 
-form {
-    /* height: 160px; */
-    padding: 20px 0;
-    font-size: 20px;
-}
-
-form button {
-    background-color: #F26959;
-    border: 1px solid #F26959;
-    border-radius: 5px;
-    color: #fff;
-    margin-top: 5px;
-    padding: 10px;
-    font-size: 16px;
-    width: 90px;
-}
-
-input {
-    border: 1px solid #e4e4e4;
-    padding: 2px;
-}
-
-legend {
-    margin-bottom: 8px;
-}
-
-label {
-    display: inline-block;
-    margin: 6px 0;
-}
-
 .search {
     width: 100%;
 }
@@ -104,19 +117,6 @@ label {
 
 .mob-hide {
     display: none;
-}
-
-section {
-    margin-bottom: 10px;
-}
-
-img {
-    width: 100%;
-}
-
-fieldset {
-    border: none;
-    padding: 0;
 }
 
 .mob-scroll {
@@ -133,6 +133,11 @@ fieldset {
         margin: 15px 0 15px 10px;
     }
 
+    form {
+        background-color: white;
+        border: 1px solid #e4e4e4;
+    }
+
     .hero {
         height: 500px;
         background-attachment: fixed;
@@ -144,11 +149,6 @@ fieldset {
         border-radius: 10px;
         font-size: 45px;
         width: initial;
-    }
-
-    form {
-        background-color: white;
-        border: 1px solid #e4e4e4;
     }
 
     .form-container {
