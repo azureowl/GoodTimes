@@ -186,8 +186,9 @@ label {
     }
 
     .hero-title {
-        border-radius: 10px;
+        border-radius: 5px;
         font-size: 45px;
+        padding: 50px;
         width: initial;
     }
 
