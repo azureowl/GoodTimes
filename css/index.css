@@ -86,7 +86,7 @@ input {
 
 .hero {
     background: url("../images/alin-meceanu-830-unsplash-short.jpg") no-repeat center center;
-    background-color: darkblue;
+    background-color: #fff;
     background-size: cover;
     height: 200px;
     margin-bottom: 210px;
@@ -123,6 +123,15 @@ label {
     padding-left: 5px;
     height: 100%;
     width: 100%;
+}
+
+.location-heading {
+    margin: 22px 0;
+    text-align: center;
+}
+
+.location-heading span {
+    color: #005070;
 }
 
 .mob-hide {
