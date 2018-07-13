@@ -22,9 +22,12 @@ body {
 
 header {
     background-color: #fff;
-    color: #F26959;
     font-family: 'Itim', cursive;
     font-size: 18px;
+}
+
+header, legend {
+    color: #F26959;
 }
 
 header h1 {
@@ -45,13 +48,16 @@ img {
 }
 
 form {
-    /* height: 160px; */
     padding: 20px 0;
+}
+
+form, form button {
     font-size: 20px;
 }
 
 fieldset {
     border: none;
+    margin: 0;
     padding: 0;
 }
 
@@ -67,11 +73,9 @@ label {
 form button {
     background-color: #F26959;
     border: 1px solid #F26959;
-    border-radius: 5px;
     color: #fff;
-    padding: 10px;
-    font-size: 16px;
-    width: 90px;
+    height: 40px;
+    width: 110px;
     vertical-align: bottom;
 }
 
@@ -79,7 +83,6 @@ input {
     border: 1px solid #e4e4e4;
     padding: 2px;
 }
-
 
 .hero {
     background: url("../images/alin-meceanu-830-unsplash-short.jpg") no-repeat center center;
@@ -131,7 +134,7 @@ label {
     height: 200px;
 }
 
-@media (min-width: 650px) {
+@media (min-width: 768px) {
     body {
         background-color: #fff;
     }
@@ -143,7 +146,17 @@ label {
     form {
         background-color: white;
         border: 1px solid #e4e4e4;
+        display: flex;
+        flex-direction: column;
+        height: 160px;
+        justify-content: center;
         padding: 10px;
+    }
+
+    form div {
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
     }
 
     fieldset {
@@ -158,8 +171,9 @@ label {
     }
 
     label[for="event"], label[for="place"] {
+        display: flex;
         line-height: 40px;
-        padding: 5px;
+        /* padding: 0 16px; */
     }
 
     form select {
@@ -176,6 +190,15 @@ label {
 
     label:focus-within {
         background: #d5f2ff;
+    }
+
+    label input[type="checkbox"]:checked + .label-text {
+        background-color: #e4e4e4;
+    }
+
+    .label-text {
+        text-align: center;
+        width: 110px;
     }
 
     .hero {
