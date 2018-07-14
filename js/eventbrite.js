@@ -20,48 +20,29 @@ app.eventbrite = function () {
     }
 
     // Generate Eventbrite with event information
-    function generateEventbriteEvents(data) {
-        // event, event.venue_id
-        // to get venue address url: https://www.eventbriteapi.com/v3/venues/${data.events[0].venue_id}/
-        console.log('generateEventbriteEvents ran!');
-        // console.log(userSeedData.eventbrite);
-        // .js-autho-results append
-        console.log(data.events, 'hii');
+    function generateEventsMarkup(data) {
         const events = data.events;
-        let columns = 0;
-
-        `<div class="col col-4 results-margin">
-            <div class="results-cell">
-                <button class="results-btn-image"><img src="" alt=""></button>
-                <p class="result-title">Test</p>
-            </div>
-        </div>`
-        // when columns hits 3, then re-create inner-row-mb div
-
+        // call getVenueDetails()
         const results = events.map(function (event, i) {
-
-            const image = event.logo === null ? "" : event.logo.original.url;
+            const image = event.logo === null ? "../images/no-image-available.jpg" : event.logo.original.url;
             const title = event.name.text ? event.name.text : "No Title";
-
-            // image is null then do something
             return `<div class="col col-4 results-margin"><div class="results-cell"><button class="results-btn-image"><img src="${image}" alt=""></button><p class="result-title">${title}</p></div></div>`
         });
 
-        let eventResults = results.join('');
-        $('.test1').append(eventResults);
-
-
-        // $('.results-btn-image').css({
-        //     "background-image": `url('${userSeedData.eventbrite[0].logo.original.url}')`
-        // });
-
-        // $('.result-title').text(`${userSeedData.eventbrite[0].name.text}`);
-        // appendEventbriteEvents();
+        appendEventbriteEvents(results)
     }
 
-    function appendEventbriteEvents () {
+    function appendEventbriteEvents (results) {
+        let eventResults = results.join('');
+        $('.js-autho-results').append(eventResults);
         console.log('appendEventbriteEvents ran!');
-        // should append the Eventbrite elements to the DOM
+    }
+
+    // should get venue address
+    function getVenueDetails () {
+        // event, event.venue_id
+        // to get venue address url: https://www.eventbriteapi.com/v3/venues/${data.events[0].venue_id}/
+        // call a function to get venue address
     }
 
     // Seed with Eventbrite data based on user location
@@ -69,8 +50,7 @@ app.eventbrite = function () {
         const settings = {
             url: 'https://www.eventbriteapi.com/v3/events/search/',
             data: {
-                ['location.address']: data.seed.city,
-                page: 1
+                ['location.address']: data.seed.city
             },
             beforeSend: function (xhr) {
                 xhr.setRequestHeader("Authorization", `Bearer ${oAuth.access_token}`);
@@ -78,13 +58,7 @@ app.eventbrite = function () {
         };
         $.ajax(settings).done(function (data) {
             // userSeedData.eventbrite = [];
-            console.log(data);
-            // data.events.forEach(event => {
-            //     // push events to userSeedData object
-            //     // console.log(event);
-            //     userSeedData.eventbrite.push(event);
-            // });
-            generateEventbriteEvents(data);
+            generateEventsMarkup(data);
         }).fail(function (e) {
             console.log(e.statusText, e.responseText, "Call failed!");
         });

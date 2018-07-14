@@ -174,6 +174,7 @@ aside .results-margin {
 
 .result-title {
     padding: 0 10px;
+    height: 60px;
 }
 
 .weather-container {
@@ -308,8 +309,12 @@ aside .results-margin {
     }
 
     .mob-scroll {
-        overflow: unset;
+        overflow: scroll;
         height: initial;
+    }
+
+    .fixed-height {
+        height: 395px;
     }
 
     .results-btn-image {
