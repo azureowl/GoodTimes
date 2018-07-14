@@ -12,14 +12,6 @@ body {
     margin-bottom: 10px;
 }
 
-/* change button name */
-.test-image {
-    cursor: pointer;
-    background-size: cover;
-    width: 100%;
-    height: 100px;
-}
-
 header {
     background-color: #fff;
     font-family: 'Itim', cursive;
@@ -149,7 +141,7 @@ input {
 
 .mob-scroll {
     overflow: scroll;
-    height: 200px;
+    height: 300px;
 }
 
 .results-margin {
@@ -159,6 +151,18 @@ input {
 .results-margin div {
     border: 1px solid #e4e4e4;
 }
+
+.results-btn-image {
+    cursor: pointer;
+    background-size: cover;
+    width: 100%;
+    height: 200px;
+}
+
+.result-title {
+    padding: 0 10px;
+}
+
 
 @media (max-width: 425px) {
     .inner-row-mb {
@@ -282,9 +286,13 @@ input {
     }
 
     .mob-scroll {
-        overflow: initial;
-        height: initial;
+        overflow: unset;
     }
+
+    .results-btn-image {
+        height: 100px;
+    }
+
 }
 
 @media (min-width: 1000px) {
