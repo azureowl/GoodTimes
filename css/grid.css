@@ -32,16 +32,8 @@
     border: 1px solid peru;
 }
 
-.col-4 div {
-    border: 1px solid purple;
-}
-
 .col-7 {
     border: 1px solid blue;
-}
-
-.col-8, .col-9 {
-    border: 1px solid red;
 }
 
 /* .col-12 {

@@ -24,9 +24,10 @@ header {
     background-color: #fff;
     font-family: 'Itim', cursive;
     font-size: 18px;
+    text-align: center;
 }
 
-header, legend {
+header, legend, section h2 {
     color: #F26959;
 }
 
@@ -41,6 +42,11 @@ h2 {
 
 section {
     margin-bottom: 10px;
+}
+
+section h2 {
+    margin: 22px;
+    text-align: center;
 }
 
 img {
@@ -67,6 +73,7 @@ legend {
 
 label {
     display: inline-block;
+    height: 40px;
     margin: 6px 0;
 }
 
@@ -114,10 +121,6 @@ input {
     width: 100%;
 }
 
-label {
-    height: 40px;
-}
-
 .search input {
     font-size: 16px;
     padding-left: 5px;
@@ -134,6 +137,12 @@ label {
     color: #005070;
 }
 
+.main-results {
+    background-color: #fff;
+    padding: 20px;
+    margin: 0;
+}
+
 .mob-hide {
     display: none;
 }
@@ -143,9 +152,27 @@ label {
     height: 200px;
 }
 
+.results-margin {
+    margin-bottom: 5px;
+}
+
+.results-margin div {
+    border: 1px solid #e4e4e4;
+}
+
+@media (max-width: 425px) {
+    .inner-row-mb {
+        padding: 0
+    }
+}
+
 @media (min-width: 768px) {
     body {
         background-color: #fff;
+    }
+
+    header, section h2 {
+        text-align: initial;
     }
 
     header h1 {
@@ -182,17 +209,18 @@ label {
         width: 80px;
     }
 
-    label[for="event"], label[for="place"] {
-        display: flex;
-        line-height: 40px;
-    }
-
     select {
         background-color: transparent;
         border: 0;
         border-radius: 0;
         font-size: 20px;
         height: 40px;
+    }
+
+    input[type="checkbox"] {
+        opacity: 0;
+        position: absolute;
+        left: -999em;
     }
 
     select:focus{
@@ -205,6 +233,11 @@ label {
 
     label input[type="checkbox"]:checked + .label-text {
         background-color: #e4e4e4;
+    }
+
+    label[for="event"], label[for="place"] {
+        display: flex;
+        line-height: 40px;
     }
 
     .label-text {
@@ -239,10 +272,9 @@ label {
         width: 100%;
     }
 
-    input[type="checkbox"] {
-        opacity: 0;
-        position: absolute;
-        left: -999em;
+    .main-results {
+        padding: 0 20px 0 20px;
+        margin: 0 auto 5px auto;
     }
 
     .mob-hide {
