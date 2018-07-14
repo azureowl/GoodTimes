@@ -13,6 +13,7 @@
 <body>
     <header role="banner">
         <h1>Goodtimes</h1>
+        <button id='js-eventbrite-login' class="hidden">Login to Explore Eventbrite</button>
     </header>
 
     <main role="main">
@@ -27,7 +28,7 @@
                                 <fieldset>
                                     <legend>Finding fun is easy.</legend>
                                     <label for="search" class="search">
-                                        <input type="search" id="search" placeholder="e.g. jazz or tacos">
+                                        <input type="search" id="search" placeholder="e.g. jazz, tacos, painting">
                                     </label>
                                     <label for="date" class="mob-hide">
                                         <select name="date" id="date">
@@ -66,23 +67,22 @@
                 <div class="col col-8">
                     <section role="region" class="">
                         <h2>Explore Eventbrite</h2>
-                        <button id='js-eventbrite-login' class="hidden">Login to Explore Eventbrite</button>
                         <div class="mob-scroll">
                             <div class="row inner-row-mb">
                                 <div class="col col-4 results-margin">
-                                    <div>
+                                    <div class="results-cell">
                                         <button class="results-btn-image"></button>
                                         <p class="result-title">Test</p>
                                     </div>
                                 </div>
                                 <div class="col col-4 results-margin">
-                                    <div>
+                                    <div class="results-cell">
                                         <button class="results-btn-image"></button>
                                         <p class="result-title">Test</p>
                                     </div>
                                 </div>
                                 <div class="col col-4 results-margin">
-                                    <div>
+                                    <div class="results-cell">
                                         <button class="results-btn-image"></button>
                                         <p class="result-title">Test</p>
                                     </div>
@@ -91,19 +91,19 @@
         
                             <div class="row inner-row-mb">
                                 <div class="col col-4 results-margin">
-                                    <div>
+                                    <div class="results-cell">
                                         <button class="results-btn-image"></button>
                                         <p class="result-title">Test</p>
                                     </div>
                                 </div>
                                 <div class="col col-4 results-margin">
-                                    <div>
+                                    <div class="results-cell">
                                         <button class="results-btn-image"></button>
                                         <p class="result-title">Test</p>
                                     </div>
                                 </div>
                                 <div class="col col-4 results-margin">
-                                    <div>
+                                    <div class="results-cell">
                                         <button class="results-btn-image"></button>
                                         <p class="result-title">Test</p>
                                     </div>
@@ -116,20 +116,20 @@
                                 <button>Prev</button> <button>Next</button>
                             </div>
                         </div>
-    
+
                     </section>
                 </div>
-                <div class="4">
-                    <section>
-                        <div class="col col-4 results-margin">
-                            <h3>Local weather</h3>
+                <div class="col col-4 aside-bar">
+                    <aside>
+                        <div class="results-margin">
+                            <h2>Local weather</h2>
                             <div class="weather-container">
-                                <span class="temp"></span><span>&deg;</span> <span class="summary"></span>
-                                <span>Feels like:</span> <span class="feels-like"></span><span>&deg;</span>
-                                <canvas id="icon" width="128" height="128"></canvas>
+                                <canvas id="icon" width="200" height="200"></canvas>
+                                <div><span class="temp"></span><span>&deg;</span> <span class="summary"></span></div>
+                                <div><span>Feels like:</span> <span class="feels-like"></span><span>&deg;</span></div>
                             </div>
                         </div>
-                    </section>
+                    </aside>
                 </div>
             </div>
 
@@ -141,19 +141,19 @@
                         <div class="mob-scroll">
                             <div class="row inner-row-mb">
                                 <div class="col col-4 results-margin">
-                                    <div>
+                                    <div class="results-cell">
                                         <button class="results-btn-image"></button>
                                         <p class="result-title">Test</p>
                                     </div>
                                 </div>
                                 <div class="col col-4 results-margin">
-                                    <div>
+                                    <div class="results-cell">
                                         <button class="results-btn-image"></button>
                                         <p class="result-title">Test</p>
                                     </div>
                                 </div>
                                 <div class="col col-4 results-margin">
-                                    <div>
+                                    <div class="results-cell">
                                         <button class="results-btn-image"></button>
                                         <p class="result-title">Test</p>
                                     </div>
@@ -162,19 +162,19 @@
         
                             <div class="row inner-row-mb">
                                 <div class="col col-4 results-margin">
-                                    <div>
+                                    <div class="results-cell">
                                         <button class="results-btn-image"></button>
                                         <p class="result-title">Test</p>
                                     </div>
                                 </div>
                                 <div class="col col-4 results-margin">
-                                    <div>
+                                    <div class="results-cell">
                                         <button class="results-btn-image"></button>
                                         <p class="result-title">Test</p>
                                     </div>
                                 </div>
                                 <div class="col col-4 results-margin">
-                                    <div>
+                                    <div class="results-cell">
                                         <button class="results-btn-image"></button>
                                         <p class="result-title">Test</p>
                                     </div>
@@ -192,15 +192,15 @@
     
                     </section>
                 </div>
-                <div class="4">
-                    <section>
-                        <div class="col col-4 results-margin">
-                            <h3>Planner</h3>
-                            <div class="planner-container">
+                <div class="col col-4 aside-bar">
+                    <aside>
+                        <div class="results-margin">
+                            <h2>Planner</h2>
+                            <div>
                                 <p>planner/calender</p>
                             </div>
                         </div>
-                    </section>
+                    </aside>
                 </div>
             </div>
 

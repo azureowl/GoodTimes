@@ -12,14 +12,17 @@ body {
     margin-bottom: 10px;
 }
 
-header {
+header, .hero, .main-results {
     background-color: #fff;
+}
+
+header {
     font-family: 'Itim', cursive;
     font-size: 18px;
     text-align: center;
 }
 
-header, legend, section h2 {
+header, legend, section h2, aside h2 {
     color: #F26959;
 }
 
@@ -36,7 +39,11 @@ section {
     margin-bottom: 10px;
 }
 
-section h2 {
+aside {
+    height: 100%;
+}
+
+section h2, aside h2 {
     margin: 22px;
     text-align: center;
 }
@@ -85,7 +92,6 @@ input {
 
 .hero {
     background: url("../images/alin-meceanu-830-unsplash-short.jpg") no-repeat center center;
-    background-color: #fff;
     background-size: cover;
     height: 200px;
     margin-bottom: 210px;
@@ -130,7 +136,6 @@ input {
 }
 
 .main-results {
-    background-color: #fff;
     padding: 20px;
     margin: 0;
 }
@@ -144,11 +149,15 @@ input {
     height: 300px;
 }
 
+aside .results-margin {
+    height: 100%;
+}
+
 .results-margin {
     margin-bottom: 5px;
 }
 
-.results-margin div {
+.results-cell {
     border: 1px solid #e4e4e4;
 }
 
@@ -163,6 +172,14 @@ input {
     padding: 0 10px;
 }
 
+.weather-container {
+    text-align: center;
+}
+
+.weather-container div {
+    font-size: 20px;
+    margin: 20px 0;
+}
 
 @media (max-width: 425px) {
     .inner-row-mb {
@@ -188,7 +205,7 @@ input {
         border: 1px solid #e4e4e4;
         display: flex;
         flex-direction: column;
-        height: 160px;
+        height: 190px;
         justify-content: center;
         padding: 10px;
     }
@@ -252,7 +269,7 @@ input {
     .hero {
         height: 500px;
         background-attachment: fixed;
-        margin-bottom: 100px;
+        margin-bottom: 120px;
         width: 100%;
     }
 
@@ -277,6 +294,7 @@ input {
     }
 
     .main-results {
+        display: flex;
         padding: 0 20px 0 20px;
         margin: 0 auto 5px auto;
     }
@@ -287,6 +305,7 @@ input {
 
     .mob-scroll {
         overflow: unset;
+        height: initial;
     }
 
     .results-btn-image {
