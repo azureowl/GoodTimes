@@ -173,6 +173,7 @@ aside .results-margin {
 }
 
 .result-title {
+    overflow: scroll;
     padding: 0 10px;
     height: 60px;
 }
@@ -315,6 +316,10 @@ aside .results-margin {
 
     .fixed-height {
         height: 395px;
+    }
+
+    .fixed-height button {
+        padding: 0;
     }
 
     .results-btn-image {

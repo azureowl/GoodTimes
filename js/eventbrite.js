@@ -5,7 +5,8 @@ app.eventbrite = function () {
         response_type: 'token',
         userEndpoint: 'https://www.eventbriteapi.com/v3/events/search/',
         profileEndpoint: 'https://www.eventbriteapi.com/v3/users/me/',
-        category: 'https://www.eventbriteapi.com/v3/categories'
+        category: 'https://www.eventbriteapi.com/v3/categories',
+        page_number: 1
     };
 
     const oAuth = {};
@@ -46,11 +47,15 @@ app.eventbrite = function () {
     }
 
     // Seed with Eventbrite data based on user location
-    function seedEventbriteEvents () {
+    // page param is just to test executePagination
+    // need to always have current search term; it should still be on the form
+    // using seedEventbriteEvents to test executePagination()
+    function seedEventbriteEvents (page) {
         const settings = {
             url: 'https://www.eventbriteapi.com/v3/events/search/',
             data: {
-                ['location.address']: data.seed.city
+                ['location.address']: data.seed.city,
+                page: server.page_number
             },
             beforeSend: function (xhr) {
                 xhr.setRequestHeader("Authorization", `Bearer ${oAuth.access_token}`);
@@ -58,7 +63,9 @@ app.eventbrite = function () {
         };
         $.ajax(settings).done(function (data) {
             // userSeedData.eventbrite = [];
+            console.log(data);
             generateEventsMarkup(data);
+            executePagination();
         }).fail(function (e) {
             console.log(e.statusText, e.responseText, "Call failed!");
         });
@@ -67,6 +74,12 @@ app.eventbrite = function () {
     // should be able to page
     function executePagination () {
         console.log('executePagination ran!');
+        $('.js-next').on('click', function () {
+            server.page_number += 1;
+            // if page count is equal to number, don't allow
+            seedEventbriteEvents();
+        });
+        // js-prev js-next
         // keep track of page number to ensure you do not go before 1 or after
     }
 
