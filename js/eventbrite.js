@@ -35,7 +35,7 @@ app.eventbrite = function () {
 
     function appendEventbriteEvents (results) {
         let eventResults = results.join('');
-        $('.js-autho-results').append(eventResults);
+        $('.js-autho-results').html(eventResults);
         console.log('appendEventbriteEvents ran!');
     }
 
@@ -54,6 +54,7 @@ app.eventbrite = function () {
         const settings = {
             url: 'https://www.eventbriteapi.com/v3/events/search/',
             data: {
+                q: '',
                 ['location.address']: data.seed.city,
                 page: server.page_number
             },
@@ -65,22 +66,41 @@ app.eventbrite = function () {
             // userSeedData.eventbrite = [];
             console.log(data);
             generateEventsMarkup(data);
-            executePagination();
+            executePagination(data.pagination);
         }).fail(function (e) {
             console.log(e.statusText, e.responseText, "Call failed!");
         });
     }
 
-    // should be able to page
-    function executePagination () {
-        console.log('executePagination ran!');
-        $('.js-next').on('click', function () {
-            server.page_number += 1;
-            // if page count is equal to number, don't allow
-            seedEventbriteEvents();
+    // clear search on submit of form
+    function submitForm () {
+        console.log('Inside submitForm!');
+        server.page_number = 1;
+        $('form').on('submit', function (e) {
+            e.preventDefault();
         });
-        // js-prev js-next
-        // keep track of page number to ensure you do not go before 1 or after
+    }
+
+    // should be able to page through
+    // Refactor; right now, only brings up seeded events
+    function executePagination (paginationData) {
+        console.log('executePagination ran!');
+        const pageNumberTotal = paginationData.page_count;
+            $('.js-next').on('click', function () {
+                if (server.page_number <= pageNumberTotal) {
+                    server.page_number += 1;
+                    console.log(server.page_number);
+                    requestEventbriteData();
+                }
+            });
+
+            $('.js-prev').on('click', function () {
+                if (server.page_number > 1) {
+                    server.page_number -= 1;
+                    console.log(server.page_number);
+                    requestEventbriteData();
+                }
+            });
     }
 
     // On page load, check if there is OAuth authentication token
@@ -100,25 +120,30 @@ app.eventbrite = function () {
     };
 
     // Always make requests with user's OAuth token
-    function requestEventbriteData (settings) {
-        const test = {
+    function requestEventbriteData () {
+        const settings = {
             url: 'https://www.eventbriteapi.com/v3/events/search/',
             data: {
-                q: 'jazz',
-                ['location.address']: 'Redwood City, ca'
+                q: $('#search').val(),
+                ['location.address']: data.seed.city,
+                page: server.page_number
             },
             beforeSend: function (xhr) {
                 xhr.setRequestHeader("Authorization", `Bearer ${oAuth.access_token}`);
             }
         };
-        $.ajax(test).done(function (data) {
-            console.log(data, data.events);
-            console.log(data.events[2].venue_id)
+        $.ajax(settings).done(function (data) {
+            console.log($('#search').val(), data);
+            executePagination(data.pagination);
+            generateEventsMarkup(data);
+        }).fail(function (e) {
+            console.log(e.statusText, e.responseText, "Call failed!");
         });
     }
 
     $('#js-explore-event').on('click', function () {
-        requestEventbriteData ();
+        submitForm();
+        requestEventbriteData();
     });
 
     function main () {
