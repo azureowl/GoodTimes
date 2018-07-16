@@ -79,14 +79,16 @@ fieldset {
     padding: 0;
 }
 
-legend {
-    margin-bottom: 8px;
-}
-
 label {
     display: inline-block;
     height: 40px;
     margin: 6px 0;
+    width: 100%;
+}
+
+input {
+    border: 1px solid #e4e4e4;
+    padding: 2px;
 }
 
 form button, .pagination button {
@@ -96,11 +98,6 @@ form button, .pagination button {
     height: 40px;
     width: 110px;
     vertical-align: bottom;
-}
-
-input {
-    border: 1px solid #e4e4e4;
-    padding: 2px;
 }
 
 .hero {
@@ -128,11 +125,7 @@ input {
     transform: translateY(230px);
 }
 
-.search {
-    width: 100%;
-}
-
-.search input {
+.search input, .location input {
     font-size: 16px;
     padding-left: 5px;
     height: 100%;
@@ -265,7 +258,17 @@ aside .results-margin {
         float: left;
     }
 
-    label, form button, select {
+    label[for="date"], select {
+        color: #757575;
+        font-size: 16px;
+        width: 100px;
+    }
+
+    label {
+        width: 200px;
+    }
+
+    form button {
         width: 80px;
     }
 
@@ -273,36 +276,7 @@ aside .results-margin {
         background-color: transparent;
         border: 0;
         border-radius: 0;
-        font-size: 20px;
         height: 40px;
-    }
-
-    input[type="checkbox"] {
-        opacity: 0;
-        position: absolute;
-        left: -999em;
-    }
-
-    select:focus{
-        outline: none;
-    }
-
-    label:focus-within {
-        background: #d5f2ff;
-    }
-
-    /* label input[type="checkbox"]:checked + .label-text {
-        background-color: #5a5a5a;
-    } */
-
-    label[for="event"], label[for="place"] {
-        display: flex;
-        line-height: 40px;
-    }
-
-    .label-text {
-        text-align: center;
-        width: 100%;
     }
 
     .hero {
@@ -324,7 +298,7 @@ aside .results-margin {
     }
 
     .search {
-        width: 200px
+        width: 230px
     }
 
     .search input {
@@ -382,17 +356,11 @@ aside .results-margin {
 }
 
 @media (min-width: 1000px) {
-    .search {
+    label, .search {
         width: 300px;
     }
 
-    label, form button, select {
-        width: 100px;
-    }
-}
-
-@media (min-width: 1200px) {
-    label, form button, select {
-        width: 120px;
+    form button {
+        width: 200px;
     }
 }

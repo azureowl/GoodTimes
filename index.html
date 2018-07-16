@@ -21,7 +21,7 @@
             <div class="hero">
                 <h2 class="hero-title">Explore events and places</h2>
                 <div class="row form-container">
-                    <div class="col col-10-single">
+                    <div class="col col-12">
                         <form>
                             <div>
                                 <fieldset>
@@ -39,13 +39,8 @@
                                             <option value="nextmonth">Next Month</option>
                                         </select>
                                     </label>
-                                    <label for="event">
-                                        <input type="checkbox" name="event" id="event">
-                                        <span class="label-text">Events</span>
-                                    </label>
-                                    <label for="place">
-                                        <input type="checkbox" name="place" id="place">
-                                        <span class="label-text">Places</span>
+                                    <label for="location" class="location">
+                                        <input type="text" name="location" id="location" placeholder="San Francisco, CA">
                                     </label>
                                 </fieldset>
                                 <button id='js-explore-event' type="submit">Search</button>

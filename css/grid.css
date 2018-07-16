@@ -23,51 +23,18 @@
 }
 
 /* Mobile defaults */
-.col-3, .col-4, .col-7, .col-8, .col-9, .col-10-single, .col-12 {
+.col-4, .col-8, .col-12 {
     width: 100%;
 }
 
-/* to delete later */
-.col-3 div {
-    border: 1px solid peru;
-}
-
-/* .col-8, .col-4 {
-    border: 1px solid #e4e4e4;
-} */
-
-@media only screen and (min-width: 750px) {
-
-    .col-3 {
-        width: 25%
-    }
+@media only screen and (min-width: 768px) {
 
     .col-4 {
         width: 33.333333333%;
-    }
-
-    .col-7 {
-        width: 58.33333333%;
     }
 
     .col-8 {
         width: 66.6666667%;
     }
 
-    .col-9, .col-9-single {
-        width: 75%;
-    }
-
-    .col-10, .col-10-single {
-        width: 83.333333333%;
-    }
-
-    .col-9-single, .col-10-single {
-        float: none;
-        margin: 0 auto;
-    }
-
-    .col-12 {
-        width: 100%;
-    }
 }
