@@ -21,11 +21,12 @@ app.fourSquare = function () {
     function generatePlacesMarkup(response) {
         console.log('generatePlacesMarkup ran!');
         const places = response.response.groups[0].items;
+        console.log(places);
         const results = places.forEach(function (place, i) {
             const placeholder = "../images/no-image-available.jpg";
             const venueName = place.venue.name ? place.venue.name : "No Title";
+            const venueLoc = `${place.venue.location.city}, ${place.venue.location.country}`;
             console.log(place, place.venue.id);
-            // console.log(place.venue.categories[0].icon.prefix + place.venue.categories[0].icon.suffix);
             // get venue details
             getVenueDetails(place.venue.id, venueName);
         });
@@ -42,14 +43,14 @@ app.fourSquare = function () {
             near: 'Redwood City, Ca',
             client_id: getCredentials().id,
             client_secret: getCredentials().secret,
-            limit: 20,
+            limit: 2,
             v: '20180323'
         };
 
-        // $.getJSON('https://api.foursquare.com/v2/venues/explore', query, function (response) {
-        //     console.log(response);
-        //     generatePlacesMarkup(response);
-        // });
+        $.getJSON('https://api.foursquare.com/v2/venues/explore', query, function (response) {
+            console.log(response);
+            generatePlacesMarkup(response);
+        });
     }
 
     // should get list of searched venues
@@ -63,12 +64,12 @@ app.fourSquare = function () {
             v: '20180323'
         };
 
-        // $.getJSON(endpoints.search, query, function (data) {
-        //     const venues = data.response.venues;
-        //     // just in case, I stored returned values in an array
-        //     currentVenuesReturned.push(venues);
-        //     console.log(venues, data);
-        // });
+        $.getJSON(endpoints.search, query, function (data) {
+            const venues = data.response.venues;
+            // just in case, I stored returned values in an array
+            currentVenuesReturned.push(venues);
+            console.log(venues, data);
+        });
 
         console.log('searchVenues ran!');
     };
@@ -81,23 +82,18 @@ app.fourSquare = function () {
         const query = {
             client_id: getCredentials().id,
             client_secret: getCredentials().secret,
-            limit: 20,
+            limit: 2,
             v: '20180323'
         };
 
-        // console.log(venueID);
-        const placeholder = "../images/no-image-available.jpg";
-        const placeholderTitle = "Placeholder";
-        // ${photo}${venueName}
-        const html = `<div class="col col-4 results-margin"><div class="results-cell"><button class="results-btn-image"><img src="${placeholder}" alt=""></button><p class="result-title">${placeholderTitle}</p></div></div>`;
-        appendFoursquarePlaces(html);
+        console.log(venueID);
 
-        // $.getJSON(`${endpoints.venues}/${venueID}/photos`, query, function (photoData) {
-        //     const photo = `${photoData.response.photos.items[0].prefix}width600${photoData.response.photos.items[0].suffix}`;
-        //     console.log(photo);
-        //     const html = `<div class="col col-4 results-margin"><div class="results-cell"><button class="results-btn-image"><img src="${photo}" alt=""></button><p class="result-title">${venueName}</p></div></div>`;
-        //     appendFoursquarePlaces(html);
-        // });
+        $.getJSON(`${endpoints.venues}/${venueID}/photos`, query, function (photoData) {
+            const photo = `${photoData.response.photos.items[0].prefix}width600${photoData.response.photos.items[0].suffix}`;
+            console.log(photo);
+            const html = `<div class="col col-4 results-margin"><div class="results-cell"><button class="results-btn-image"><img src="${photo}" alt=""></button><p class="result-title">${venueName}</p></div></div>`;
+            appendFoursquarePlaces(html);
+        });
     }
 
     // people who liked this venue
@@ -126,7 +122,6 @@ app.fourSquare = function () {
         getVenueLikes();
         getSimilarVenues();
         // seedFoursquarePlaces();
-        getVenueDetails();
         console.log('main is now running!');
     }
 

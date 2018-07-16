@@ -213,6 +213,11 @@ aside .results-margin {
     width: 80px;
 }
 
+.fixed-height button {
+    border: 0;
+    padding: 0;
+}
+
 @media (max-width: 425px) {
     .inner-row-mb {
         padding: 0
@@ -342,10 +347,6 @@ aside .results-margin {
 
     .fixed-height {
         height: 400px;
-    }
-
-    .fixed-height button {
-        padding: 0;
     }
 
     .results-btn-image {
