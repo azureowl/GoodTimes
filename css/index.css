@@ -69,6 +69,10 @@ form {
     padding: 20px 0;
 }
 
+button {
+    cursor: pointer;
+}
+
 form, form button, .pagination button {
     font-size: 20px;
 }
@@ -98,6 +102,11 @@ form button, .pagination button {
     height: 40px;
     width: 110px;
     vertical-align: bottom;
+}
+
+form button:hover, form button:focus {
+    background-color: #e84d3a;
+    border: 1px solid #e84d3a;
 }
 
 .hero {
@@ -168,7 +177,6 @@ aside .results-margin {
 }
 
 .results-btn-image {
-    cursor: pointer;
     background-size: cover;
     width: 100%;
     height: 200px;
