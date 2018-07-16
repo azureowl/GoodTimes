@@ -69,7 +69,7 @@ form {
     padding: 20px 0;
 }
 
-form, form button {
+form, form button, .pagination button {
     font-size: 20px;
 }
 
@@ -89,7 +89,7 @@ label {
     margin: 6px 0;
 }
 
-form button {
+form button, .pagination button {
     background-color: #F26959;
     border: 1px solid #F26959;
     color: #fff;
@@ -107,7 +107,7 @@ input {
     background: url("../images/alin-meceanu-830-unsplash-short.jpg") no-repeat center center;
     background-size: cover;
     height: 200px;
-    margin-bottom: 210px;
+    margin-bottom: 250px;
     width: 100%;
     position: relative;
 }
@@ -125,7 +125,7 @@ input {
 }
 
 .form-container {
-    transform: translateY(200px);
+    transform: translateY(230px);
 }
 
 .search {
@@ -159,7 +159,7 @@ input {
 
 .mob-scroll {
     overflow: scroll;
-    height: 300px;
+    height: 400px;
 }
 
 aside .results-margin {
@@ -190,6 +190,12 @@ aside .results-margin {
     height: 60px;
 }
 
+.weather-container, .list-container  {
+    background-color: #fdfdfd;
+    padding: 30px;
+    border: 5px solid #e4e4e4;
+}
+
 .weather-container {
     text-align: center;
 }
@@ -200,17 +206,13 @@ aside .results-margin {
 }
 
 .pagination {
-    margin-top: 5px;
+    margin-top: 10px;
     display: flex;
     justify-content: space-between;
 }
 
-.pagination button {
-    background-color: #F26959;
-    border: 1px solid #F26959;
-    color: #fff;
-    height: 30px;
-    width: 80px;
+.pagination-row {
+    padding: 0;
 }
 
 .fixed-height button {
@@ -289,9 +291,9 @@ aside .results-margin {
         background: #d5f2ff;
     }
 
-    label input[type="checkbox"]:checked + .label-text {
-        background-color: #e4e4e4;
-    }
+    /* label input[type="checkbox"]:checked + .label-text {
+        background-color: #5a5a5a;
+    } */
 
     label[for="event"], label[for="place"] {
         display: flex;
@@ -300,7 +302,7 @@ aside .results-margin {
 
     .label-text {
         text-align: center;
-        width: 110px;
+        width: 100%;
     }
 
     .hero {
@@ -346,7 +348,7 @@ aside .results-margin {
     }
 
     .fixed-height {
-        height: 400px;
+        height: 455px;
     }
 
     .results-btn-image {
@@ -354,18 +356,28 @@ aside .results-margin {
     }
 
     .weather-container, .list-container  {
-        height: 400px;
-        padding: 42px;
-        border: 5px solid #e4e4e4;
-    }
-
-    .weather-container {
-        text-align: center;
+        height: 455px;
     }
 
     .pagination {
         display: initial;
         justify-content: space-between;
+    }
+
+    .pagination-row {
+        padding: 0 20px 0 20px;
+    }
+
+    .pagination button {
+        background-color: #b9b9b9;
+        border: 0;
+        font-size: 16px;
+        height: 30px;
+        width: 80px;
+    }
+
+    .pagination button:hover, .pagination button:focus {
+        background-color: #5a5a5a;
     }
 }
 
