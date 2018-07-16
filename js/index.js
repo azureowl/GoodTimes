@@ -1,6 +1,8 @@
 function getUserLoc () {
     $.getJSON(`http://api.ipstack.com/check?access_key=${config.ipstack.key}`, function (response) {
         data.seed = response;
+        console.log(response);
+        $('.user-loc').html(`${response.city}, ${response.country_code}`);
         main();
     });
 }

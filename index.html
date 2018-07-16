@@ -6,8 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/grid.css">
     <link rel="stylesheet" href="css/index.css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:200" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Itim" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Itim|Montserrat:200|Roboto+Condensed:700" rel="stylesheet">
     <title>Document</title>
 </head>
 <body>
@@ -58,7 +57,7 @@
 
             <div class="row">
                 <div class="col col-12">
-                    <h2 class="location-heading">Experiences near <span>City, State</span></h2>
+                        <h2 class="location-heading">Experiences near <span class="user-loc">City, State</span></h2>
                 </div>
             </div>
 
@@ -96,68 +95,30 @@
             <!-- foursquare section -->
             <div class="row main-results">
                 <div class="col col-8">
-                    <section role="region" class="">
-                        <h2>Explore Foursquare</h2>
-                        <div class="mob-scroll">
-                            <div class="row inner-row-mb">
-                                <div class="col col-4 results-margin">
-                                    <div class="results-cell">
-                                        <button class="results-btn-image"></button>
-                                        <p class="result-title">Test</p>
-                                    </div>
-                                </div>
-                                <div class="col col-4 results-margin">
-                                    <div class="results-cell">
-                                        <button class="results-btn-image"></button>
-                                        <p class="result-title">Test</p>
-                                    </div>
-                                </div>
-                                <div class="col col-4 results-margin">
-                                    <div class="results-cell">
-                                        <button class="results-btn-image"></button>
-                                        <p class="result-title">Test</p>
-                                    </div>
-                                </div>
+                        <section role="region" class="">
+                            <h2>Explore Foursquare</h2>
+                            <div class="mob-scroll fixed-height">
+                                <div class="row inner-row-mb js-foursq-results"></div>
                             </div>
         
-                            <div class="row inner-row-mb">
-                                <div class="col col-4 results-margin">
-                                    <div class="results-cell">
-                                        <button class="results-btn-image"></button>
-                                        <p class="result-title">Test</p>
-                                    </div>
+                            <div class="row">
+                                <div class="col col-12 pagination">
+                                    <button class="js-prev">Prev</button> <button class="js-next">Next</button>
                                 </div>
-                                <div class="col col-4 results-margin">
-                                    <div class="results-cell">
-                                        <button class="results-btn-image"></button>
-                                        <p class="result-title">Test</p>
-                                    </div>
-                                </div>
-                                <div class="col col-4 results-margin">
-                                    <div class="results-cell">
-                                        <button class="results-btn-image"></button>
-                                        <p class="result-title">Test</p>
-                                    </div>
-                                </div>
-        
                             </div>
-                        </div>
-
-    
-                        <div class="row">
-                            <div class="col col-12 pagination">
-                                <button>Prev</button> <button>Next</button>
-                            </div>
-                        </div>
-    
-                    </section>
+                        </section>
                 </div>
                 <div class="col col-4 aside-bar">
                     <aside>
                         <div class="results-margin">
                             <h2>Planner</h2>
-                            <div>
-                                <p>planner/calender</p>
+                            <div class="list-container">
+                                <ul>
+                                    <li>Having dinner at LV Mar, 5:00pm</li>
+                                    <li>Attending Rock Festival, July 2, 2:00pm</li>
+                                    <li>Meeting friends at Starbucks, July 4, 10am</li>
+                                    <li>Want to take free Archery classes. Sign up tomorrow!</li>
+                                </ul>
                             </div>
                         </div>
                     </aside>
