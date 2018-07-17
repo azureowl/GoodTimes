@@ -12,7 +12,7 @@ app.eventbrite = function () {
 
     // Generate Eventbrite with event information
     function generateEventsMarkup(data) {
-        const events = data.events;
+        const events = data.events.length !== 0 ? data.events : data.top_match_events;
         $('.js-autho-results').html('');
         const results = events.forEach(function (event, i) {
             const eventDetails = {
@@ -123,6 +123,7 @@ app.eventbrite = function () {
             data: {
                 q: $('#search').val(),
                 ['location.address']: location !== "" ? location : data.seed.city,
+                ['start_date.keyword']: $("#date").val(),
                 page: server.page_number
             },
             beforeSend: function (xhr) {
