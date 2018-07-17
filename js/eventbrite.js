@@ -5,45 +5,43 @@ app.eventbrite = function () {
         response_type: 'token',
         userEndpoint: 'https://www.eventbriteapi.com/v3/events/search/',
         profileEndpoint: 'https://www.eventbriteapi.com/v3/users/me/',
-        category: 'https://www.eventbriteapi.com/v3/categories',
         page_number: 1
     };
 
     const oAuth = {};
 
-    const userSeedData = {};
-
-    console.log("Inside eventbrite global");
-
-    // Show "Login to Explore" form if no token; show Explore form if there is
-    function toggleEventbriteForm () {
-        console.log("toggleEventbriteForm ran!")
-    }
-
     // Generate Eventbrite with event information
     function generateEventsMarkup(data) {
         const events = data.events;
-        // call getVenueDetails()
-        const results = events.map(function (event, i) {
-            const image = event.logo === null ? "../images/no-image-available.jpg" : event.logo.original.url;
-            const title = event.name.text ? event.name.text : "No Title";
-            return `<div class="col col-4 results-margin"><div class="results-cell"><button class="results-btn-image"><img src="${image}" alt=""></button><p class="result-title">${title}</p></div></div>`
+        $('.js-autho-results').html('');
+        const results = events.forEach(function (event, i) {
+            const eventDetails = {
+                image: event.logo === null ? "../images/no-image-available.jpg" : event.logo.original.url,
+                title: event.name.text ? event.name.text : "No Title",
+                id: event.venue_id
+            };
+            getVenueDetails(eventDetails);
         });
-
-        appendEventbriteEvents(results)
     }
 
-    function appendEventbriteEvents (results) {
-        let eventResults = results.join('');
-        $('.js-autho-results').html(eventResults);
+    function appendEventbriteEvents (html) {
+        $('.js-autho-results').append(html);
         console.log('appendEventbriteEvents ran!');
     }
 
     // should get venue address
-    function getVenueDetails () {
-        // event, event.venue_id
-        // to get venue address url: https://www.eventbriteapi.com/v3/venues/${data.events[0].venue_id}/
-        // call a function to get venue address
+    function getVenueDetails (venueObj) {
+
+        const settings = {
+            url: `https://www.eventbriteapi.com/v3/venues/${venueObj.id}/`,
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("Authorization", `Bearer ${oAuth.access_token}`);
+            }
+        };
+        $.ajax(settings).done(function (venueData) {
+            const html = `<div class="col col-4 results-margin"><div class="results-cell"><button class="results-btn-image"><img src="${venueObj.image}" alt=""></button><div class="venue-info"><p class="result-title">${venueObj.title}</p><p class="result-add">${venueData.address.localized_address_display}</p></div></div></div>`;
+            appendEventbriteEvents(html);
+        });
     }
 
     // Seed with Eventbrite data based on user location
@@ -51,6 +49,7 @@ app.eventbrite = function () {
     // need to always have current search term; it should still be on the form
     // using seedEventbriteEvents to test executePagination()
     function seedEventbriteEvents (page) {
+        console.log('seedEventbriteEvents ran!');
         const settings = {
             url: 'https://www.eventbriteapi.com/v3/events/search/',
             data: {
@@ -63,8 +62,6 @@ app.eventbrite = function () {
             }
         };
         $.ajax(settings).done(function (data) {
-            // userSeedData.eventbrite = [];
-            console.log(data);
             generateEventsMarkup(data);
             executePagination(data.pagination);
         }).fail(function (e) {
@@ -81,10 +78,7 @@ app.eventbrite = function () {
         });
     }
 
-    // should be able to page through
-    // Refactor; right now, only brings up seeded events
     function executePagination (paginationData) {
-        console.log('executePagination ran!');
         const pageNumberTotal = paginationData.page_count;
             $('.js-next').on('click', function () {
                 if (server.page_number <= pageNumberTotal) {
@@ -109,10 +103,12 @@ app.eventbrite = function () {
         if (window.location.hash) {
             const hash = window.location.hash;
             oAuth.access_token = hash.split('=')[2];
-            // call function to generate eventbrite markup
+            seedEventbriteEvents();
+            $('.js-hide').removeClass('js-hide');
+            $('.js-hide-noAutho').css({
+                display: 'none'
+            });
         } else {
-            // make sure a please login into eventbrite is displayed in the eventbrite section
-            // see .js-autho-results in index.html
             $('#js-eventbrite-login').on('click', function () {
                 window.location.replace(`${server.authorizeEndpoint}response_type=${server.response_type}&client_id=${config.eventbrite.key}`);
             });
@@ -121,11 +117,12 @@ app.eventbrite = function () {
 
     // Always make requests with user's OAuth token
     function requestEventbriteData () {
+        const location = $('#location').val();
         const settings = {
             url: 'https://www.eventbriteapi.com/v3/events/search/',
             data: {
                 q: $('#search').val(),
-                ['location.address']: data.seed.city,
+                ['location.address']: location !== "" ? location : data.seed.city,
                 page: server.page_number
             },
             beforeSend: function (xhr) {
@@ -133,12 +130,17 @@ app.eventbrite = function () {
             }
         };
         $.ajax(settings).done(function (data) {
-            console.log($('#search').val(), data);
             executePagination(data.pagination);
             generateEventsMarkup(data);
+            console.log(data);
+            updateLocationHeading(data.location.augmented_location.city);
         }).fail(function (e) {
             console.log(e.statusText, e.responseText, "Call failed!");
         });
+    }
+
+    function updateLocationHeading (city) {
+        $('.user-loc').html(city);
     }
 
     $('#js-explore-event').on('click', function () {
@@ -148,7 +150,6 @@ app.eventbrite = function () {
 
     function main () {
         oAuthAuthenticate();
-        seedEventbriteEvents();
     }
 
     $(main);
