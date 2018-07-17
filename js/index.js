@@ -11,7 +11,6 @@ function getUserLoc () {
 function addToPlanner () {
     $('.planner').submit(function (e) {
         e.preventDefault();
-        // call the function to generate markup
         createPlan();
     });
 }
@@ -20,12 +19,21 @@ function createPlan () {
     const detail = $("#todo").val();
     const date = $("#planner-date").val();
     const time = $("#time").val();
-    const html = `<li><span class="detail">${detail}</span><div class="detail-date"><span class="cal-date">${date}</span>, <span class="time-date">${time}</span></div></li>`;
+    const html = `<li><span class="detail">${detail}</span><div class="detail-date"><span class="cal-date">${date}</span>, <span class="time-date">${time}</span></div><button class="delete">Delete</button></li>`;
     appendPlan(html);
 }
 
 function appendPlan (html) {
     $('.plan-list').append(html);
+}
+
+function deletePlan () {
+    console.log('deletePlan ran!');
+    $('body').on('click', '.delete', function (e) {
+        e.preventDefault();
+        const li = $(this).closest('li');
+        li.remove();
+    });
 }
 
 function togglePlannerViewer () {
@@ -40,14 +48,10 @@ function togglePlannerViewer () {
 
 function mainPlanner () {
     addToPlanner();
+    deletePlan();
     togglePlannerViewer();
     console.log('mainPlanner ran!');
 }
-
-
-// should be able to delete thing to do
-// should be able to update thing to do
-
 
 
 // // Testing
