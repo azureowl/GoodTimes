@@ -83,7 +83,6 @@ function main () {
     app.eventbrite();
     app.darksky.getUserLocWeather();
     app.fourSquare();
-    // app.directions();
     addToEventListOrCalendar();
     mainPlanner();
 }
