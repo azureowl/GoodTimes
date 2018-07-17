@@ -149,7 +149,7 @@ app.eventbrite = function () {
     });
 
     function main () {
-        oAuthAuthenticate();
+        // oAuthAuthenticate();
     }
 
     $(main);

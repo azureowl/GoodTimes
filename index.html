@@ -21,7 +21,7 @@
                 <h2 class="hero-title">Explore events and places</h2>
                 <div class="row form-container">
                     <div class="col col-12">
-                        <form>
+                        <form class="main-form">
                             <div>
                                 <fieldset>
                                     <legend>Finding fun is easy.</legend>
@@ -110,11 +110,24 @@
                         <div class="results-margin">
                             <h2>Planner</h2>
                             <div class="list-container">
+                                <form class="planner">
+                                    <fieldset>
+                                        <legend>Scheduler</legend>
+                                        <label for="todo" class="todo">Event
+                                            <textarea name="todo" id="todo" placeholder="What's your plan?" maxlength="80"></textarea>
+                                        </label>
+                                        <label for="date" class="date">Date
+                                            <input type="date">
+                                        </label>
+                                        <label for="time" class="time">Time
+                                            <input type="time">
+                                        </label>
+                                    </fieldset>
+                                    <button class="planner-submit" type="submit">+</button>
+                                </form>
+
                                 <ul>
-                                    <li>Having dinner at LV Mar, 5:00pm</li>
-                                    <li>Attending Rock Festival, July 2, 2:00pm</li>
-                                    <li>Meeting friends at Starbucks, July 4, 10am</li>
-                                    <li>Want to take free Archery classes. Sign up tomorrow!</li>
+                                    <li><span class="detail">Attending Rock Festival</span><div class="detail-date"><span class="cal-date">July 2</span>, <span class="time-date">2:00 PM</span></div></li>
                                 </ul>
                             </div>
                         </div>
@@ -123,7 +136,6 @@
             </div>
 
             <div class="lightbox"></div>
-            <div class="planner"></div>
         </div>
     </main>
 

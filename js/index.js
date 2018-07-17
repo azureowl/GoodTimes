@@ -7,6 +7,23 @@ function getUserLoc () {
     });
 }
 
+// planner should be able to add thing to do
+function addToPlanner () {
+    $('.planner').submit(function (e) {
+        e.preventDefault();
+    });
+}
+
+function mainPlanner () {
+    addToPlanner();
+    console.log('mainPlanner ran!');
+}
+
+
+// should be able to delete thing to do
+// should be able to update thing to do
+
+
 
 // // Testing
 // var skycons = new Skycons({"monochrome": false});
@@ -39,6 +56,7 @@ function main () {
     app.fourSquare();
     // app.directions();
     addToEventListOrCalendar();
+    mainPlanner();
 }
 
 $(getUserLoc);
