@@ -21,7 +21,7 @@
                 <h2 class="hero-title">Explore events and places</h2>
                 <div class="row form-container">
                     <div class="col col-12">
-                        <form>
+                        <form class="main-form">
                             <div>
                                 <fieldset>
                                     <legend>Finding fun is easy.</legend>
@@ -76,7 +76,7 @@
                     </section>
                 </div>
                 <div class="col col-4 aside-bar">
-                    <aside>
+                    <aside role="complementary">
                         <div class="results-margin">
                             <h2>Local weather</h2>
                             <div class="weather-container">
@@ -106,24 +106,43 @@
                         </section>
                 </div>
                 <div class="col col-4 aside-bar">
-                    <aside>
+                    <aside role="complementary">
                         <div class="results-margin">
                             <h2>Planner</h2>
                             <div class="list-container">
-                                <ul>
-                                    <li>Having dinner at LV Mar, 5:00pm</li>
-                                    <li>Attending Rock Festival, July 2, 2:00pm</li>
-                                    <li>Meeting friends at Starbucks, July 4, 10am</li>
-                                    <li>Want to take free Archery classes. Sign up tomorrow!</li>
-                                </ul>
+                                <form class="planner">
+                                    <fieldset>
+                                        <legend>What's Happening</legend>
+                                        <label for="todo" class="todo">Event/Place
+                                            <textarea name="todo" id="todo" placeholder="Meeting friends for coffee" maxlength="80"></textarea>
+                                        </label>
+                                        <label for="planner-date" class="planner-date">Date
+                                            <input type="date" id="planner-date">
+                                        </label>
+                                        <label for="time" class="time">Time
+                                            <input type="time" id="time">
+                                        </label>
+                                    </fieldset>
+                                    <button class="planner-submit" type="submit">+</button>
+                                    <button class="planner-view" type="button">View</button>
+                                </form>
                             </div>
                         </div>
                     </aside>
                 </div>
             </div>
 
+            <section role="region">
+                <div class="planner-viewer" hidden>
+                    <button>Close</button>
+                    <h2>Planner</h2>
+                    <ul class="plan-list"></ul>
+                </div>
+            </section>
+
             <div class="lightbox"></div>
-            <div class="planner"></div>
+
+
         </div>
     </main>
 
