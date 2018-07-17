@@ -22,7 +22,7 @@ header {
     text-align: center;
 }
 
-header, legend, section h2, aside h2 {
+header, legend, section h2, aside h2, .detail-date {
     color: #F26959;
 }
 
@@ -194,14 +194,14 @@ aside .results-margin {
     height: 60px;
 }
 
-.result-title, .planner label {
+.result-title, .planner label, .detail {
     font-family: 'Roboto Condensed', sans-serif;
     font-weight: bold;
 }
 
 .weather-container, .list-container  {
     background-color: #fdfdfd;
-    padding: 30px;
+    padding: 15px;
     border: 5px solid #e4e4e4;
 }
 
@@ -234,6 +234,7 @@ aside .results-margin {
 }
 
 .planner {
+    display: block;
     height: initial;
 }
 
@@ -245,11 +246,11 @@ aside .results-margin {
 
 .planner label, .planner textarea {
     border: 0;
-    width: 100%;
 }
 
 .planner label, .planner input, .planner textarea {
-    font-size: 18px;
+    font-size: 16px;
+    width: 100%;
 }
 
 .planner input, .planner textarea {
@@ -263,19 +264,34 @@ aside .results-margin {
 }
 
 .planner button {
-    width: 50px;
+    display: inline-block;
+}
+
+.planner-viewer h2 {
+    margin: 0;
+}
+
+.planner-viewer {
+    background-color: #f7fff7;
+    padding: 10px;
 }
 
 .todo {
     height: 100px;
 }
 
-.date, .time {
+.planner-date, .time {
     height: 70px;
 }
 
-.date input, .time input {
+.planner-date input, .time input {
     height: 35px;
+}
+
+.plan-list {
+    height: 400px;
+    overflow: scroll;
+    width: 100%;
 }
 
 @media (max-width: 425px) {
@@ -366,7 +382,7 @@ aside .results-margin {
         width: 230px
     }
 
-    .search input, .todo input, .date input, .time input {
+    .search input, .todo input, .planner-date input, .time input {
         border: 0;
         width: 100%;
     }
@@ -422,6 +438,11 @@ aside .results-margin {
     .pagination button:hover, .pagination button:focus {
         background-color: #5a5a5a;
     }
+
+    .planner-submit {
+        width: 50px;
+    }
+
 }
 
 @media (min-width: 1000px) {
@@ -431,5 +452,10 @@ aside .results-margin {
 
     form button, button.js-hide-noAutho {
         width: 200px;
+    }
+
+    .planner-view {
+        margin-left: 2px;
+        width: 160px;
     }
 }

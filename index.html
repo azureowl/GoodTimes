@@ -76,7 +76,7 @@
                     </section>
                 </div>
                 <div class="col col-4 aside-bar">
-                    <aside>
+                    <aside role="complementary">
                         <div class="results-margin">
                             <h2>Local weather</h2>
                             <div class="weather-container">
@@ -106,36 +106,43 @@
                         </section>
                 </div>
                 <div class="col col-4 aside-bar">
-                    <aside>
+                    <aside role="complementary">
                         <div class="results-margin">
                             <h2>Planner</h2>
                             <div class="list-container">
                                 <form class="planner">
                                     <fieldset>
-                                        <legend>Scheduler</legend>
-                                        <label for="todo" class="todo">Event
-                                            <textarea name="todo" id="todo" placeholder="What's your plan?" maxlength="80"></textarea>
+                                        <legend>What's Happening</legend>
+                                        <label for="todo" class="todo">Event/Place
+                                            <textarea name="todo" id="todo" placeholder="Meeting friends for coffee" maxlength="80"></textarea>
                                         </label>
-                                        <label for="date" class="date">Date
-                                            <input type="date">
+                                        <label for="planner-date" class="planner-date">Date
+                                            <input type="date" id="planner-date">
                                         </label>
                                         <label for="time" class="time">Time
-                                            <input type="time">
+                                            <input type="time" id="time">
                                         </label>
                                     </fieldset>
                                     <button class="planner-submit" type="submit">+</button>
+                                    <button class="planner-view">View</button>
                                 </form>
-
-                                <ul>
-                                    <li><span class="detail">Attending Rock Festival</span><div class="detail-date"><span class="cal-date">July 2</span>, <span class="time-date">2:00 PM</span></div></li>
-                                </ul>
                             </div>
                         </div>
                     </aside>
                 </div>
             </div>
 
+            <section role="region">
+                <div class="planner-viewer" hidden>
+                    <button>Close</button>
+                    <h2>Planner</h2>
+                    <ul class="plan-list"></ul>
+                </div>
+            </section>
+
             <div class="lightbox"></div>
+
+
         </div>
     </main>
 

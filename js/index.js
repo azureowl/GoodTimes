@@ -11,11 +11,36 @@ function getUserLoc () {
 function addToPlanner () {
     $('.planner').submit(function (e) {
         e.preventDefault();
+        // call the function to generate markup
+        createPlan();
+    });
+}
+
+function createPlan () {
+    const detail = $("#todo").val();
+    const date = $("#planner-date").val();
+    const time = $("#time").val();
+    const html = `<li><span class="detail">${detail}</span><div class="detail-date"><span class="cal-date">${date}</span>, <span class="time-date">${time}</span></div></li>`;
+    appendPlan(html);
+}
+
+function appendPlan (html) {
+    $('.plan-list').append(html);
+}
+
+function togglePlannerViewer () {
+    $('.planner-view').on('click', function () {
+        if ($('.planner-viewer').attr('hidden') === 'hidden') {
+            $('.planner-viewer').removeAttr('hidden');
+        } else {
+            $('.planner-viewer').attr('hidden', 'true');
+        }
     });
 }
 
 function mainPlanner () {
     addToPlanner();
+    togglePlannerViewer();
     console.log('mainPlanner ran!');
 }
 
