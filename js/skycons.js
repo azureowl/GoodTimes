@@ -512,14 +512,15 @@
         opts.colors = opts.colors || {};
         this.colors = {
             main    : opts.colors.main    || "#111",
-            moon    : opts.colors.moon    || "#353545",
-            fog     : opts.colors.fog     || "#CCC",
-            fogbank : opts.colors.fogbank || "#AAA",
-            cloud   : opts.colors.cloud   || "#666",
+            moon    : opts.colors.moon    || "#8c8598",
+            fog     : opts.colors.fog     || "#8c8598",
+            fogbank : opts.colors.fogbank || "#8c8598",
+            cloud   : opts.colors.cloud   || "#cae9ff",
             snow    : opts.colors.snow    || "#C2EEFF",
-            leaf    : opts.colors.leaf    || "#2C5228",
-            rain    : opts.colors.rain    || "#7FDBFF",
-            sun     : opts.colors.sun     || "#FFDC00"
+            leaf    : opts.colors.leaf    || "#93bb1f",
+            rain    : opts.colors.rain    || "#74bdf3",
+            sun     : opts.colors.sun     || "#fff17c",
+            wind    : "#5695bd"
         };
         if(this.monochrome) {
             this.color = opts.color || this.colors.main;
