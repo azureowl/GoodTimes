@@ -1,7 +1,5 @@
 app.darksky = {
     getUserLocWeather: function () {
-        console.log('Inside darksky!');
-
         var loc_data = {
             latitude: data.seed.latitude,
             longitude: data.seed.longitude
@@ -12,12 +10,30 @@ app.darksky = {
             dataType: "JSONP"
         }).done(function (data) {
             console.log(data);
-            $('.temp').text(data.currently.temperature);
-            $('.summary').text(data.currently.summary);
-            $('.feels-like').text( data.currently.apparentTemperature);
+            $('.js-temp').text(Math.floor(data.currently.temperature));
+            $('.js-summary').text(data.currently.summary);
+            $('.js-feels-like').text(Math.floor(data.currently.apparentTemperature));
+            $('.js-precip').text(data.currently.precipProbability);
+            app.darksky.depictWeather(data.currently.icon);
         });
     },
-    getLocalWeather: function () {
+    getLocalWeather: function (latitude, longitude) {
         console.log('getLocalWeather ran!');
+        $.ajax({
+            url: `https://api.darksky.net/forecast/${config.darkSky.key}/${latitude},${longitude}`,
+            dataType: "JSONP"
+        }).done(function (data) {
+            console.log(data);
+            $('.js-temp').text(Math.floor(data.currently.temperature));
+            $('.js-summary').text(data.currently.summary);
+            $('.js-feels-like').text(Math.floor(data.currently.apparentTemperature));
+            $('.js-precip').text(data.currently.precipProbability);
+            app.darksky.depictWeather(data.currently.icon);
+        });
+    },
+    depictWeather: function (icon) {
+        var skycons = new Skycons({"monochrome": false});
+        skycons.add("js-weather-icon", icon);
+        skycons.play();
     }
 };

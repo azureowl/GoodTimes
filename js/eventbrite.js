@@ -12,7 +12,17 @@ app.eventbrite = function () {
 
     // Generate Eventbrite with event information
     function generateEventsMarkup(data) {
-        const events = data.events.length !== 0 ? data.events : data.top_match_events;
+        let events;
+        console.log(data);
+        if (data.events && data.events.length !== 0) {
+            events = data.events;
+        } else if (data.top_match_events && data.top_match_events.length !== 0) {
+            events = data.top_match_events;
+        } else {
+            $('.js-autho-results').html('No results found');
+            return;
+        }
+
         $('.js-autho-results').html('');
         const results = events.forEach(function (event, i) {
             const eventDetails = {
@@ -62,6 +72,7 @@ app.eventbrite = function () {
             }
         };
         $.ajax(settings).done(function (data) {
+            console.log(data);
             generateEventsMarkup(data);
             executePagination(data.pagination);
         }).fail(function (e) {
@@ -131,17 +142,21 @@ app.eventbrite = function () {
             }
         };
         $.ajax(settings).done(function (data) {
+            const mainLoc = data.location.augmented_location.city ? data.location.augmented_location.city : data.location.augmented_location.region;
+            const country = getCountryCode(data.location.augmented_location.country);
+            console.log(data);
             executePagination(data.pagination);
             generateEventsMarkup(data);
-            console.log(data);
-            updateLocationHeading(data.location.augmented_location.city);
+            app.darksky.getLocalWeather(data.location.latitude, data.location.longitude);
+            updateLocationHeading(mainLoc, country);
         }).fail(function (e) {
             console.log(e.statusText, e.responseText, "Call failed!");
         });
     }
 
-    function updateLocationHeading (city) {
-        $('.user-loc').html(city);
+    function updateLocationHeading (mainLoc, country) {
+        const html = `${mainLoc}, ${country}`;
+        $('.user-loc').html(html);
     }
 
     $('#js-explore-event').on('click', function () {
@@ -150,7 +165,7 @@ app.eventbrite = function () {
     });
 
     function main () {
-        // oAuthAuthenticate();
+        oAuthAuthenticate();
     }
 
     $(main);
