@@ -96,6 +96,17 @@ input {
     padding: 2px;
 }
 
+footer {
+    background-color: #ec6858;
+    color: #fff;
+    padding: 12px;
+    text-align: center;
+}
+
+footer p {
+    margin-bottom:  4px 0 3px 0;
+}
+
 form button, .pagination button, button.js-hide-noAutho, .plan-list button {
     background-color: #F26959;
     border: 1px solid #F26959;
@@ -113,6 +124,12 @@ form button:hover, form button:focus, button.js-hide-noAutho:hover, button.js-hi
 button.js-hide-noAutho {
     font-size: 16px;
     width: 100%;
+}
+
+.fab {
+    cursor: pointer;
+    color: #fff;
+    font-size: 32px;
 }
 
 .hero {
@@ -333,6 +350,10 @@ aside .results-margin {
     margin: 6px 2px 0 0;
     height: auto;
     width: auto;
+}
+
+.contact .fa-linkedin {
+    margin-left: 20px;
 }
 
 @media (max-width: 425px) {
