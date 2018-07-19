@@ -19,7 +19,7 @@ app.eventsAPIs = function () {
             url: eventbriteEndpoint.userEndpoint,
             data: {
                 // q: '',
-                q: 'jazz',
+                q: 'dance',
                 ['location.address']: storedData.seed.city,
                 // ['location.address']: 'new york',
                 ['location.within']: '25mi',
@@ -37,9 +37,9 @@ app.eventsAPIs = function () {
     function seedFoursquarePlaces () {
         const query = {
             near: storedData.seed.city,
-            client_id: config.fourSquare.idTemp,
-            client_secret: config.fourSquare.secretTemp,
-            limit: 1,
+            client_id: config.fourSquare.id,
+            client_secret: config.fourSquare.secret,
+            limit: 10,
             v: '20180323'
         };
         foursquareMakeAJAXCall(query);
@@ -68,9 +68,9 @@ app.eventsAPIs = function () {
     function requestFoursquareData () {
         const query = {
             ll: `${storedData.server.location.latitude},${storedData.server.location.longitude}`,
-            limit: 1,
-            client_id: config.fourSquare.idTemp,
-            client_secret: config.fourSquare.secretTemp,
+            limit: 10,
+            client_id: config.fourSquare.id,
+            client_secret: config.fourSquare.secret,
             v: '20180323'
         };
         foursquareMakeAJAXCall(query);
@@ -85,7 +85,7 @@ app.eventsAPIs = function () {
                 console.log(storedData, storedData.server.call, '*********');
                 console.log(data);
                 app.darksky.getLocalWeather(storedData.server.location.latitude, storedData.server.location.longitude);
-                // requestFoursquareData();
+                requestFoursquareData();
             }
 
             if (bool) {
@@ -158,9 +158,8 @@ app.eventsAPIs = function () {
 
     function getVenueDetailsFoursquare (venueID, html) {
         const query = {
-            client_id: config.fourSquare.idTemp,
-            client_secret: config.fourSquare.secretTemp,
-            limit: 1,
+            client_id: config.fourSquare.id,
+            client_secret: config.fourSquare.secret,
             v: '20180323'
         };
 
@@ -174,8 +173,8 @@ app.eventsAPIs = function () {
 
        function getVenuePhotosFoursquare (venueID, html) {
         const query = {
-            client_id: config.fourSquare.idTemp,
-            client_secret: config.fourSquare.secretTemp,
+            client_id: config.fourSquare.id,
+            client_secret: config.fourSquare.secret,
             limit: 1,
             v: '20180323'
         };
@@ -256,7 +255,7 @@ app.eventsAPIs = function () {
     // };
 
     function main () {
-        seedEventbriteEvents();
+        // seedEventbriteEvents();
         // seedFoursquarePlaces();
     }
 
