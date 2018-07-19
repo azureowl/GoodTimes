@@ -82,7 +82,8 @@ app.eventsAPIs = function () {
             // Values persisting for the current search term are assigned only once
             if (storedData.server.call === 1) {
                 storeData(storedData.server, data);
-                console.log(storedData, storedData.server.call, '***wtfffff******');
+                console.log(storedData, storedData.server.call, '*********');
+                console.log(data);
                 app.darksky.getLocalWeather(storedData.server.location.latitude, storedData.server.location.longitude);
                 // requestFoursquareData();
             }
@@ -98,6 +99,7 @@ app.eventsAPIs = function () {
 
     function foursquareMakeAJAXCall (query) {
         $.getJSON(foursquareEndpoints.explore, query, function (response) {
+            console.log(response);
             const venues = response.response.groups[0].items;
             generatePlacesMarkup(venues);
         });
@@ -134,7 +136,7 @@ app.eventsAPIs = function () {
             const image = event.logo === null ? "../images/no-image-available.jpg" : event.logo.original.url;
             const title = event.name.text ? event.name.text : "No Title";
             const id = event.venue_id;
-            const html = `<div class="col col-4 results-margin"><div class="results-cell"><button class="results-btn-image"><img src="${image}" alt=""></button><div class="venue-info"><p class="result-title">${title}</p>`;
+            const html = `<div class="col col-4 results-margin"><div class="results-cell"><button class="results-btn-image"><img src="${image}" alt=""></button><div class="venue-info" data-url="${event.url}"><p class="result-title">${title}</p>`;
             getVenueDetailsEventbrite(html, id);
         });
     }
@@ -149,12 +151,28 @@ app.eventsAPIs = function () {
             const venueName = place.venue.name ? place.venue.name : "No Title";
             const venueLoc = `${place.venue.location.city}, ${place.venue.location.country}`;
             const venueAdd = `${place.venue.location.address}, ${place.venue.location.city}`;
-            const html = `<div class="venue-info"><p class="result-title">${venueName}</p><p class="result-add">${venueAdd}</p></div></div></div>`;
+            const html = `<p class="result-title">${venueName}</p><p class="result-add">${venueAdd}</p></div></div></div>`;
             getVenueDetailsFoursquare(place.venue.id, html);
         });
     }
 
     function getVenueDetailsFoursquare (venueID, html) {
+        const query = {
+            client_id: config.fourSquare.idTemp,
+            client_secret: config.fourSquare.secretTemp,
+            limit: 1,
+            v: '20180323'
+        };
+
+        $.getJSON(`${foursquareEndpoints.venues}/${venueID}`, query, function (place) {
+            console.log(place, '****heyyyyy****');
+            const url = place.response.venue.canonicalUrl;
+            html = `<div class="venue-info" data-url="${url}">${html}`;
+            getVenuePhotosFoursquare(venueID, html);
+        });
+    }
+
+       function getVenuePhotosFoursquare (venueID, html) {
         const query = {
             client_id: config.fourSquare.idTemp,
             client_secret: config.fourSquare.secretTemp,
@@ -238,7 +256,7 @@ app.eventsAPIs = function () {
     // };
 
     function main () {
-        // seedEventbriteEvents();
+        seedEventbriteEvents();
         // seedFoursquarePlaces();
     }
 

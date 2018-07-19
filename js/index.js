@@ -51,11 +51,40 @@ function togglePlanner () {
     });
 }
 
+function toggleLightbox () {
+    $('body').on('click', '.results-cell', function (e) {
+        $('.lightbox').toggle();
+        if ($('.lightbox').is(':hidden') === false) {
+            $('body').css({overflow: 'hidden'});
+            const target = $(e.target).closest('.results-cell');
+            const copyObj = {
+                title: target.find('.result-title').text(),
+                add: target.find('.result-add').text(),
+                src: $(e.target).attr('src'),
+                url: target.find('.venue-info').data().url
+            };
+            generateLightboxMarkup(copyObj);
+        } else {
+            $('body').css({overflow: 'auto'});
+        }
+    });
+}
+
+function generateLightboxMarkup (obj) {
+    const html = `<div class="col col-8"><img src="${obj.src}" alt="${obj.title}"></div><div class="col col-12 venue-info"><p class="result-title">${obj.title}</p><p class="result-add">${obj.add}</p><button class="closeLightbox results-cell">Go Back</button><a href="${obj.url}" target="_blank">Visit Page</a></div>`;
+    appendToLightbox(html);
+}
+
+function appendToLightbox (html) {
+    $('.lightbox').html(html);
+}
+
 function mainPlanner () {
     addToPlanner();
     deletePlan();
     // updatePlan();
     togglePlanner();
+    toggleLightbox();
 }
 
 function main () {
