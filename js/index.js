@@ -1,7 +1,6 @@
 function getUserLoc () {
     $.getJSON(`http://api.ipstack.com/check?access_key=${config.ipstack.key}`, function (response) {
         storedData.seed = response;
-        console.log(response);
         $('.user-loc').html(`${response.city}, ${response.country_code}`);
         main();
     });
@@ -28,7 +27,6 @@ function appendPlan (html) {
 }
 
 function deletePlan () {
-    console.log('deletePlan ran!');
     $('body').on('click', '.delete', function (e) {
         e.preventDefault();
         const li = $(this).closest('li');
@@ -50,11 +48,9 @@ function mainPlanner () {
     addToPlanner();
     deletePlan();
     togglePlannerViewer();
-    console.log('mainPlanner ran!');
 }
 
 function addToEventListOrCalendar () {
-    console.log('addToEventListOrCalendar ran!');
 }
 
 
