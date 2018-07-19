@@ -18,8 +18,8 @@ app.eventsAPIs = function () {
         const settings = {
             url: eventbriteEndpoint.userEndpoint,
             data: {
-                q: '',
-                // q: 'jazz',
+                // q: '',
+                q: 'jazz',
                 ['location.address']: storedData.seed.city,
                 // ['location.address']: 'new york',
                 ['location.within']: '25mi',
@@ -216,7 +216,7 @@ app.eventsAPIs = function () {
         $('.user-loc').html(html);
     }
 
-    $('form').on('submit', "#js-explore-event", function (e) {
+    $('.main-form').on('submit', function (e) {
         e.preventDefault();
         storedData.server.call = 0;
         storedData.server.page_number = 1;
