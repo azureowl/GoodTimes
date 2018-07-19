@@ -9,20 +9,82 @@ app.eventbrite = function () {
         call: 1
     };
 
-    // Generate Eventbrite with event information
-    function generateEventsMarkup(data) {
-        let events;
-        console.log(data);
+    // Seed with Eventbrite data based on user location
+    function seedEventbriteEvents (page) {
+        const settings = {
+            url: 'https://www.eventbriteapi.com/v3/events/search/',
+            data: {
+                // q: '',
+                q: 'jazz',
+                // ['location.address']: data.seed.city,
+                ['location.address']: 'new york',
+                ['location.within']: '25mi',
+                page: server.page_number
+            },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("Authorization", `Bearer ${config.eventbrite.oAuth}`);
+            }
+        };
+        makeAJAXCall(settings, false);
+    }
+
+    function requestEventbriteData () {
+        const location = $('#location').val();
+        const settings = {
+            url: 'https://www.eventbriteapi.com/v3/events/search/',
+            data: {
+                q: $('#search').val(),
+                // q: 'jazz',
+                ['location.address']: location !== "" ? location : data.seed.city,
+                // ['location.address']: 'new york',
+                ['start_date.keyword']: $("#date").val(),
+                ['location.within']: '50mi',
+                page: server.page_number
+            },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("Authorization", `Bearer ${config.eventbrite.oAuth}`);
+            }
+        };
+        makeAJAXCall(settings, true);
+    }
+
+    function makeAJAXCall (settings, bool) {
+        $.ajax(settings).done(function (data) {
+            console.log(data);
+
+            if (server.call === 1) {
+                server.pageNumberTotal = data.pagination.page_count;
+                server.pageObjectCount = data.pagination.object_count;
+            }
+
+            if (bool) {
+                const mainLoc = data.location.augmented_location.city ? data.location.augmented_location.city : data.location.augmented_location.region;
+                const country = getCountryCode(data.location.augmented_location.country);
+                app.darksky.getLocalWeather(data.location.latitude, data.location.longitude);
+                updateLocationHeading(mainLoc, country);
+            }
+            checkEventArray(data);
+        }).fail(function (e) {
+            console.log(e.statusText, e.responseText, "Call failed!");
+        });
+    }
+
+    function checkEventArray (data) {
         if (data.events && data.events.length !== 0) {
             events = data.events;
         } else if (data.top_match_events && data.top_match_events.length !== 0) {
             events = data.top_match_events;
             $('.top-match').html("There are no exact matches. What about these events?");
         } else {
-            $('.js-autho-results').html('No results found');
+            $('.js-autho-results').html('Eventbrite found no results.');
             return;
         }
+        generateEventsMarkup(events);
+    }
 
+    // Generate Eventbrite with event information
+    function generateEventsMarkup(events) {
+        console.log(events);
         $('.js-autho-results').html('');
 
         const results = events.forEach(function (event, i) {
@@ -53,45 +115,9 @@ app.eventbrite = function () {
         $('.js-autho-results').append(html);
     }
 
-    // Seed with Eventbrite data based on user location
-    function seedEventbriteEvents (page) {
-        const settings = {
-            url: 'https://www.eventbriteapi.com/v3/events/search/',
-            data: {
-                // q: '',
-                q: 'jazz',
-                // ['location.address']: data.seed.city,
-                ['location.address']: 'new york',
-                ['location.within']: '25mi',
-                page: server.page_number
-            },
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader("Authorization", `Bearer ${config.eventbrite.oAuth}`);
-            }
-        };
-        makeAJAXCall(settings, false);
-    }
-
-
-    function makeAJAXCall (settings, bool) {
-        $.ajax(settings).done(function (data) {
-            console.log(data);
-
-            if (server.call === 1) {
-                server.pageNumberTotal = data.pagination.page_count;
-                server.pageObjectCount = data.pagination.object_count;
-            }
-
-            if (bool) {
-                const mainLoc = data.location.augmented_location.city ? data.location.augmented_location.city : data.location.augmented_location.region;
-                const country = getCountryCode(data.location.augmented_location.country);
-                app.darksky.getLocalWeather(data.location.latitude, data.location.longitude);
-                updateLocationHeading(mainLoc, country);
-            }
-            generateEventsMarkup(data);
-        }).fail(function (e) {
-            console.log(e.statusText, e.responseText, "Call failed!");
-        });
+    function updateLocationHeading (mainLoc, country) {
+        const html = `${mainLoc}, ${country}`;
+        $('.user-loc').html(html);
     }
 
     $('form').on('submit', function (e) {
@@ -131,32 +157,6 @@ app.eventbrite = function () {
     //         });
     //     }
     // };
-
-    // Always make requests with user's OAuth token
-    function requestEventbriteData () {
-        const location = $('#location').val();
-        const settings = {
-            url: 'https://www.eventbriteapi.com/v3/events/search/',
-            data: {
-                q: $('#search').val(),
-                // q: 'jazz',
-                ['location.address']: location !== "" ? location : data.seed.city,
-                // ['location.address']: 'new york',
-                ['start_date.keyword']: $("#date").val(),
-                ['location.within']: '50mi',
-                page: server.page_number
-            },
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader("Authorization", `Bearer ${config.eventbrite.oAuth}`);
-            }
-        };
-        makeAJAXCall(settings, true);
-    }
-
-    function updateLocationHeading (mainLoc, country) {
-        const html = `${mainLoc}, ${country}`;
-        $('.user-loc').html(html);
-    }
 
     function main () {
         seedEventbriteEvents();
