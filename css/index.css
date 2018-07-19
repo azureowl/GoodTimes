@@ -330,7 +330,7 @@ aside .results-margin {
 }
 
 .plan-list button {
-    margin-top: 6px;
+    margin: 6px 2px 0 0;
     height: auto;
     width: auto;
 }
