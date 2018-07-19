@@ -34,12 +34,13 @@ function deletePlan () {
     });
 }
 
-function togglePlannerViewer () {
+function togglePlanner () {
     $('.planner-view').on('click', function () {
-        if ($('.planner-viewer').attr('hidden') === 'hidden') {
-            $('.planner-viewer').removeAttr('hidden');
+        $('.planner-viewer').toggle();
+        if ($('.planner-viewer').is(':hidden') === false) {
+            $('body').css({overflow: 'hidden'});
         } else {
-            $('.planner-viewer').attr('hidden', 'true');
+            $('body').css({overflow: 'auto'});
         }
     });
 }
@@ -47,18 +48,12 @@ function togglePlannerViewer () {
 function mainPlanner () {
     addToPlanner();
     deletePlan();
-    togglePlannerViewer();
+    togglePlanner();
 }
-
-function addToEventListOrCalendar () {
-}
-
 
 function main () {
     app.eventsAPIs();
     app.darksky.getUserLocWeather();
-    // app.fourSquare();
-    addToEventListOrCalendar();
     mainPlanner();
 }
 
