@@ -34,7 +34,7 @@ app.eventbrite = function () {
         });
     }
 
-    // should get venue address
+    // Gets venue address
     function getVenueDetails (html, id) {
         const settings = {
             url: `https://www.eventbriteapi.com/v3/venues/${id}/`,
@@ -43,15 +43,14 @@ app.eventbrite = function () {
             }
         };
         $.ajax(settings).done(function (data) {
-            const joinHTML = `${html}<p class="result-add">${data.address.localized_address_display}</p></div></div></div>`;
-            appendEventbriteEvents(joinHTML);
+            const joinedHTML = `${html}<p class="result-add">${data.address.localized_address_display}</p></div></div></div>`;
+            appendEventbriteEvents(joinedHTML);
         });
     }
 
     function appendEventbriteEvents (html) {
         $('.results-count').html(`${server.pageObjectCount} results`);
         $('.js-autho-results').append(html);
-        console.log('appendEventbriteEvents ran!');
     }
 
     // Seed with Eventbrite data based on user location
@@ -95,14 +94,12 @@ app.eventbrite = function () {
         });
     }
 
-    // clear search on submit of form
-    function submitForm () {
-        console.log('Inside submitForm!');
+    $('form').on('submit', function (e) {
+        e.preventDefault();
         server.page_number = 1;
-        $('form').on('submit', function (e) {
-            e.preventDefault();
-        });
-    }
+        requestEventbriteData();
+    });
+
 
     $('.js-next').on('click', function () {
         if (server.page_number < server.pageNumberTotal) {
@@ -161,11 +158,6 @@ app.eventbrite = function () {
         const html = `${mainLoc}, ${country}`;
         $('.user-loc').html(html);
     }
-
-    $('#js-explore-event').on('click', function () {
-        submitForm();
-        requestEventbriteData();
-    });
 
     function main () {
         seedEventbriteEvents();
