@@ -1,8 +1,8 @@
 app.darksky = {
     getUserLocWeather: function () {
         var loc_data = {
-            latitude: data.seed.latitude,
-            longitude: data.seed.longitude
+            latitude: storedData.seed.latitude,
+            longitude: storedData.seed.longitude
         };
 
         $.ajax({

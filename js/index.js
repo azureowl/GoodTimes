@@ -1,6 +1,6 @@
 function getUserLoc () {
     $.getJSON(`http://api.ipstack.com/check?access_key=${config.ipstack.key}`, function (response) {
-        data.seed = response;
+        storedData.seed = response;
         console.log(response);
         $('.user-loc').html(`${response.city}, ${response.country_code}`);
         main();
@@ -57,13 +57,14 @@ function addToEventListOrCalendar () {
     console.log('addToEventListOrCalendar ran!');
 }
 
-function main () {
 
-    app.eventbrite();
+function main () {
+    app.eventsAPIs();
     app.darksky.getUserLocWeather();
-    app.fourSquare();
+    // app.fourSquare();
     addToEventListOrCalendar();
     mainPlanner();
 }
+
 
 $(getUserLoc);

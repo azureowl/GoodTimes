@@ -4,8 +4,6 @@ app.fourSquare = function () {
         venues: 'https://api.foursquare.com/v2/venues/'
     };
 
-    let currentVenuesReturned = [];
-
     const getCredentials = () => {
         return {
             id: config.fourSquare.idTemp2,
@@ -18,7 +16,7 @@ app.fourSquare = function () {
     // Seed with Recommended places data based on user location
     function seedFoursquarePlaces () {
         const query = {
-            near: data.seed.city,
+            near: storedData.seed.city,
             client_id: getCredentials().id,
             client_secret: getCredentials().secret,
             limit: 1,
@@ -29,15 +27,14 @@ app.fourSquare = function () {
 
     // should get list of searched venues
     function searchVenues () {
-        currentVenuesReturned = [];
         const query = {
-            ll: '37.4852,-122.2364',
-            query: 'mexican food',
+            ll: `${storedData.server.location.latitude},${storedData.server.location.longitude}`,
             limit: 1,
             client_id: getCredentials().id,
             client_secret: getCredentials().secret,
             v: '20180323'
         };
+        console.log('hola!', query, '*******');
         makeAJAXCall(query);
     };
 
@@ -80,6 +77,13 @@ app.fourSquare = function () {
         $('.js-foursq-results').append(html);
     }
 
+
+    $('form').on('submit', function (e) {
+        e.preventDefault();
+        $('.js-foursq-results').html('');
+        searchVenues();
+    });
+
     // people who liked this venue
 
     function getVenueLikes (venueID) {
@@ -102,7 +106,6 @@ app.fourSquare = function () {
 
     
     function main () {
-        // searchVenues();
         // getVenueLikes();
         // getSimilarVenues();
         seedFoursquarePlaces();

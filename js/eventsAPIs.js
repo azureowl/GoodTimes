@@ -1,25 +1,36 @@
-app.eventbrite = function () {
+app.eventsAPIs = function () {
 
-    const server = {
+    const eventbriteEndpoint = {
         authorizeEndpoint: 'https://www.eventbrite.com/oauth/authorize?',
         response_type: 'token',
         userEndpoint: 'https://www.eventbriteapi.com/v3/events/search/',
-        profileEndpoint: 'https://www.eventbriteapi.com/v3/users/me/',
         page_number: 1,
-        call: 1
+        call: 0
+    };
+
+    const foursquareEndpoints = {
+        explore: 'https://api.foursquare.com/v2/venues/explore',
+        venues: 'https://api.foursquare.com/v2/venues/'
+    };
+
+    const getCredentials = () => {
+        return {
+            id: config.fourSquare.idTemp2,
+            secret: config.fourSquare.secretTemp2
+        }
     };
 
     // Seed with Eventbrite data based on user location
     function seedEventbriteEvents (page) {
         const settings = {
-            url: 'https://www.eventbriteapi.com/v3/events/search/',
+            url: eventbriteEndpoint.userEndpoint,
             data: {
                 // q: '',
                 q: 'jazz',
-                // ['location.address']: data.seed.city,
+                // ['location.address']: storedData.seed.city,
                 ['location.address']: 'new york',
                 ['location.within']: '25mi',
-                page: server.page_number
+                page: storedData.server.page_number
             },
             beforeSend: function (xhr) {
                 xhr.setRequestHeader("Authorization", `Bearer ${config.eventbrite.oAuth}`);
@@ -28,18 +39,30 @@ app.eventbrite = function () {
         makeAJAXCall(settings, false);
     }
 
+    // Seed with Recommended places data based on user location
+    function seedFoursquarePlaces () {
+        const query = {
+            near: storedData.seed.city,
+            client_id: getCredentials().id,
+            client_secret: getCredentials().secret,
+            limit: 1,
+            v: '20180323'
+        };
+        foursquareMakeAJAXCall(query);
+    }
+
     function requestEventbriteData () {
         const location = $('#location').val();
         const settings = {
-            url: 'https://www.eventbriteapi.com/v3/events/search/',
+            url: eventbriteEndpoint.userEndpoint,
             data: {
                 q: $('#search').val(),
                 // q: 'jazz',
-                ['location.address']: location !== "" ? location : data.seed.city,
+                ['location.address']: location !== "" ? location : storedData.seed.city,
                 // ['location.address']: 'new york',
                 ['start_date.keyword']: $("#date").val(),
                 ['location.within']: '50mi',
-                page: server.page_number
+                page: storedData.server.page_number
             },
             beforeSend: function (xhr) {
                 xhr.setRequestHeader("Authorization", `Bearer ${config.eventbrite.oAuth}`);
@@ -48,24 +71,49 @@ app.eventbrite = function () {
         makeAJAXCall(settings, true);
     }
 
+    function searchVenues () {
+        const query = {
+            ll: `${storedData.server.location.latitude},${storedData.server.location.longitude}`,
+            limit: 1,
+            client_id: getCredentials().id,
+            client_secret: getCredentials().secret,
+            v: '20180323'
+        };
+        console.log('hola!', query, '*******');
+        foursquareMakeAJAXCall(query);
+    };
+
     function makeAJAXCall (settings, bool) {
+        storedData.server.call++;
         $.ajax(settings).done(function (data) {
             console.log(data);
-
-            if (server.call === 1) {
-                server.pageNumberTotal = data.pagination.page_count;
-                server.pageObjectCount = data.pagination.object_count;
+            console.log(storedData.server, storedData.server.call, typeof storedData.server.call);
+            // Values persisting for the current search term are assigned only once
+            if (storedData.server.call === 1) {
+                storedData.server.pageNumberTotal = data.pagination.page_count;
+                storedData.server.pageObjectCount = data.pagination.object_count;
+                storedData.server.location = { latitude: data.location.latitude };
+                storedData.server.location.longitude = data.location.longitude;
+                console.log(data, "8888888");
+                app.darksky.getLocalWeather(storedData.server.location.latitude, storedData.server.location.longitude);
+                searchVenues();
             }
 
             if (bool) {
                 const mainLoc = data.location.augmented_location.city ? data.location.augmented_location.city : data.location.augmented_location.region;
                 const country = getCountryCode(data.location.augmented_location.country);
-                app.darksky.getLocalWeather(data.location.latitude, data.location.longitude);
                 updateLocationHeading(mainLoc, country);
             }
             checkEventArray(data);
         }).fail(function (e) {
             console.log(e.statusText, e.responseText, "Call failed!");
+        });
+    }
+
+    function foursquareMakeAJAXCall (query) {
+        $.getJSON(foursquareEndpoints.explore, query, function (response) {
+            const venues = response.response.groups[0].items;
+            generatePlacesMarkup(venues);
         });
     }
 
@@ -96,6 +144,36 @@ app.eventbrite = function () {
         });
     }
 
+      // Generate Foursquare with places information
+      function generatePlacesMarkup(venues) {
+        console.log(venues);
+        $('.js-foursq-results').html('');
+
+        const results = venues.forEach(function (place, i) {
+            const placeholder = "../images/no-image-available.jpg";
+            const venueName = place.venue.name ? place.venue.name : "No Title";
+            const venueLoc = `${place.venue.location.city}, ${place.venue.location.country}`;
+            const venueAdd = `${place.venue.location.address}, ${place.venue.location.city}`;
+            const html = `<div class="venue-info"><p class="result-title">${venueName}</p><p class="result-add">${venueAdd}</p></div></div></div>`;
+            getVenueDetailsFoursquare(place.venue.id, html);
+        });
+    }
+
+    function getVenueDetailsFoursquare (venueID, html) {
+        const query = {
+            client_id: getCredentials().id,
+            client_secret: getCredentials().secret,
+            limit: 1,
+            v: '20180323'
+        };
+
+        $.getJSON(`${foursquareEndpoints.venues}/${venueID}/photos`, query, function (photoData) {
+            const image = `${photoData.response.photos.items[0].prefix}width600${photoData.response.photos.items[0].suffix}`;
+            const joinedHTML = `<div class="col col-4 results-margin"><div class="results-cell"><button class="results-btn-image"><img src="${image}" alt=""></button>${html}`;
+            appendFoursquarePlaces(joinedHTML);
+        });
+    }
+
     // Gets venue address
     function getVenueDetails (html, id) {
         const settings = {
@@ -111,9 +189,14 @@ app.eventbrite = function () {
     }
 
     function appendEventbriteEvents (html) {
-        $('.results-count').html(`${server.pageObjectCount} results`);
+        $('.results-count').html(`${storedData.server.pageObjectCount} results`);
         $('.js-autho-results').append(html);
     }
+
+    function appendFoursquarePlaces (html) {
+        $('.js-foursq-results').append(html);
+    }
+
 
     function updateLocationHeading (mainLoc, country) {
         const html = `${mainLoc}, ${country}`;
@@ -122,20 +205,21 @@ app.eventbrite = function () {
 
     $('form').on('submit', function (e) {
         e.preventDefault();
-        server.page_number = 1;
+        storedData.server.call = 0;
+        storedData.server.page_number = 1;
         requestEventbriteData();
     });
 
     $('.js-next').on('click', function () {
-        if (server.page_number < server.pageNumberTotal) {
-            server.page_number += 1;
+        if (storedData.server.page_number < storedData.server.pageNumberTotal) {
+            storedData.server.page_number += 1;
             requestEventbriteData();
         }
     });
 
     $('.js-prev').on('click', function () {
-        if (server.page_number > 1) {
-            server.page_number -= 1;
+        if (storedData.server.page_number > 1) {
+            storedData.server.page_number -= 1;
             requestEventbriteData();
         }
     });
@@ -159,7 +243,8 @@ app.eventbrite = function () {
     // };
 
     function main () {
-        // seedEventbriteEvents();
+        seedEventbriteEvents();
+        seedFoursquarePlaces();
     }
 
     $(main);
