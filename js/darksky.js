@@ -1,15 +1,14 @@
 app.darksky = {
     getUserLocWeather: function () {
         var loc_data = {
-            latitude: data.seed.latitude,
-            longitude: data.seed.longitude
+            latitude: storedData.seed.latitude,
+            longitude: storedData.seed.longitude
         };
 
         $.ajax({
             url: `https://api.darksky.net/forecast/${config.darkSky.key}/${loc_data.latitude},${loc_data.longitude}`,
             dataType: "JSONP"
         }).done(function (data) {
-            console.log(data);
             $('.js-temp').text(Math.floor(data.currently.temperature));
             $('.js-summary').text(data.currently.summary);
             $('.js-feels-like').text(Math.floor(data.currently.apparentTemperature));
@@ -18,7 +17,6 @@ app.darksky = {
         });
     },
     getLocalWeather: function (latitude, longitude) {
-        console.log('getLocalWeather ran!');
         $.ajax({
             url: `https://api.darksky.net/forecast/${config.darkSky.key}/${latitude},${longitude}`,
             dataType: "JSONP"

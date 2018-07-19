@@ -1,14 +1,10 @@
 app.fourSquare = function () {
     const endpoints = {
-        search: 'https://api.foursquare.com/v2/venues/search',
+        explore: 'https://api.foursquare.com/v2/venues/explore',
         venues: 'https://api.foursquare.com/v2/venues/'
     };
 
-    let currentVenuesReturned = [];
-    const userSeedData = {};
-
     const getCredentials = () => {
-        console.log('getCredentials ran!');
         return {
             id: config.fourSquare.idTemp2,
             secret: config.fourSquare.secretTemp2
@@ -17,84 +13,76 @@ app.fourSquare = function () {
 
     // should take queries from a form
 
+    // Seed with Recommended places data based on user location
+    function seedFoursquarePlaces () {
+        const query = {
+            near: storedData.seed.city,
+            client_id: getCredentials().id,
+            client_secret: getCredentials().secret,
+            limit: 1,
+            v: '20180323'
+        };
+        makeAJAXCall(query);
+    }
+
+    // should get list of searched venues
+    function searchVenues () {
+        const query = {
+            ll: `${storedData.server.location.latitude},${storedData.server.location.longitude}`,
+            limit: 1,
+            client_id: getCredentials().id,
+            client_secret: getCredentials().secret,
+            v: '20180323'
+        };
+        console.log('hola!', query, '*******');
+        makeAJAXCall(query);
+    };
+
+    function makeAJAXCall (query) {
+        $.getJSON(endpoints.explore, query, function (response) {
+            const venues = response.response.groups[0].items;
+            generatePlacesMarkup(venues);
+        });
+    }
+
     // Generate Foursquare with places information
-    function generatePlacesMarkup(response) {
-        console.log('generatePlacesMarkup ran!');
-        const places = response.response.groups[0].items;
-        console.log(places);
-        const results = places.forEach(function (place, i) {
+    function generatePlacesMarkup(venues) {
+        console.log(venues);
+        const results = venues.forEach(function (place, i) {
             const placeholder = "../images/no-image-available.jpg";
             const venueName = place.venue.name ? place.venue.name : "No Title";
             const venueLoc = `${place.venue.location.city}, ${place.venue.location.country}`;
-            console.log(place, place.venue.id);
-            // get venue details
-            getVenueDetails(place.venue.id, venueName);
+            const venueAdd = `${place.venue.location.address}, ${place.venue.location.city}`;
+            const html = `<div class="venue-info"><p class="result-title">${venueName}</p><p class="result-add">${venueAdd}</p></div></div></div>`;
+            getVenueDetails(place.venue.id, html);
+        });
+    }
+
+    function getVenueDetails (venueID, html) {
+        const query = {
+            client_id: getCredentials().id,
+            client_secret: getCredentials().secret,
+            limit: 1,
+            v: '20180323'
+        };
+
+        $.getJSON(`${endpoints.venues}/${venueID}/photos`, query, function (photoData) {
+            const image = `${photoData.response.photos.items[0].prefix}width600${photoData.response.photos.items[0].suffix}`;
+            const joinedHTML = `<div class="col col-4 results-margin"><div class="results-cell"><button class="results-btn-image"><img src="${image}" alt=""></button>${html}`;
+            appendFoursquarePlaces(joinedHTML);
         });
     }
 
     function appendFoursquarePlaces (html) {
         $('.js-foursq-results').append(html);
-        console.log('appendFoursquarePlaces ran!');
     }
 
-    // Seed with Recommended places data based on user location
-    function seedFoursquarePlaces () {
-        const query = {
-            near: 'Redwood City, Ca',
-            client_id: getCredentials().id,
-            client_secret: getCredentials().secret,
-            limit: 2,
-            v: '20180323'
-        };
 
-        $.getJSON('https://api.foursquare.com/v2/venues/explore', query, function (response) {
-            console.log(response);
-            generatePlacesMarkup(response);
-        });
-    }
-
-    // should get list of searched venues
-    function searchVenues () {
-        currentVenuesReturned = [];
-        const query = {
-            ll: '37.4852,-122.2364',
-            query: 'mexican food',
-            client_id: getCredentials().id,
-            client_secret: getCredentials().secret,
-            v: '20180323'
-        };
-
-        $.getJSON(endpoints.search, query, function (data) {
-            const venues = data.response.venues;
-            // just in case, I stored returned values in an array
-            currentVenuesReturned.push(venues);
-            console.log(venues, data);
-        });
-
-        console.log('searchVenues ran!');
-    };
-
-    // should get details about a venue such as photos, hours, menu if applicable
-    // from clicking on list returned
-    function getVenueDetails (venueID, venueName) {
-        // endpoint https://api.foursquare.com/v2/venues/VENUE_ID
-        // id value to test: 521aea6c11d2ad79adc354ff
-        const query = {
-            client_id: getCredentials().id,
-            client_secret: getCredentials().secret,
-            limit: 2,
-            v: '20180323'
-        };
-
-        console.log(venueID);
-
-        $.getJSON(`${endpoints.venues}/${venueID}/photos`, query, function (photoData) {
-            const photo = `${photoData.response.photos.items[0].prefix}width600${photoData.response.photos.items[0].suffix}`;
-            console.log(photo);
-            const html = `<div class="col col-4 results-margin"><div class="results-cell"><button class="results-btn-image"><img src="${photo}" alt=""></button><p class="result-title">${venueName}</p></div></div>`;
-            appendFoursquarePlaces(html);
-        });
-    }
+    $('form').on('submit', function (e) {
+        e.preventDefault();
+        $('.js-foursq-results').html('');
+        searchVenues();
+    });
 
     // people who liked this venue
 
@@ -118,10 +106,9 @@ app.fourSquare = function () {
 
     
     function main () {
-        // searchVenues();
-        getVenueLikes();
-        getSimilarVenues();
-        // seedFoursquarePlaces();
+        // getVenueLikes();
+        // getSimilarVenues();
+        seedFoursquarePlaces();
         console.log('main is now running!');
     }
 
