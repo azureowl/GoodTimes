@@ -159,7 +159,7 @@ app.eventbrite = function () {
     // };
 
     function main () {
-        seedEventbriteEvents();
+        // seedEventbriteEvents();
     }
 
     $(main);
