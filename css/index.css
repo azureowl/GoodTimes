@@ -41,7 +41,8 @@ ul {
 }
 
 li {
-    margin-bottom: 20px;
+    border-bottom: 1px dotted gray;
+    padding: 10px;
 }
 
 section {
@@ -95,7 +96,7 @@ input {
     padding: 2px;
 }
 
-form button, .pagination button, button.js-hide-noAutho {
+form button, .pagination button, button.js-hide-noAutho, .plan-list button {
     background-color: #F26959;
     border: 1px solid #F26959;
     color: #fff;
@@ -283,12 +284,33 @@ aside .results-margin {
 }
 
 .planner-viewer h2 {
-    margin: 0;
+    margin: 50px;
+    text-align: center;
 }
 
 .planner-viewer {
     background-color: #f7fff7;
+    display: none;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: 0 auto;
     padding: 10px;
+    overflow: scroll;
+    height: auto;
+    width: 100%;
+}
+
+.planner-viewer .planner-view {
+    background-color: transparent;
+    border: 0;
+    font-size: 16px;
+    position: absolute;
+    right: 10px;
+    top: 14px;
+    width: auto;
 }
 
 .todo {
@@ -304,9 +326,13 @@ aside .results-margin {
 }
 
 .plan-list {
-    height: 400px;
-    overflow: scroll;
-    width: 100%;
+    margin: 30px;
+}
+
+.plan-list button {
+    margin: 6px 2px 0 0;
+    height: auto;
+    width: auto;
 }
 
 @media (max-width: 425px) {

@@ -82,7 +82,7 @@ app.eventsAPIs = function () {
             // Values persisting for the current search term are assigned only once
             if (storedData.server.call === 1) {
                 storeData(storedData.server, data);
-                console.log(storedData, storedData.server.call, '*********');
+                console.log(storedData, storedData.server.call, '***wtfffff******');
                 app.darksky.getLocalWeather(storedData.server.location.latitude, storedData.server.location.longitude);
                 // requestFoursquareData();
             }
@@ -198,7 +198,7 @@ app.eventsAPIs = function () {
         $('.user-loc').html(html);
     }
 
-    $('form').on('submit', function (e) {
+    $('form').on('submit', "#js-explore-event", function (e) {
         e.preventDefault();
         storedData.server.call = 0;
         storedData.server.page_number = 1;
@@ -238,7 +238,7 @@ app.eventsAPIs = function () {
     // };
 
     function main () {
-        seedEventbriteEvents();
+        // seedEventbriteEvents();
         // seedFoursquarePlaces();
     }
 
