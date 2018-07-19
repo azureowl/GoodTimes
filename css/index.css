@@ -305,7 +305,7 @@ aside .results-margin {
     text-align: center;
 }
 
-.planner-viewer {
+.planner-viewer, .lightbox {
     background-color: #f7fff7;
     display: none;
     position: fixed;
@@ -318,6 +318,47 @@ aside .results-margin {
     overflow: scroll;
     height: auto;
     width: 100%;
+}
+
+.lightbox {
+    background-color: #fff;
+    /* display: block; */
+    padding: 20px;
+    text-align: center;
+}
+
+.lightbox img {
+    width: 50%;
+}
+
+.lightbox .venue-info {
+    height: auto;
+}
+
+.lightbox > div:nth-child(1) {
+    float: none;
+    margin: 0 auto;
+}
+
+.closeLightbox {
+    color: rgb(0, 0, 238);
+    border: 0;
+    background-color: transparent;
+    padding: 0;
+    margin-right: 12px;
+}
+
+.lightbox .venue-info, .closeLightbox {
+    font-size: 16px;
+}
+
+.lightbox a {
+    text-decoration: none;
+}
+
+.lightbox .result-title {
+    font-size: 24px;
+    color: #F26959;
 }
 
 .planner-viewer .planner-view {
