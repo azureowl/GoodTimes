@@ -1,10 +1,8 @@
-#### APIs:
-* Eventbrite
-* Foursquare
-* Darksky
-* IPstack
+## Goodtimes Dashboard for one-stop planning
 
-#### Parts of the user flow:
+[will add]
+
+## Parts of the user flow:
 
 * Search form
 * Eventbrite section
@@ -15,7 +13,7 @@
 * Clicking on event and place opts to visit Foursquare/Eventbrite page
 * Open full/half screen bucket list
 
-#### User Stories:
+## User Stories:
 * As a user, I want to be able to find a place or event to visit so that I can make reservations or attend.
 * As a user, I should be able to narrow my search so I can decide on a specific experience, date range, and location
 * As a user, I should be able to see what is available in my local area so that I can plan transportation better.
@@ -29,8 +27,41 @@
 ![alt text](images/userflow.jpg)
 ![alt text](images/wireframe.jpg)
 
-#### Nice to have
+![alt text](images/screenshot/ss00001.png)
+![alt text](images/screenshot/ss00005.png)
+![alt text](images/screenshot/ss00006.png)
+![alt text](images/screenshot/ss00008.png)
+![alt text](images/screenshot/ss00010.png)
+![alt text](images/screenshot/ss00011.png)
+![alt text](images/screenshot/ss00012.png)
+![alt text](images/screenshot/ss00013.png)
+![alt text](images/screenshot/ss00014.png)
+![alt text](images/screenshot/ss00015.png)
+![alt text](images/screenshot/ss00016.png)
+![alt text](images/screenshot/ss00017.png)
+![alt text](images/screenshot/ss00018.png)
+![alt text](images/screenshot/ss00019.png)
 
-* Carousel hero
-* Use lyft api so that users can schedule a ride
-* Add a calender/planner in place of the bucket list
+## Stack
+
+#### Frontend
+
+* HTML
+* CSS
+* JavaScript
+
+##### APIs:
+* Eventbrite
+* Foursquare
+* Darksky
+* IPstack
+
+#### Responsiveness
+
+
+## Roadmap
+
+#### Version 1.1
+* Add Lyft API so so that users can schedule a ride
+* Add login feature so that users can save their data
+* More security to protect keys, using Node, databse, and frontend framework
