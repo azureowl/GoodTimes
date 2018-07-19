@@ -5,10 +5,9 @@ app.eventbrite = function () {
         response_type: 'token',
         userEndpoint: 'https://www.eventbriteapi.com/v3/events/search/',
         profileEndpoint: 'https://www.eventbriteapi.com/v3/users/me/',
-        page_number: 1
+        page_number: 1,
+        call: 1
     };
-
-    const oAuth = {};
 
     // Generate Eventbrite with event information
     function generateEventsMarkup(data) {
@@ -18,63 +17,79 @@ app.eventbrite = function () {
             events = data.events;
         } else if (data.top_match_events && data.top_match_events.length !== 0) {
             events = data.top_match_events;
+            $('.top-match').html("There are no exact matches. What about these events?");
         } else {
             $('.js-autho-results').html('No results found');
             return;
         }
 
         $('.js-autho-results').html('');
+
         const results = events.forEach(function (event, i) {
-            const eventDetails = {
-                image: event.logo === null ? "../images/no-image-available.jpg" : event.logo.original.url,
-                title: event.name.text ? event.name.text : "No Title",
-                id: event.venue_id
-            };
-            getVenueDetails(eventDetails);
+            const image = event.logo === null ? "../images/no-image-available.jpg" : event.logo.original.url;
+            const title = event.name.text ? event.name.text : "No Title";
+            const id = event.venue_id;
+            const html = `<div class="col col-4 results-margin"><div class="results-cell"><button class="results-btn-image"><img src="${image}" alt=""></button><div class="venue-info"><p class="result-title">${title}</p>`;
+            getVenueDetails(html, id);
         });
     }
 
-    function appendEventbriteEvents (html) {
-        $('.js-autho-results').append(html);
-        console.log('appendEventbriteEvents ran!');
-    }
-
     // should get venue address
-    function getVenueDetails (venueObj) {
-
+    function getVenueDetails (html, id) {
         const settings = {
-            url: `https://www.eventbriteapi.com/v3/venues/${venueObj.id}/`,
+            url: `https://www.eventbriteapi.com/v3/venues/${id}/`,
             beforeSend: function (xhr) {
                 xhr.setRequestHeader("Authorization", `Bearer ${config.eventbrite.oAuth}`);
             }
         };
-        $.ajax(settings).done(function (venueData) {
-            const html = `<div class="col col-4 results-margin"><div class="results-cell"><button class="results-btn-image"><img src="${venueObj.image}" alt=""></button><div class="venue-info"><p class="result-title">${venueObj.title}</p><p class="result-add">${venueData.address.localized_address_display}</p></div></div></div>`;
-            appendEventbriteEvents(html);
+        $.ajax(settings).done(function (data) {
+            const joinHTML = `${html}<p class="result-add">${data.address.localized_address_display}</p></div></div></div>`;
+            appendEventbriteEvents(joinHTML);
         });
     }
 
+    function appendEventbriteEvents (html) {
+        $('.results-count').html(`${server.pageObjectCount} results`);
+        $('.js-autho-results').append(html);
+        console.log('appendEventbriteEvents ran!');
+    }
+
     // Seed with Eventbrite data based on user location
-    // page param is just to test executePagination
-    // need to always have current search term; it should still be on the form
-    // using seedEventbriteEvents to test executePagination()
     function seedEventbriteEvents (page) {
-        console.log('seedEventbriteEvents ran!');
         const settings = {
             url: 'https://www.eventbriteapi.com/v3/events/search/',
             data: {
-                q: '',
-                ['location.address']: data.seed.city,
+                // q: '',
+                q: 'jazz',
+                // ['location.address']: data.seed.city,
+                ['location.address']: 'new york',
+                ['location.within']: '25mi',
                 page: server.page_number
             },
             beforeSend: function (xhr) {
                 xhr.setRequestHeader("Authorization", `Bearer ${config.eventbrite.oAuth}`);
             }
         };
+        makeAJAXCall(settings, false);
+    }
+
+
+    function makeAJAXCall (settings, bool) {
         $.ajax(settings).done(function (data) {
             console.log(data);
+
+            if (server.call === 1) {
+                server.pageNumberTotal = data.pagination.page_count;
+                server.pageObjectCount = data.pagination.object_count;
+            }
+
+            if (bool) {
+                const mainLoc = data.location.augmented_location.city ? data.location.augmented_location.city : data.location.augmented_location.region;
+                const country = getCountryCode(data.location.augmented_location.country);
+                app.darksky.getLocalWeather(data.location.latitude, data.location.longitude);
+                updateLocationHeading(mainLoc, country);
+            }
             generateEventsMarkup(data);
-            executePagination(data.pagination);
         }).fail(function (e) {
             console.log(e.statusText, e.responseText, "Call failed!");
         });
@@ -89,24 +104,19 @@ app.eventbrite = function () {
         });
     }
 
-    function executePagination (paginationData) {
-        const pageNumberTotal = paginationData.page_count;
-            $('.js-next').on('click', function () {
-                if (server.page_number <= pageNumberTotal) {
-                    server.page_number += 1;
-                    console.log(server.page_number);
-                    requestEventbriteData();
-                }
-            });
+    $('.js-next').on('click', function () {
+        if (server.page_number < server.pageNumberTotal) {
+            server.page_number += 1;
+            requestEventbriteData();
+        }
+    });
 
-            $('.js-prev').on('click', function () {
-                if (server.page_number > 1) {
-                    server.page_number -= 1;
-                    console.log(server.page_number);
-                    requestEventbriteData();
-                }
-            });
-    }
+    $('.js-prev').on('click', function () {
+        if (server.page_number > 1) {
+            server.page_number -= 1;
+            requestEventbriteData();
+        }
+    });
 
     // On page load, check if there is OAuth authentication token
     // If not, login to be redirected to authorization server to obtain OAuth token
@@ -133,25 +143,18 @@ app.eventbrite = function () {
             url: 'https://www.eventbriteapi.com/v3/events/search/',
             data: {
                 q: $('#search').val(),
+                // q: 'jazz',
                 ['location.address']: location !== "" ? location : data.seed.city,
+                // ['location.address']: 'new york',
                 ['start_date.keyword']: $("#date").val(),
+                ['location.within']: '50mi',
                 page: server.page_number
             },
             beforeSend: function (xhr) {
                 xhr.setRequestHeader("Authorization", `Bearer ${config.eventbrite.oAuth}`);
             }
         };
-        $.ajax(settings).done(function (data) {
-            const mainLoc = data.location.augmented_location.city ? data.location.augmented_location.city : data.location.augmented_location.region;
-            const country = getCountryCode(data.location.augmented_location.country);
-            console.log(data);
-            executePagination(data.pagination);
-            generateEventsMarkup(data);
-            app.darksky.getLocalWeather(data.location.latitude, data.location.longitude);
-            updateLocationHeading(mainLoc, country);
-        }).fail(function (e) {
-            console.log(e.statusText, e.responseText, "Call failed!");
-        });
+        makeAJAXCall(settings, true);
     }
 
     function updateLocationHeading (mainLoc, country) {
