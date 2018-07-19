@@ -100,7 +100,6 @@ app.eventbrite = function () {
         requestEventbriteData();
     });
 
-
     $('.js-next').on('click', function () {
         if (server.page_number < server.pageNumberTotal) {
             server.page_number += 1;
