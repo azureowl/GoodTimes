@@ -19,7 +19,7 @@ app.eventsAPIs = function () {
             url: eventbriteEndpoint.userEndpoint,
             data: {
                 // q: '',
-                q: 'dance',
+                q: '',
                 ['location.address']: storedData.seed.city,
                 // ['location.address']: 'new york',
                 ['location.within']: '25mi',
@@ -255,8 +255,8 @@ app.eventsAPIs = function () {
     // };
 
     function main () {
-        // seedEventbriteEvents();
-        // seedFoursquarePlaces();
+        seedEventbriteEvents();
+        seedFoursquarePlaces();
     }
 
     $(main);
