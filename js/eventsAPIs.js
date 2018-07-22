@@ -4,8 +4,7 @@ app.eventsAPIs = function () {
         authorizeEndpoint: 'https://www.eventbrite.com/oauth/authorize?',
         response_type: 'token',
         userEndpoint: 'https://www.eventbriteapi.com/v3/events/search/',
-        page_number: 1,
-        call: 0
+        page_number: 1
     };
 
     const foursquareEndpoints = {
@@ -74,20 +73,18 @@ app.eventsAPIs = function () {
     };
 
     function eventbriteMakeAJAXCall (settings, bool) {
-        storedData.server.call++;
+
         $.ajax(settings).done(function (data) {
-            // Values persisting for the current search term are assigned only once
-            if (storedData.server.call === 1) {
-                storeData(storedData.server, data);
-                console.log(storedData, storedData.server.call, '*********');
-                console.log(data);
-                app.darksky.getLocalWeatherSearch(storedData.server.location.latitude, storedData.server.location.longitude);
-                updateLocationHeading(storedData.server.location.currentLocation, storedData.server.location.country);
-            }
+
+            storeData(storedData.server, data);
+            app.darksky.getLocalWeatherSearch(storedData.server.location.latitude, storedData.server.location.longitude);
+            updateLocationHeading(storedData.server.location.currentLocation, storedData.server.location.country);
+            console.log(storedData, data);
 
             if (bool) {
                 requestFoursquareData();
             }
+
             checkIfEventArrayExist(data);
         }).fail(function (e) {
             console.log(e.statusText, e.responseText, "Call failed!");
@@ -161,8 +158,7 @@ app.eventsAPIs = function () {
         };
 
         $.getJSON(`${foursquareEndpoints.venues}/${venueID}`, query, function (place) {
-            console.log(place, '****heyyyyy****');
-            console.log(venueID);
+            console.log(venueID, place);
             const url = place.response.venue.canonicalUrl;
             html = `<div class="venue-info" data-url="${url}">${html}`;
             getVenuePhotosFoursquare(venueID, html);
@@ -216,7 +212,6 @@ app.eventsAPIs = function () {
 
     $('.main-form').on('submit', function (e) {
         e.preventDefault();
-        storedData.server.call = 0;
         storedData.server.page_number = 1;
         requestEventbriteData();
     });

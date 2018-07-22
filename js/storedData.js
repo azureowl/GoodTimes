@@ -6,7 +6,6 @@ const storedData = {
         longitude: -122.431297
     },
     server: {
-        call: 0,
         page_number: 1
     }
 };
