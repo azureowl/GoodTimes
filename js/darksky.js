@@ -16,7 +16,7 @@ app.darksky = {
             app.darksky.depictWeather(data.currently.icon);
         });
     },
-    getLocalWeather: function (latitude, longitude) {
+    getLocalWeatherSearch: function (latitude, longitude) {
         $.ajax({
             url: `https://api.darksky.net/forecast/${config.darkSky.key}/${latitude},${longitude}`,
             dataType: "JSONP"

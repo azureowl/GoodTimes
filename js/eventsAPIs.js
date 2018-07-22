@@ -39,6 +39,7 @@ app.eventsAPIs = function () {
             near: storedData.seed.city,
             client_id: config.fourSquare.id,
             client_secret: config.fourSquare.secret,
+            section: 'food',
             limit: 1,
             v: '20180323'
         };
@@ -84,7 +85,7 @@ app.eventsAPIs = function () {
                 storeData(storedData.server, data);
                 // console.log(storedData, storedData.server.call, '*********');
                 // console.log(data);
-                app.darksky.getLocalWeather(storedData.server.location.latitude, storedData.server.location.longitude);
+                app.darksky.getLocalWeatherSearch(storedData.server.location.latitude, storedData.server.location.longitude);
             }
 
             if (bool) {
