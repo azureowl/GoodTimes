@@ -18,10 +18,8 @@ app.eventsAPIs = function () {
         const settings = {
             url: eventbriteEndpoint.userEndpoint,
             data: {
-                // q: '',
                 q: 'jazz',
-                // ['location.address']: storedData.seed.city,
-                ['location.address']: 'San Francisco, CA',
+                ['location.address']: storedData.seed.city,
                 ['location.within']: '25mi',
                 page: storedData.server.page_number
             },
@@ -36,8 +34,7 @@ app.eventsAPIs = function () {
     // Seed with Recommended places data based on user location on page load
     function seedFoursquarePlaces () {
         const query = {
-            // near: storedData.seed.city,
-            near: 'San Francisco',
+            near: storedData.seed.city,
             client_id: config.fourSquare.id,
             client_secret: config.fourSquare.secret,
             section: 'food',
@@ -53,7 +50,7 @@ app.eventsAPIs = function () {
             url: eventbriteEndpoint.userEndpoint,
             data: {
                 q: $('#search').val(),
-                ['location.address']: location,
+                ['location.address']: location !== "" ? location : storedData.seed.city,
                 ['start_date.keyword']: $("#date").val(),
                 ['location.within']: '50mi',
                 page: storedData.server.page_number
@@ -85,11 +82,11 @@ app.eventsAPIs = function () {
                 console.log(storedData, storedData.server.call, '*********');
                 console.log(data);
                 app.darksky.getLocalWeatherSearch(storedData.server.location.latitude, storedData.server.location.longitude);
+                updateLocationHeading(storedData.server.location.currentLocation, storedData.server.location.country);
             }
 
             if (bool) {
                 requestFoursquareData();
-                updateLocationHeading(storedData.server.location.currentLocation, storedData.server.location.country);
             }
             checkIfEventArrayExist(data);
         }).fail(function (e) {
