@@ -19,9 +19,9 @@ app.eventsAPIs = function () {
             url: eventbriteEndpoint.userEndpoint,
             data: {
                 // q: '',
-                q: '',
-                ['location.address']: storedData.seed.city,
-                // ['location.address']: 'new york',
+                q: 'jazz',
+                // ['location.address']: storedData.seed.city,
+                ['location.address']: 'San Francisco, CA',
                 ['location.within']: '25mi',
                 page: storedData.server.page_number
             },
@@ -36,11 +36,12 @@ app.eventsAPIs = function () {
     // Seed with Recommended places data based on user location on page load
     function seedFoursquarePlaces () {
         const query = {
-            near: storedData.seed.city,
+            // near: storedData.seed.city,
+            near: 'San Francisco',
             client_id: config.fourSquare.id,
             client_secret: config.fourSquare.secret,
             section: 'food',
-            limit: 1,
+            limit: 10,
             v: '20180323'
         };
         foursquareMakeAJAXCall(query);
@@ -52,9 +53,7 @@ app.eventsAPIs = function () {
             url: eventbriteEndpoint.userEndpoint,
             data: {
                 q: $('#search').val(),
-                // q: 'jazz',
-                ['location.address']: location !== "" ? location : storedData.seed.city,
-                // ['location.address']: 'new york',
+                ['location.address']: location,
                 ['start_date.keyword']: $("#date").val(),
                 ['location.within']: '50mi',
                 page: storedData.server.page_number

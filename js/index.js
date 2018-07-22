@@ -89,9 +89,9 @@ function mainPlanner () {
 
 function main () {
     app.eventsAPIs();
-    app.darksky.getUserLocWeather();
+    // app.darksky.getUserLocWeather();
     mainPlanner();
 }
 
-
-$(getUserLoc);
+$(main);
+// $(getUserLoc);
