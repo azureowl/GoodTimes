@@ -1,4 +1,4 @@
 playground/
-config/
-.gitsecret/keys/random_seed
+config
 personalnotes.md
+.gitsecret/keys/random_seed

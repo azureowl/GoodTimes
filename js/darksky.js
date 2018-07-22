@@ -21,7 +21,6 @@ app.darksky = {
             url: `https://api.darksky.net/forecast/${config.darkSky.key}/${latitude},${longitude}`,
             dataType: "JSONP"
         }).done(function (data) {
-            console.log(data);
             $('.js-temp').text(Math.floor(data.currently.temperature));
             $('.js-summary').text(data.currently.summary);
             $('.js-feels-like').text(Math.floor(data.currently.apparentTemperature));

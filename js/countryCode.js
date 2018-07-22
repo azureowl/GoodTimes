@@ -247,7 +247,6 @@ var isoCountries = {
 };
 
 function getCountryCode (country) {
-    console.log('inside getCountryCode!');
     return Object.keys(isoCountries).find(key => {
         if (isoCountries[key] === country) {
             return key;

@@ -29,7 +29,7 @@ app.eventsAPIs = function () {
                 xhr.setRequestHeader("Authorization", `Bearer ${config.eventbrite.oAuth}`);
             }
         };
-        console.log(settings);
+        // console.log(settings);
         eventbriteMakeAJAXCall(settings, false);
     }
 
@@ -39,7 +39,7 @@ app.eventsAPIs = function () {
             near: storedData.seed.city,
             client_id: config.fourSquare.id,
             client_secret: config.fourSquare.secret,
-            limit: 10,
+            limit: 1,
             v: '20180323'
         };
         foursquareMakeAJAXCall(query);
@@ -68,7 +68,7 @@ app.eventsAPIs = function () {
     function requestFoursquareData () {
         const query = {
             ll: `${storedData.server.location.latitude},${storedData.server.location.longitude}`,
-            limit: 10,
+            limit: 1,
             client_id: config.fourSquare.id,
             client_secret: config.fourSquare.secret,
             v: '20180323'
@@ -82,24 +82,24 @@ app.eventsAPIs = function () {
             // Values persisting for the current search term are assigned only once
             if (storedData.server.call === 1) {
                 storeData(storedData.server, data);
-                console.log(storedData, storedData.server.call, '*********');
-                console.log(data);
+                // console.log(storedData, storedData.server.call, '*********');
+                // console.log(data);
                 app.darksky.getLocalWeather(storedData.server.location.latitude, storedData.server.location.longitude);
-                requestFoursquareData();
             }
 
             if (bool) {
+                requestFoursquareData();
                 updateLocationHeading(storedData.server.location.currentLocation, storedData.server.location.country);
             }
             checkIfEventArrayExist(data);
         }).fail(function (e) {
-            console.log(e.statusText, e.responseText, "Call failed!");
+            // console.log(e.statusText, e.responseText, "Call failed!");
         });
     }
 
     function foursquareMakeAJAXCall (query) {
         $.getJSON(foursquareEndpoints.explore, query, function (response) {
-            console.log(response);
+            // console.log(response);
             const venues = response.response.groups[0].items;
             generatePlacesMarkup(venues);
         });
@@ -129,7 +129,7 @@ app.eventsAPIs = function () {
 
     // Generate Eventbrite with event information
     function generateEventsMarkup(events) {
-        console.log(events);
+        // console.log(events);
         $('.js-autho-results').html('');
 
         const results = events.forEach(function (event, i) {
@@ -143,7 +143,7 @@ app.eventsAPIs = function () {
 
       // Generate Foursquare with places information
       function generatePlacesMarkup(venues) {
-        console.log(venues);
+        // console.log(venues);
         $('.js-foursq-results').html('');
 
         const results = venues.forEach(function (place, i) {
@@ -164,7 +164,8 @@ app.eventsAPIs = function () {
         };
 
         $.getJSON(`${foursquareEndpoints.venues}/${venueID}`, query, function (place) {
-            console.log(place, '****heyyyyy****');
+            // console.log(place, '****heyyyyy****');
+            // console.log(venueID);
             const url = place.response.venue.canonicalUrl;
             html = `<div class="venue-info" data-url="${url}">${html}`;
             getVenuePhotosFoursquare(venueID, html);
@@ -180,6 +181,7 @@ app.eventsAPIs = function () {
         };
 
         $.getJSON(`${foursquareEndpoints.venues}/${venueID}/photos`, query, function (photoData) {
+            // console.log(venueID, "%%%%", "inside photo func", photoData);
             const image = `${photoData.response.photos.items[0].prefix}width600${photoData.response.photos.items[0].suffix}`;
             const joinedHTML = `<div class="col col-4 results-margin"><div class="results-cell"><button class="results-btn-image"><img src="${image}" alt=""></button>${html}`;
             appendFoursquarePlaces(joinedHTML);
