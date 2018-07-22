@@ -38,7 +38,7 @@ app.eventsAPIs = function () {
             client_id: config.fourSquare.id,
             client_secret: config.fourSquare.secret,
             section: 'food',
-            limit: 10,
+            limit: 1,
             v: '20180323'
         };
         foursquareMakeAJAXCall(query);
@@ -65,7 +65,7 @@ app.eventsAPIs = function () {
     function requestFoursquareData () {
         const query = {
             ll: `${storedData.server.location.latitude},${storedData.server.location.longitude}`,
-            limit: 10,
+            limit: 1,
             client_id: config.fourSquare.id,
             client_secret: config.fourSquare.secret,
             v: '20180323'
@@ -173,7 +173,7 @@ app.eventsAPIs = function () {
         const query = {
             client_id: config.fourSquare.id,
             client_secret: config.fourSquare.secret,
-            limit: 10,
+            limit: 1,
             v: '20180323'
         };
 
