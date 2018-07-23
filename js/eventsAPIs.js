@@ -68,6 +68,7 @@ app.eventsAPIs = function () {
             ll: `${storedData.server.location.latitude},${storedData.server.location.longitude}`,
             limit: 1,
             client_id: config.fourSquare.id,
+            section: 'food',
             client_secret: config.fourSquare.secret,
             v: '20180323'
         };
@@ -118,6 +119,7 @@ app.eventsAPIs = function () {
             events = data.top_match_events;
             $('.top-match').html("There are no exact matches. What about these events?");
         } else {
+            $('.results-count').html('0 results');
             $('.js-autho-results').html('Eventbrite found no results.');
             return;
         }
@@ -214,6 +216,7 @@ app.eventsAPIs = function () {
     $('.main-form').on('submit', function (e) {
         e.preventDefault();
         storedData.server.page_number = 1;
+        $('.top-match').html('');
         requestEventbriteData();
     });
 
