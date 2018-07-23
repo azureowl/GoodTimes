@@ -62,6 +62,19 @@
 ## Roadmap
 
 #### Version 1.1
+* Include update/edit button to edit list
+* Use a database instead of localStorage to store the list
+* Link the events/places of interest to the list
+
+
+#### Version 1.2
+* Add focus trap in the modals for the events/places/planner lightboxes to keep track of keyboard focus
+* Put focus on the lightbox when it opens and focus again on previous item when lightbox is closed
 * Add Lyft API so so that users can schedule a ride
 * Add login feature so that users can save their data
 * More security to protect keys, using Node, databse, and frontend framework
+
+
+User Feedback
+
+[User feedback](https://gist.github.com/azureowl/0e64cb70994a0b3ed2c33badea167d8d)
