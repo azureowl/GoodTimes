@@ -1,8 +1,8 @@
 const config = (function () {
     const config = {
         fourSquare: {
-            id: 'UYCF2CTA02UX5MA0LUJZDLSNLV5KHGBTHHKO4DUXEYT2ANRW',
-            secret: 'DXFFML1AFHF0S02Z1U0YB4ODMEL10HPKA2GNVBDZ40SYAENC'
+            id: 'AWNUW11JT4FUFF55VMIXFP0TQTYDFBJJQQZFXCB4CVBSJKEU',
+            secret: 'UPXNSBAMORQLCW5LWACBIYCZVNQSBDJACHO0EB0MSI10SCGB'
         },
         darkSky: {
             key: 'e80762127b294b5459144809e27d5568'
@@ -17,5 +17,5 @@ const config = (function () {
         }
     };
 
-    return config;    
+    return config;
 })();
