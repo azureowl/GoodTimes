@@ -1,3 +1,5 @@
+'use strict';
+
 function getUserLoc () {
     $.getJSON(`http://api.ipstack.com/check?access_key=${config.ipstack.key}`, function (response) {
         storedData.seed = response;

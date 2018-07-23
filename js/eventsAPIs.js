@@ -1,3 +1,5 @@
+'use strict';
+
 app.eventsAPIs = function () {
 
     const eventbriteEndpoint = {
@@ -109,6 +111,7 @@ app.eventsAPIs = function () {
     }
 
     function checkIfEventArrayExist (data) {
+        let events;
         if (data.events && data.events.length !== 0) {
             events = data.events;
         } else if (data.top_match_events && data.top_match_events.length !== 0) {
