@@ -133,7 +133,7 @@ app.eventsAPIs = function () {
             const image = event.logo === null ? "../images/no-image-available.jpg" : event.logo.original.url;
             const title = event.name.text ? event.name.text : "No Title";
             const id = event.venue_id;
-            const html = `<div class="col col-4 results-margin"><div class="results-cell"><button class="results-btn-image"><img src="${image}" alt="Photos of event ${title}"></button><div class="venue-info" data-url="${event.url}"><p class="result-title">${title}</p>`;
+            const html = `<div class="col col-4 results-margin"><div class="results-cell"><a class="results-link-image"><img src="${image}" alt="Photos of event ${title}"></a><div class="venue-info" data-url="${event.url}"><p class="result-title">${title}</p>`;
             getVenueDetailsEventbrite(html, id);
         });
     }
@@ -179,7 +179,7 @@ app.eventsAPIs = function () {
         $.getJSON(`${foursquareEndpoints.venues}/${venueID}/photos`, query, function (photoData) {
             console.log(venueID, "%%%%", "inside photo func", photoData);
             const image = `${photoData.response.photos.items[0].prefix}width600${photoData.response.photos.items[0].suffix}`;
-            const joinedHTML = `<div class="col col-4 results-margin"><div class="results-cell"><button class="results-btn-image"><img src="${image}" alt="Photo of ${venueName}"></button>${html}`;
+            const joinedHTML = `<div class="col col-4 results-margin"><div class="results-cell"><a class="results-link-image"><img src="${image}" alt="Photo of ${venueName}"></a>${html}`;
             appendFoursquarePlaces(joinedHTML);
         });
     }
