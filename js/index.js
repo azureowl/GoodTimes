@@ -22,7 +22,7 @@ function createPlan () {
 function getRandomId () {
     var alph = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     var number = '012345678910';
-    var ln = 5;
+    var ln = 3;
     var id = '';
 
     for (let i = 0; i <= ln; i++) {
@@ -38,13 +38,16 @@ function hasLocalStorage () {
     if (window.localStorage.length > 0) {
         const localStorageObj = window.localStorage;
         const html = Object.keys(localStorageObj).map(key => {
-            return localStorageObj[key];
+            if (key.split('-')[0] === 'goodtimes') {
+                return localStorageObj[key];
+            }
         });
         $('.plan-list').append(html.join(''));
     }
 }
 
 function saveListItemToStorage (id, html) {
+    id = `goodtimes-${id}`;
     localStorage.setItem(id, html);
 }
 
