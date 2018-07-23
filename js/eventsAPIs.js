@@ -3,8 +3,6 @@
 app.eventsAPIs = function () {
 
     const eventbriteEndpoint = {
-        authorizeEndpoint: 'https://www.eventbrite.com/oauth/authorize?',
-        response_type: 'token',
         userEndpoint: 'https://www.eventbriteapi.com/v3/events/search/',
         page_number: 1
     };
@@ -29,7 +27,7 @@ app.eventsAPIs = function () {
                 xhr.setRequestHeader("Authorization", `Bearer ${config.eventbrite.oAuth}`);
             }
         };
-        console.log(settings);
+
         eventbriteMakeAJAXCall(settings, false);
     }
 
@@ -40,9 +38,10 @@ app.eventsAPIs = function () {
             client_id: config.fourSquare.id,
             client_secret: config.fourSquare.secret,
             section: 'food',
-            limit: 1,
+            limit: 10,
             v: '20180323'
         };
+
         foursquareMakeAJAXCall(query);
     }
 
@@ -67,6 +66,7 @@ app.eventsAPIs = function () {
         if (bool) {
             eventbriteMakeAJAXCall(settings, true);
         } else {
+            // Prevent calling Foursquare API if just paginating through results
             eventbriteMakeAJAXCall(settings, false);
         }
     }
@@ -74,31 +74,30 @@ app.eventsAPIs = function () {
     function requestFoursquareData () {
         const query = {
             ll: `${storedData.server.location.latitude},${storedData.server.location.longitude}`,
-            limit: 1,
+            limit: 10,
             client_id: config.fourSquare.id,
             section: 'food',
             client_secret: config.fourSquare.secret,
             v: '20180323'
         };
+
         foursquareMakeAJAXCall(query);
     };
 
     function eventbriteMakeAJAXCall (settings, bool) {
 
         $.ajax(settings).done(function (data) {
-
             storeData(storedData.server, data);
-            app.darksky.getLocalWeatherSearch(storedData.server.location.latitude, storedData.server.location.longitude);
-            updateLocationHeading(storedData.server.location.currentLocation, storedData.server.location.country);
+            getStoredLocData();
             togglePaginationButtons();
             pageCountDisplay();
-            console.log(storedData, data, settings);
 
             if (bool) {
                 requestFoursquareData();
             }
 
             checkIfEventArrayExist(data);
+
         }).fail(function (e) {
             console.log(e.statusText, e.responseText, "Call failed!");
         });
@@ -106,9 +105,10 @@ app.eventsAPIs = function () {
 
     function foursquareMakeAJAXCall (query) {
         $.getJSON(foursquareEndpoints.explore, query, function (response) {
-            console.log(response);
             const venues = response.response.groups[0].items;
             generatePlacesMarkup(venues);
+        }).fail(function (error) {
+            console.log(error);
         });
     }
 
@@ -119,6 +119,11 @@ app.eventsAPIs = function () {
         obj.location.longitude = data.location.longitude;
         obj.location.currentLocation = data.location.augmented_location.city ? data.location.augmented_location.city : data.location.augmented_location.region;
         obj.location.country = getCountryCode(data.location.augmented_location.country);
+    }
+
+    function getStoredLocData () {
+        app.darksky.getLocalWeatherSearch(storedData.server.location.latitude, storedData.server.location.longitude);
+        updateLocationHeading(storedData.server.location.currentLocation, storedData.server.location.country);
     }
 
     function checkIfEventArrayExist (data) {
@@ -138,7 +143,6 @@ app.eventsAPIs = function () {
 
     // Generate Eventbrite with event information
     function generateEventsMarkup(events) {
-        console.log(events);
         $('.js-autho-results').html('');
 
         const results = events.forEach(function (event, i) {
@@ -146,13 +150,14 @@ app.eventsAPIs = function () {
             const title = event.name.text ? event.name.text : "No Title";
             const id = event.venue_id;
             const html = `<div class="col col-4 results-margin"><div class="results-cell"><a href="${event.url}" target="_blank" class="results-link-image"><img src="${image}" alt="Photos of event ${title}"></a><div class="venue-info"><p class="result-title">${title}</p>`;
-            getVenueDetailsEventbrite(html, id);
+            if (id !== undefined) {
+                getVenueDetailsEventbrite(html, id);
+            }
         });
     }
 
       // Generate Foursquare with places information
       function generatePlacesMarkup(venues) {
-        console.log(venues);
         $('.js-foursq-results').html('');
 
         const results = venues.forEach(function (place, i) {
@@ -172,9 +177,10 @@ app.eventsAPIs = function () {
         };
 
         $.getJSON(`${foursquareEndpoints.venues}/${venueID}`, query, function (place) {
-            console.log(venueID, place);
             const url = place.response.venue.canonicalUrl;
             getVenuePhotosFoursquare(venueID, html, url, venueName);
+        }).fail(function (error) {
+            console.log(error);
         });
     }
 
@@ -182,16 +188,17 @@ app.eventsAPIs = function () {
         const query = {
             client_id: config.fourSquare.id,
             client_secret: config.fourSquare.secret,
-            limit: 1,
+            limit: 10,
             v: '20180323'
         };
 
         $.getJSON(`${foursquareEndpoints.venues}/${venueID}/photos`, query, function (photoData) {
-            console.log(venueID, "%%%%", "inside photo func", photoData);
             const image = `${photoData.response.photos.items[0].prefix}width600${photoData.response.photos.items[0].suffix}`;
             const joinedHTML = `<div class="col col-4 results-margin"><div class="results-cell"><a href="${url}" target="_blank" class="results-link-image"><img src="${image}" alt="Photo of ${venueName}"></a>${html}`;
             appendFoursquarePlaces(joinedHTML);
-        });
+        }).fail(function (error) {
+            console.log(error);
+        });;
     }
 
     // Gets venue address
@@ -205,6 +212,8 @@ app.eventsAPIs = function () {
         $.ajax(settings).done(function (data) {
             const joinedHTML = `${html}<p class="result-add">${data.address.localized_address_display}</p></div></div></div>`;
             appendEventbriteEvents(joinedHTML);
+        }).fail(function (error) {
+            console.log(error.responseJSON.error_description);
         });
     }
 
