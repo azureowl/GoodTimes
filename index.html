@@ -127,17 +127,16 @@
                                     <fieldset>
                                         <legend>What's Happening</legend>
                                         <label for="todo" class="todo">Event/Place
-                                            <textarea name="todo" id="todo" placeholder="Meeting friends for coffee" maxlength="80"></textarea>
+                                            <textarea name="todo" id="todo" placeholder="Meeting friends for coffee" maxlength="80" required></textarea>
                                         </label>
                                         <label for="planner-date" class="planner-date">Date
-                                            <input type="date" id="planner-date">
+                                            <input type="date" id="planner-date" min="1900-01-01" max="2100-04-30" required>
                                         </label>
                                         <label for="time" class="time">Time
-                                            <input type="time" id="time">
+                                            <input type="time" id="time" required>
                                         </label>
                                     </fieldset>
                                     <button class="planner-submit" type="submit">+</button>
-                                    <button class="planner-view" type="button">View</button>
                                 </form>
                             </div>
                         </div>
@@ -148,15 +147,10 @@
             <section role="region">
                 <div class="col col-8 planner-viewer">
                     <h2>Planner</h2>
-                    <button class="planner-view">Close</button>
                     <ul class="plan-list"></ul>
                 </div>
             </section>
 
-            <section role="region">
-                <div class="col col-8 lightbox">
-                </div>
-            </section>
         </div>
     </main>
 
