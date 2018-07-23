@@ -146,7 +146,7 @@ app.eventsAPIs = function () {
         $('.js-autho-results').html('');
 
         const results = events.forEach(function (event, i) {
-            const image = event.logo === null ? "../images/no-image-available.jpg" : event.logo.original.url;
+            const image = event.logo === null ? "https://azureowl.github.io/good-times-eventbrite-foursquare-ipstack-darksky-capstone/images/no-image-available.jpg" : event.logo.original.url;
             const title = event.name.text ? event.name.text : "No Title";
             const id = event.venue_id;
             const html = `<div class="col col-4 results-margin"><div class="results-cell"><a href="${event.url}" target="_blank" class="results-link-image"><img src="${image}" alt="Photos of event ${title}"></a><div class="venue-info"><p class="result-title">${title}</p>`;
