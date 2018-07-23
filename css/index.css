@@ -9,7 +9,7 @@ body {
 }
 
 * {
-    font-family: 'Roboto Condensed', sans-serif;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .events-container {
@@ -21,7 +21,6 @@ header, .hero, .main-results {
 }
 
 header {
-    font-family: 'Itim', cursive;
     font-size: 18px;
     text-align: center;
 }
@@ -214,8 +213,12 @@ aside .results-margin {
     height: 200px;
 }
 
-.venue-info {
+
+.venue-info, .venue-info *, .planner label, .detail {
     font-family: 'Roboto Condensed', sans-serif;
+}
+
+.venue-info, .venue-info * {
     font-size: 14px;
     padding: 10px;
 }
@@ -229,7 +232,6 @@ aside .results-margin {
 }
 
 .result-title, .planner label, .detail {
-    font-family: 'Roboto Condensed', sans-serif;
     font-weight: bold;
 }
 
