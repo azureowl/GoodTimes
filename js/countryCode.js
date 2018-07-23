@@ -1,3 +1,5 @@
+'use strict';
+
 var isoCountries = {
     'AF' : 'Afghanistan',
     'AX' : 'Aland Islands',

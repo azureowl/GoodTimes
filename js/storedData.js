@@ -1,3 +1,5 @@
+'use strict';
+
 const storedData = {
     seed: {
         city: 'San Francisco',

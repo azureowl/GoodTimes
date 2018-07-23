@@ -1,3 +1,5 @@
+'use strict';
+
 app.eventsAPIs = function () {
 
     const eventbriteEndpoint = {
@@ -109,6 +111,7 @@ app.eventsAPIs = function () {
     }
 
     function checkIfEventArrayExist (data) {
+        let events;
         if (data.events && data.events.length !== 0) {
             events = data.events;
         } else if (data.top_match_events && data.top_match_events.length !== 0) {
@@ -130,7 +133,7 @@ app.eventsAPIs = function () {
             const image = event.logo === null ? "../images/no-image-available.jpg" : event.logo.original.url;
             const title = event.name.text ? event.name.text : "No Title";
             const id = event.venue_id;
-            const html = `<div class="col col-4 results-margin"><div class="results-cell"><button class="results-btn-image"><img src="${image}" alt=""></button><div class="venue-info" data-url="${event.url}"><p class="result-title">${title}</p>`;
+            const html = `<div class="col col-4 results-margin"><div class="results-cell"><a href="${event.url}" target="_blank" class="results-link-image"><img src="${image}" alt="Photos of event ${title}"></a><div class="venue-info"><p class="result-title">${title}</p>`;
             getVenueDetailsEventbrite(html, id);
         });
     }
@@ -143,14 +146,13 @@ app.eventsAPIs = function () {
         const results = venues.forEach(function (place, i) {
             const placeholder = "../images/no-image-available.jpg";
             const venueName = place.venue.name ? place.venue.name : "No Title";
-            const venueLoc = `${place.venue.location.city}, ${place.venue.location.country}`;
             const venueAdd = `${place.venue.location.address}, ${place.venue.location.city}`;
-            const html = `<p class="result-title">${venueName}</p><p class="result-add">${venueAdd}</p></div></div></div>`;
-            getVenueDetailsFoursquare(place.venue.id, html);
+            const html = `<div class="venue-info"><p class="result-title">${venueName}</p><p class="result-add">${venueAdd}</p></div></div></div>`;
+            getVenueDetailsFoursquare(place.venue.id, html, venueName);
         });
     }
 
-    function getVenueDetailsFoursquare (venueID, html) {
+    function getVenueDetailsFoursquare (venueID, html, venueName) {
         const query = {
             client_id: config.fourSquare.id,
             client_secret: config.fourSquare.secret,
@@ -160,12 +162,11 @@ app.eventsAPIs = function () {
         $.getJSON(`${foursquareEndpoints.venues}/${venueID}`, query, function (place) {
             console.log(venueID, place);
             const url = place.response.venue.canonicalUrl;
-            html = `<div class="venue-info" data-url="${url}">${html}`;
-            getVenuePhotosFoursquare(venueID, html);
+            getVenuePhotosFoursquare(venueID, html, url, venueName);
         });
     }
 
-       function getVenuePhotosFoursquare (venueID, html) {
+       function getVenuePhotosFoursquare (venueID, html, url, venueName) {
         const query = {
             client_id: config.fourSquare.id,
             client_secret: config.fourSquare.secret,
@@ -176,7 +177,7 @@ app.eventsAPIs = function () {
         $.getJSON(`${foursquareEndpoints.venues}/${venueID}/photos`, query, function (photoData) {
             console.log(venueID, "%%%%", "inside photo func", photoData);
             const image = `${photoData.response.photos.items[0].prefix}width600${photoData.response.photos.items[0].suffix}`;
-            const joinedHTML = `<div class="col col-4 results-margin"><div class="results-cell"><button class="results-btn-image"><img src="${image}" alt=""></button>${html}`;
+            const joinedHTML = `<div class="col col-4 results-margin"><div class="results-cell"><a href="${url}" target="_blank" class="results-link-image"><img src="${image}" alt="Photo of ${venueName}"></a>${html}`;
             appendFoursquarePlaces(joinedHTML);
         });
     }
@@ -229,24 +230,6 @@ app.eventsAPIs = function () {
             requestEventbriteData();
         }
     });
-
-    // On page load, check if there is OAuth authentication token
-    // If not, login to be redirected to authorization server to obtain OAuth token
-    // function oAuthAuthenticate () {
-    //     if (window.location.hash) {
-    //         const hash = window.location.hash;
-    //         oAuth.access_token = hash.split('=')[2];
-    //         seedEventbriteEvents();
-    //         $('.js-hide').removeClass('js-hide');
-    //         $('.js-hide-noAutho').css({
-    //             display: 'none'
-    //         });
-    //     } else {
-    //         $('#js-eventbrite-login').on('click', function () {
-    //             window.location.replace(`${server.authorizeEndpoint}response_type=${server.response_type}&client_id=${config.eventbrite.key}`);
-    //         });
-    //     }
-    // };
 
     function main () {
         seedEventbriteEvents();

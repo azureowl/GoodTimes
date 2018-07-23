@@ -1,10 +1,4 @@
-function getUserLoc () {
-    $.getJSON(`http://api.ipstack.com/check?access_key=${config.ipstack.key}`, function (response) {
-        storedData.seed = response;
-        $('.user-loc').html(`${response.city}, ${response.country_code}`);
-        main();
-    });
-}
+'use strict';
 
 // planner should be able to add thing to do
 function addToPlanner () {
@@ -15,83 +9,98 @@ function addToPlanner () {
 }
 
 function createPlan () {
+    const id = getRandomId();
     const detail = $("#todo").val();
     const date = $("#planner-date").val();
     const time = $("#time").val();
-    const html = `<li><span class="detail">${detail}</span><div class="detail-date"><span class="cal-date">${date}</span>, <span class="time-date">${time}</span></div><button class="update">Update</button><button class="delete">Delete</button></li>`;
+    const newTime = timeWithMeridiem(time);
+    const html = `<li id="${id}"><span class="detail">${detail}</span><div class="detail-date"><span class="cal-date">${date}</span>, <span class="time-date">${newTime}</span></div><button class="delete">Delete</button></li>`;
+    saveListItemToStorage(id, html);
     appendPlan(html);
+}
+
+function getRandomId () {
+    var alph = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    var number = '012345678910';
+    var ln = 5;
+    var id = '';
+
+    for (let i = 0; i <= ln; i++) {
+        id += alph.charAt(Math.floor(Math.random() * alph.length));
+        id += number.charAt(Math.floor(Math.random() * number.length));
+    }
+
+    return id;
+}
+
+// if local Storage exist use the content to populate on page load
+function hasLocalStorage () {
+    if (window.localStorage.length > 0) {
+        const localStorageObj = window.localStorage;
+        const html = Object.keys(localStorageObj).map(key => {
+            return localStorageObj[key];
+        });
+        $('.plan-list').append(html.join(''));
+    }
+}
+
+function saveListItemToStorage (id, html) {
+    localStorage.setItem(id, html);
+}
+
+function deleteListItemFromStorage (id) {
+    localStorage.removeItem(id);
 }
 
 function appendPlan (html) {
     $('.plan-list').append(html);
+    toggleList();
 }
-
-// function updatePlan () {
-//     $('.planner-viewer').on('click', '.update', function (e) {
-//         console.log($(e.currentTarget).parent(), $(e.target));
-//     });
-// }
 
 function deletePlan () {
     $('.planner-viewer').on('click', '.delete', function (e) {
         e.preventDefault();
         const li = $(this).closest('li');
+        const identifier = li.attr('id');
         li.remove();
+        deleteListItemFromStorage(identifier);
+        toggleList();
     });
 }
 
-function togglePlanner () {
-    $('.planner-view').on('click', function () {
-        $('.planner-viewer').toggle();
-        if ($('.planner-viewer').is(':hidden') === false) {
-            $('body').css({overflow: 'hidden'});
+function timeWithMeridiem (time) {
+    const hour = Number(time.split(':')[0]);
+    if (hour >= 12 && hour <= 23) {
+        return `${time} PM`;
+    } else if (hour >= 0 && hour <= 11) {
+        if (hour === 0) {
+            return `12:${time.split(':')[1]} AM`
         } else {
-            $('body').css({overflow: 'auto'});
+            return `${time} AM`;
         }
-    });
+    }
 }
 
-function toggleLightbox () {
-    $('body').on('click', '.results-cell', function (e) {
-        $('.lightbox').toggle();
-        if ($('.lightbox').is(':hidden') === false) {
-            $('body').css({overflow: 'hidden'});
-            const target = $(e.target).closest('.results-cell');
-            const copyObj = {
-                title: target.find('.result-title').text(),
-                add: target.find('.result-add').text(),
-                src: $(e.target).attr('src'),
-                url: target.find('.venue-info').data().url
-            };
-            generateLightboxMarkup(copyObj);
-        } else {
-            $('body').css({overflow: 'auto'});
-        }
-    });
-}
-
-function generateLightboxMarkup (obj) {
-    const html = `<div class="col col-8"><img src="${obj.src}" alt="${obj.title}"></div><div class="col col-12 venue-info"><p class="result-title">${obj.title}</p><p class="result-add">${obj.add}</p><button class="closeLightbox results-cell">Go Back</button><a href="${obj.url}" target="_blank">Visit Page</a></div>`;
-    appendToLightbox(html);
-}
-
-function appendToLightbox (html) {
-    $('.lightbox').html(html);
+function toggleList () {
+    var childLength = $('.planner-viewer').find('.plan-list').children().length;
+    if (childLength > 0) {
+        $('.planner-viewer').show();
+    } else {
+        $('.planner-viewer').hide();
+    }
 }
 
 function mainPlanner () {
+    hasLocalStorage();
     addToPlanner();
     deletePlan();
-    // updatePlan();
-    togglePlanner();
-    toggleLightbox();
+    toggleList();
 }
 
 function main () {
-    app.eventsAPIs();
+    // app.eventsAPIs();
     app.darksky.getUserLocWeather();
     mainPlanner();
 }
 
 $(main);
-// $(getUserLoc);
