@@ -27,10 +27,10 @@
                                 <fieldset>
                                     <legend>Finding fun is easy.</legend>
                                     <label for="search" class="search">
-                                        <input type="search" id="search" placeholder="e.g. jazz, tacos, painting">
+                                        <input type="search" id="search" placeholder="e.g. jazz, tacos, painting" aria-label="Search for Events" required>
                                     </label>
                                     <label for="date" class="mob-hide">
-                                        <select name="date" id="date">
+                                        <select name="date" id="date" aria-label="Pick date range">
                                             <option value="today">Today</option>
                                             <option value="tomorrow">Tomorrow</option>
                                             <option value="this_week">This Week</option>
@@ -41,7 +41,7 @@
                                         </select>
                                     </label>
                                     <label for="location" class="location">
-                                        <input type="text" name="location" id="location" placeholder="San Francisco, CA">
+                                        <input type="text" name="location" id="location" placeholder="San Francisco, CA" aria-label="Search City, State" required>
                                     </label>
                                 </fieldset>
                                 <button id='js-explore-event' type="submit">Search</button>
@@ -53,7 +53,7 @@
 
             <div class="row">
                 <div class="col col-12">
-                        <h2 class="location-heading">Experiences near <span class="user-loc">City, State</span></h2>
+                    <h2 class="location-heading">Experiences near <span class="user-loc">City, State</span></h2>
                 </div>
             </div>
 
