@@ -86,6 +86,7 @@ app.eventsAPIs = function () {
             app.darksky.getLocalWeatherSearch(storedData.server.location.latitude, storedData.server.location.longitude);
             updateLocationHeading(storedData.server.location.currentLocation, storedData.server.location.country);
             togglePaginationButtons();
+            pageCountDisplay();
             console.log(storedData, data, settings);
 
             if (bool) {
@@ -204,6 +205,7 @@ app.eventsAPIs = function () {
 
     function appendEventbriteEvents (html) {
         $('.results-count').html(`${storedData.server.pageObjectCount} results`);
+        pageCountDisplay();
         $('.js-autho-results').append(html);
     }
 
@@ -211,10 +213,14 @@ app.eventsAPIs = function () {
         $('.js-foursq-results').append(html);
     }
 
-
     function updateLocationHeading (city_region, country) {
         const html = `${city_region}, ${country}`;
         $('.user-loc').html(html);
+    }
+
+    function pageCountDisplay () {
+        $('.js-current-page').html(`${storedData.server.pageNumberTotal}`);
+        $('.js-total-page').html(`${storedData.server.pageNumberTotal}`);
     }
 
     $('.main-form').on('submit', function (e) {
