@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/grid.css">
     <link rel="stylesheet" href="css/index.css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:200|Roboto+Condensed:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:200,600" rel="stylesheet">
     <title>Goodtimes - Find events and places</title>
 </head>
 <body>
@@ -15,8 +15,8 @@
         <h1><i class="far fa-smile-beam"></i> Goodtimes</h1>
     </header>
 
-    <main role="main" aria-live="polite">
-        <div class="container">
+    <main role="main" aria-live="polite" hidden>
+        <div>
             <!-- Form -->
             <div class="hero">
                 <h2 class="hero-title">Explore events and places</h2>
@@ -36,7 +36,7 @@
                                             <option value="this_week">This Week</option>
                                             <option value="this_weekend">This Weekend</option>
                                             <option value="next_week">Next Week</option>
-                                            <option value="next_month">Next Month</option>
+                                            <option value="next_month" selected>Next Month</option>
                                             <option value="">Anytime</option>
                                         </select>
                                     </label>
@@ -53,7 +53,7 @@
 
             <div class="row">
                 <div class="col col-12">
-                    <h2 class="location-heading">Experiences near <span class="user-loc">City, State</span></h2>
+                    <h2 class="location-heading">Experiences near <span class="js-user-loc">City, State</span></h2>
                 </div>
             </div>
 
@@ -65,15 +65,20 @@
                             <div class="col col-12"><h2>Explore Eventbrite</h2></div>
                         </div>
                         <div class="row">
-                            <div class="col col-3">
+                            <div class="col col-12 count">
                                 <span class="results-count"></span>
+                                <span class="page-count">Page <span class="js-current-page">0</span> of <span class="js-total-page">0</span></span>
                             </div>
-                            <div class="col col-9">
+                        </div>
+                        <div class="row">
+                            <div class="col col-12">
                                 <span class='top-match'></span>
                             </div>
                         </div>
                         <div class="mob-scroll fixed-height">
-                            <div class="row inner-row-mb js-autho-results"></div>
+                            <div class="row inner-row-mb js-autho-results">
+                                    <div class="col col-4 results-margin"><div class="results-cell"><a href="https://www.eventbrite.com/e/jazz-piano-mass-at-cyprians-tickets-46549444642?aff=ebapi" target="_blank" class="results-link-image"><img src="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F23601701%2F119606375657%2F1%2Foriginal.jpg?auto=compress&amp;s=b53c78a27f819f08a5e0f116e417fa19" alt="Photos of event Jazz Piano Mass at Cyprian's"></a><div class="venue-info"><p class="result-title">Jazz Piano Mass at Cyprian's</p><p class="result-add">2097 Turk Street, San Francisco, CA 94115</p></div></div></div>
+                            </div>
                         </div>
 
                         <div class="row pagination-row">
@@ -84,12 +89,14 @@
 
                     </section>
                 </div>
-                <div class="col col-4 aside-bar">
+                <div class="col col-4">
                     <aside role="complementary">
                         <div class="results-margin">
-                            <h2>Local weather</h2>
+                            <div class="row">
+                                <div class="col col-12"><h2>Local weather today</h2></div>
+                            </div>
                             <div class="weather-container">
-                                <div><canvas id="js-weather-icon" width="220" height="220"></canvas></div>
+                                <div><canvas id="js-weather-icon"></canvas></div>
                                 <div class="weather-details">
                                     <div><span class="js-temp"></span><span>&deg;</span> <span class="js-summary"></span></div>
                                     <div><span>Feels like:</span> <span class="js-feels-like"></span><span>&deg;</span> <span class="whitespace">Precipitation:</span> <span class="js-precip"></span>%</div>
@@ -105,29 +112,31 @@
                 <div class="col col-8">
                     <section role="region" class="">
                         <div class="row">
-                            <div class="col col-12"><h2>Foursquare's Recommended Food Places</h2></div>
+                            <div class="col col-12"><h2>Recommended restaurants in the area</h2></div>
                         </div>
                         <div class="mob-scroll fixed-height">
                             <div class="row inner-row-mb js-foursq-results"></div>
                         </div>
 
-                        <div class="row pagination-row">
+                        <!-- <div class="row pagination-row">
                             <div class="col col-12 pagination">
                                 <button class="js-prev" aria-label="previous results">Prev</button> <button class="js-next" aria-label="next results">Next</button>
                             </div>
-                        </div>
+                        </div> -->
                     </section>
                 </div>
-                <div class="col col-4 aside-bar">
+                <div class="col col-4">
                     <aside role="complementary">
                         <div class="results-margin">
-                            <h2>Planner</h2>
+                            <div class="row">
+                                <div class="col col-12"><h2>Social Planner</h2></div>
+                            </div>
                             <div class="list-container">
                                 <form class="planner">
                                     <fieldset>
-                                        <legend>What's Happening</legend>
-                                        <label for="todo" class="todo">Event/Place
-                                            <textarea name="todo" id="todo" placeholder="Meeting friends for coffee" maxlength="80" required></textarea>
+                                        <legend>What's Happening?</legend>
+                                        <label for="todo" class="todo">Add To-do
+                                            <textarea name="todo" id="todo" placeholder="Meet friends at Santana Concert" maxlength="200" required></textarea>
                                         </label>
                                         <label for="planner-date" class="planner-date">Date
                                             <input type="date" id="planner-date" min="1900-01-01" max="2100-04-30" required>
@@ -152,21 +161,29 @@
             </section>
 
         </div>
+
+        <footer role="contentinfo">
+            <div class="row">
+                <div class="col col-12">
+                    <p>&copy; Ro Langam</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-12 contact">
+                    <a href="https://github.com/azureowl"><i class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/rochellm"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </footer>
+
     </main>
 
-    <footer role="contentinfo">
-        <div class="row">
-            <div class="col col-12">
-                <p>&copy; Ro Langam</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col col-12 contact">
-                <a href="https://github.com/azureowl"><i class="fab fa-github"></i></a>
-                <a href="https://www.linkedin.com/in/rochellm"><i class="fab fa-linkedin"></i></a>
-            </div>
-        </div>
-    </footer>
+    <aside role="complementary" class="js-landing-page">
+        <p>Goodtimes aims to be a one-stop social planner. The dashboard allows users to plan a hangout around an event in a specific location which includes 10 recommended restaurants for that destination so planning is simplified. Local weather data for the current day is helpful in reminding users on what is the most weather-appropriate attire. The social planner saves a user's notes in localStorage so it will always be there until they clear their browser's history.</p>
+        <p>After starting, begin your search! Goodtimes uses Eventbrite, Foursquare, and Darksky APIs.</p>
+        <p>Goodtimes is my API Capstone Project for Thinkful.</p>
+        <button class="js-start-search" type="button">Start</button>
+    </aside>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="js/config/config.js"></script>

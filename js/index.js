@@ -1,6 +1,5 @@
 'use strict';
 
-// planner should be able to add thing to do
 function addToPlanner () {
     $('.planner').submit(function (e) {
         e.preventDefault();
@@ -19,39 +18,6 @@ function createPlan () {
     appendPlan(html);
 }
 
-function getRandomId () {
-    var alph = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    var number = '012345678910';
-    var ln = 5;
-    var id = '';
-
-    for (let i = 0; i <= ln; i++) {
-        id += alph.charAt(Math.floor(Math.random() * alph.length));
-        id += number.charAt(Math.floor(Math.random() * number.length));
-    }
-
-    return id;
-}
-
-// if local Storage exist use the content to populate on page load
-function hasLocalStorage () {
-    if (window.localStorage.length > 0) {
-        const localStorageObj = window.localStorage;
-        const html = Object.keys(localStorageObj).map(key => {
-            return localStorageObj[key];
-        });
-        $('.plan-list').append(html.join(''));
-    }
-}
-
-function saveListItemToStorage (id, html) {
-    localStorage.setItem(id, html);
-}
-
-function deleteListItemFromStorage (id) {
-    localStorage.removeItem(id);
-}
-
 function appendPlan (html) {
     $('.plan-list').append(html);
     toggleList();
@@ -66,6 +32,42 @@ function deletePlan () {
         deleteListItemFromStorage(identifier);
         toggleList();
     });
+}
+
+function getRandomId () {
+    var alph = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    var number = '012345678910';
+    var ln = 3;
+    var id = '';
+
+    for (let i = 0; i <= ln; i++) {
+        id += alph.charAt(Math.floor(Math.random() * alph.length));
+        id += number.charAt(Math.floor(Math.random() * number.length));
+    }
+
+    return id;
+}
+
+// If local Storage exists, use the content to populate on page load
+function hasLocalStorage () {
+    if (window.localStorage.length > 0) {
+        const localStorageObj = window.localStorage;
+        const html = Object.keys(localStorageObj).map(key => {
+            if (key.split('-')[0] === 'goodtimes') {
+                return localStorageObj[key];
+            }
+        });
+        $('.plan-list').append(html.join(''));
+    }
+}
+
+function saveListItemToStorage (id, html) {
+    id = `goodtimes-${id}`;
+    localStorage.setItem(id, html);
+}
+
+function deleteListItemFromStorage (id) {
+    localStorage.removeItem(`goodtimes-${id}`);
 }
 
 function timeWithMeridiem (time) {
@@ -89,6 +91,13 @@ function toggleList () {
         $('.planner-viewer').hide();
     }
 }
+
+$('.js-start-search').on('click', function (e) {
+    if ($("main").is(':hidden')) {
+        $("main").show();
+        $('.js-landing-page').hide();
+    }
+});
 
 function mainPlanner () {
     hasLocalStorage();

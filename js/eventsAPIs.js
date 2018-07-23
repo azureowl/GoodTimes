@@ -21,6 +21,7 @@ app.eventsAPIs = function () {
             data: {
                 q: 'jazz',
                 ['location.address']: storedData.seed.city,
+                ['start_date.keyword']: $("#date").val(),
                 ['location.within']: '25mi',
                 page: storedData.server.page_number
             },
@@ -45,22 +46,29 @@ app.eventsAPIs = function () {
         foursquareMakeAJAXCall(query);
     }
 
-    function requestEventbriteData () {
+    function requestEventbriteData (bool) {
         const location = $('#location').val();
+        const term = $('#search').val();
+        const dateRange = $("#date").val();
         const settings = {
             url: eventbriteEndpoint.userEndpoint,
             data: {
-                q: $('#search').val(),
+                q: term !== "" ? term : storedData.seed.term,
                 ['location.address']: location !== "" ? location : storedData.seed.city,
                 ['start_date.keyword']: $("#date").val(),
-                ['location.within']: '50mi',
+                ['location.within']: '25mi',
                 page: storedData.server.page_number
             },
             beforeSend: function (xhr) {
                 xhr.setRequestHeader("Authorization", `Bearer ${config.eventbrite.oAuth}`);
             }
         };
-        eventbriteMakeAJAXCall(settings, true);
+
+        if (bool) {
+            eventbriteMakeAJAXCall(settings, true);
+        } else {
+            eventbriteMakeAJAXCall(settings, false);
+        }
     }
 
     function requestFoursquareData () {
@@ -68,6 +76,7 @@ app.eventsAPIs = function () {
             ll: `${storedData.server.location.latitude},${storedData.server.location.longitude}`,
             limit: 1,
             client_id: config.fourSquare.id,
+            section: 'food',
             client_secret: config.fourSquare.secret,
             v: '20180323'
         };
@@ -81,7 +90,9 @@ app.eventsAPIs = function () {
             storeData(storedData.server, data);
             app.darksky.getLocalWeatherSearch(storedData.server.location.latitude, storedData.server.location.longitude);
             updateLocationHeading(storedData.server.location.currentLocation, storedData.server.location.country);
-            console.log(storedData, data);
+            togglePaginationButtons();
+            pageCountDisplay();
+            console.log(storedData, data, settings);
 
             if (bool) {
                 requestFoursquareData();
@@ -118,6 +129,7 @@ app.eventsAPIs = function () {
             events = data.top_match_events;
             $('.top-match').html("There are no exact matches. What about these events?");
         } else {
+            $('.results-count').html('0 results');
             $('.js-autho-results').html('Eventbrite found no results.');
             return;
         }
@@ -198,6 +210,7 @@ app.eventsAPIs = function () {
 
     function appendEventbriteEvents (html) {
         $('.results-count').html(`${storedData.server.pageObjectCount} results`);
+        pageCountDisplay();
         $('.js-autho-results').append(html);
     }
 
@@ -205,31 +218,51 @@ app.eventsAPIs = function () {
         $('.js-foursq-results').append(html);
     }
 
-
     function updateLocationHeading (city_region, country) {
         const html = `${city_region}, ${country}`;
-        $('.user-loc').html(html);
+        $('.js-user-loc').html(html);
+    }
+
+    function pageCountDisplay () {
+        $('.js-current-page').html(`${storedData.server.page_number}`);
+        $('.js-total-page').html(`${storedData.server.pageNumberTotal}`);
     }
 
     $('.main-form').on('submit', function (e) {
         e.preventDefault();
         storedData.server.page_number = 1;
-        requestEventbriteData();
+        $('.top-match').html('');
+        requestEventbriteData(true);
     });
 
     $('.js-next').on('click', function () {
         if (storedData.server.page_number < storedData.server.pageNumberTotal) {
             storedData.server.page_number += 1;
-            requestEventbriteData();
+            requestEventbriteData(false);
         }
     });
 
     $('.js-prev').on('click', function () {
         if (storedData.server.page_number > 1) {
             storedData.server.page_number -= 1;
-            requestEventbriteData();
+            requestEventbriteData(false);
         }
     });
+
+    function togglePaginationButtons () {
+        if (storedData.server.page_number === 1) {
+            $('.js-prev').hide();
+        }
+        if (storedData.server.page_number > 1) {
+            $('.js-prev').show();
+        }
+        if (storedData.server.page_number === storedData.server.pageNumberTotal) {
+            $('.js-next').hide();
+        }
+        if (storedData.server.page_number < storedData.server.pageNumberTotal) {
+            $('.js-next').show();
+        }
+    }
 
     function main () {
         seedEventbriteEvents();
