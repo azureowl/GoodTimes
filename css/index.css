@@ -1,150 +1,180 @@
 * {
     box-sizing: border-box;
-}
-
-body {
+  }
+  
+  body {
     background-color: #f1f1f1;
-    font-weight: 300;
     margin: 0;
-}
+  }
 
-* {
-    font-family: 'Montserrat', sans-serif;
-}
+  body, button {
+    font-family: "Montserrat", sans-serif;
+  }
 
-.events-container {
-    margin-bottom: 10px;
-}
-
-header, .hero, .main-results {
-    background-color: #fff;
-}
-
-header {
+  canvas {
+    width: 100%;
+  }
+  
+  header {
     font-size: 18px;
     text-align: center;
-}
-
-header, legend, section h2, aside h2, .detail-date {
-    color: #F26959;
-}
-
-header h1 {
+    font-weight: 600;
+  }
+  
+  header h1 {
     padding: 10px 0;
-    margin: 0 0 0 10px;
-}
-
-h2 {
     margin: 0;
-}
-
-ul {
+  }
+  
+  .events-container {
+    margin-bottom: 10px;
+  }
+  
+  header,
+  .hero,
+  .main-results {
+    background-color: #fff;
+  }
+  
+  header,
+  legend,
+  h2,
+  .detail-date {
+    color: #f26959;
+  }
+  
+  .hero h2 {
+    margin: 0;
+    font-weight: 200;
+  }
+  
+  ul {
     padding: 10px;
     list-style: circle;
-}
-
-li {
+  }
+  
+  li {
     border-bottom: 1px dotted gray;
     padding: 10px;
-}
-
-section {
+  }
+  
+  section {
     margin-bottom: 10px;
-}
-
-aside {
+  }
+  
+  aside {
     height: 100%;
-}
-
-section h2, aside h2 {
+  }
+  
+  section h2,
+  aside h2 {
     margin-bottom: 22px;
     text-align: center;
-}
-
-img {
+  }
+  
+  img {
     max-width: 100%;
     max-height: 100%;
     height: 100%;
     width: 100%;
     object-fit: cover;
-}
-
-form {
+  }
+  
+  form {
     padding: 20px 0;
-}
-
-button, a {
+  }
+  
+  button,
+  a {
     cursor: pointer;
-}
-
-form, form button, .pagination button {
+  }
+  
+  form,
+  form button,
+  .pagination button,
+  .js-start-search {
     font-size: 20px;
-}
-
-fieldset {
+  }
+  
+  fieldset {
     border: none;
     margin: 0;
     padding: 0;
-}
-
-label {
+  }
+  
+  label {
     display: inline-block;
     height: 40px;
     margin: 6px 0;
     width: 100%;
-}
-
-input {
+  }
+  
+  input,
+  .results-cell,
+  .planner textarea,
+  .js-landing-page, select {
     border: 1px solid #e4e4e4;
-    padding: 2px;
-}
+  }
 
-footer {
-    background-color: #ec6858;
+  input, select {
+    font-family: "Montserrat", sans-serif;
+    padding: 2px;
+  }
+  
+  footer,
+  form button,
+  .pagination button,
+  .plan-list button,
+  .js-start-search,
+  .fab {
     color: #fff;
+  }
+  
+  footer {
     padding: 12px;
     text-align: center;
-}
+  }
 
-footer p {
-    margin-bottom:  4px 0 3px 0;
-}
-
-form button, .pagination button, button.js-hide-noAutho, .plan-list button {
-    background-color: #F26959;
-    border: 1px solid #F26959;
-    color: #fff;
+  footer,
+  form button,
+  .pagination button,
+  .plan-list button,
+  .js-start-search {
+    background-color: #f26959;
+  }
+  
+  form button,
+  .pagination button,
+  .plan-list button,
+  .js-start-search {
+    border: 1px solid #f26959;
     height: 40px;
     width: 110px;
     vertical-align: bottom;
-}
-
-form button:hover, form button:focus, button.js-hide-noAutho:hover, button.js-hide-noAutho:focus {
+  }
+  
+  form button:hover,
+  form button:focus {
     background-color: #e84d3a;
     border: 1px solid #e84d3a;
-}
+  }
 
-button.js-hide-noAutho {
-    font-size: 16px;
-    width: 100%;
-}
-
-.fab {
+  .fab {
     cursor: pointer;
-    color: #fff;
     font-size: 32px;
-}
-
-.hero {
-    background: url("../images/alin-meceanu-830-unsplash-short.jpg") no-repeat center center;
+  }
+  
+  .hero {
+    background: url("../images/alin-meceanu-830-unsplash-short.jpg") no-repeat
+      center center;
     background-size: cover;
     height: 200px;
     margin-bottom: 250px;
     width: 100%;
     position: relative;
-}
-
-.hero-title {
+  }
+  
+  .hero-title {
     background-color: rgba(255, 255, 255, 0.58);
     color: #005070;
     padding: 10px;
@@ -154,185 +184,184 @@ button.js-hide-noAutho {
     transform: translate(-50%, -50%);
     text-align: center;
     width: 100%;
-}
-
-.form-container {
+  }
+  
+  .form-container {
     transform: translateY(230px);
-}
-
-.search input, .location input {
+  }
+  
+  .search input,
+  .location input {
     font-size: 16px;
     padding-left: 5px;
     height: 100%;
     width: 100%;
-}
-
-.location-heading {
+  }
+  
+  .location-heading {
     margin: 22px 0;
     text-align: center;
-}
-
-.location-heading span {
+  }
+  
+  .location-heading span {
     color: #005070;
-}
-
-.main-results {
+  }
+  
+  .main-results {
     padding: 20px;
     margin: 0;
-}
-
-.mob-hide {
+  }
+  
+  .mob-hide {
     display: none;
-}
-
-.mob-scroll {
+  }
+  
+  .mob-scroll {
     overflow: scroll;
     height: 400px;
-}
-
-aside .results-margin {
+  }
+  
+  aside .results-margin {
     height: 100%;
-}
-
-.results-margin {
+  }
+  
+  .results-margin {
     margin-bottom: 5px;
-}
-
-.results-cell {
-    border: 1px solid #e4e4e4;
+  }
+  
+  .results-cell {
     overflow: scroll;
-}
-
-.results-cell a {
+  }
+  
+  .results-cell a {
     display: block;
-}
-
-.results-link-image {
+  }
+  
+  .results-link-image {
     background-size: cover;
     width: 100%;
     height: 200px;
-}
-
-
-.venue-info, .venue-info *, .planner label, .detail {
-    font-family: 'Roboto Condensed', sans-serif;
-}
-
-.venue-info, .venue-info * {
+  }
+  
+  .venue-info,
+  .venue-info *,
+  .planner label,
+  .detail {
+    font-family: "Roboto Condensed", sans-serif;
+  }
+  
+  .venue-info,
+  .venue-info * {
     font-size: 14px;
     padding: 10px;
-}
-
-.venue-info p {
+  }
+  
+  .venue-info p {
     margin: 0;
-}
-
-.venue-info .result-title {
+  }
+  
+  .venue-info .result-title {
     margin-bottom: 5px;
-}
-
-.result-title, .planner label, .detail {
+  }
+  
+  .result-title,
+  .planner label,
+  .detail {
     font-weight: bold;
-}
-
-.weather-container, .list-container  {
+  }
+  
+  .weather-container,
+  .list-container {
     background-color: #fdfdfd;
     padding: 15px;
     border: 5px solid #e4e4e4;
-}
-
-.weather-container {
+  }
+  
+  .weather-container {
     display: flex;
     flex-direction: column;
-}
-
-.weather-container > div {
+  }
+  
+  .weather-container > div {
     font-size: 24px;
     margin: 20px 0;
     text-align: center;
-}
-
-.weather-details > div:nth-child(1) * {
-    font-family: 'Roboto Condensed', sans-serif;
+  }
+  
+  .weather-details > div:nth-child(1) * {
+    font-family: "Roboto Condensed", sans-serif;
     font-weight: 400;
-}
-
-.weather-details div:nth-child(2), .weather-details div:nth-child(3) {
+  }
+  
+  .weather-details div:nth-child(2),
+  .weather-details div:nth-child(3) {
     font-size: 16px;
-}
-
-.whitespace {
+  }
+  
+  .whitespace {
     margin-left: 5px;
-}
-
-.pagination {
+  }
+  
+  .pagination {
     margin-top: 10px;
     display: flex;
     justify-content: space-between;
-}
-
-.pagination-row {
+  }
+  
+  .pagination-row {
     padding: 0;
-}
+  }
 
-/* .fixed-height button {
-    border: 0;
-    padding: 0;
-} */
-
-.js-hide {
+  .js-hide {
     display: none;
-}
-
-.planner {
+  }
+  
+  .planner {
     display: block;
     height: initial;
-}
-
-.planner legend {
+  }
+  
+  .planner legend {
     margin-bottom: 13px;
     border-bottom: 2px solid #e4e4e4;
     width: 100%;
-}
+  }
 
-.planner label, .planner textarea {
-    border: 0;
-}
-
-.planner label, .planner input, .planner textarea {
+  .planner label,
+  .planner input,
+  .planner textarea {
     font-size: 16px;
     margin-top: 5px;
     width: 100%;
-}
-
-.planner input, .planner textarea {
+  }
+  
+  .planner input,
+  .planner textarea {
     padding-left: 5px;
-}
-
-.planner textarea {
-    border: 1px solid #e4e4e4;
+  }
+  
+  .planner textarea {
     resize: none;
     height: 60px;
-}
-
-.planner button {
+  }
+  
+  .planner button {
     display: inline-block;
-}
-
-.planner-viewer h2 {
+  }
+  
+  .planner-viewer h2 {
     margin: 50px;
     text-align: center;
-}
-
-.planner-viewer {
+  }
+  
+  .planner-viewer {
     background-color: #f7fff7;
-    /* display: none; */
     padding: 10px;
     height: auto;
     width: 100%;
-}
-
-.planner-viewer .planner-view {
+  }
+  
+  .planner-viewer .planner-view {
     background-color: transparent;
     border: 0;
     font-size: 16px;
@@ -340,204 +369,220 @@ aside .results-margin {
     right: 10px;
     top: 14px;
     width: auto;
-}
-
-.todo {
+  }
+  
+  .todo {
     height: 100px;
-}
-
-.planner-date, .time {
+  }
+  
+  .planner-date,
+  .time {
     height: 70px;
-}
-
-.planner-date input, .time input {
+  }
+  
+  .planner-date input,
+  .time input {
     height: 35px;
-}
-
-.plan-list {
+  }
+  
+  .plan-list {
     margin: 30px;
-}
-
-.plan-list button {
+  }
+  
+  .plan-list button {
     margin: 6px 2px 0 0;
     height: auto;
     width: auto;
-}
-
-.contact .fa-linkedin {
+  }
+  
+  .contact .fa-linkedin {
     margin-left: 20px;
-}
-
-.page-count {
+  }
+  
+  .page-count {
     margin-left: 10px;
-}
-
-.count {
+  }
+  
+  .count {
     display: flex;
     justify-content: space-between;
-}
+  }
 
-@media (max-width: 425px) {
+  .js-landing-page {
+    line-height: 24px;
+    margin: 0 auto;
+    padding: 20px;
+    width: 100%;
+  }
+  
+  @media (max-width: 425px) {
     .inner-row-mb {
-        padding: 0
+      padding: 0;
     }
-}
-
-@media (min-width: 768px) {
-    body {
-        background-color: #fff;
+  }
+  
+  @media (min-width: 768px) {
+    body, form {
+      background-color: #fff;
     }
-
-    header, section h2 {
-        text-align: initial;
+  
+    header,
+    section h2 {
+      text-align: initial;
     }
-
+  
     header h1 {
-        margin: 15px 0 15px 10px;
+      margin: 15px 10px;
     }
-
+  
     form {
-        background-color: white;
-        border: 1px solid #e4e4e4;
-        display: flex;
-        flex-direction: column;
-        height: 190px;
-        justify-content: center;
-        padding: 10px;
+      border: 1px solid #e4e4e4;
+      display: flex;
+      flex-direction: column;
+      height: 190px;
+      justify-content: center;
+      padding: 10px;
     }
-
+  
     form div {
-        display: flex;
-        justify-content: center;
-        align-items: flex-end;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
     }
-
+  
     fieldset {
-        display: inline-block;
+      display: inline-block;
     }
-
+  
     label {
-        border: 1px solid #e4e4e4;
-        margin: initial;
-        float: left;
+      margin: initial;
+      float: left;
     }
-
-    .main-form label[for="date"], .main-form select {
-        color: #757575;
-        font-size: 16px;
+  
+    .main-form label[for="date"],
+    .main-form select {
+      color: #757575;
+      font-size: 16px;
     }
-
-    label, select {
-        width: 160px;
-    }
-
-    form button {
-        width: 80px;
-    }
-
+  
+    label,
     select {
-        background-color: transparent;
-        border: 0;
-        border-radius: 0;
-        height: 40px;
+      width: 160px;
     }
-
+  
+    form button {
+      width: 80px;
+    }
+  
+    select {
+      background-color: transparent;
+      border-radius: 0;
+      height: 40px;
+    }
+  
     .hero {
-        height: 500px;
-        background-attachment: fixed;
-        margin-bottom: 120px;
-        width: 100%;
+      height: 500px;
+      background-attachment: fixed;
+      margin-bottom: 120px;
+      width: 100%;
     }
-
+  
     .hero-title {
-        border-radius: 5px;
-        font-size: 45px;
-        padding: 50px;
-        width: initial;
+      border-radius: 5px;
+      font-size: 45px;
+      padding: 50px;
+      width: initial;
     }
-
+  
     .form-container {
-        transform: translateY(420px);
+      transform: translateY(420px);
     }
-
+  
     .search {
-        width: 230px
+      width: 230px;
     }
-
-    .search input, .todo input, .planner-date input, .time input {
-        border: 0;
-        width: 100%;
+  
+    .search input,
+    .todo input,
+    .planner-date input,
+    .time input {
+      width: 100%;
     }
-
+  
     .main-results {
-        display: flex;
-        padding: 0 20px 0 20px;
-        margin: 0 auto 5px auto;
+      display: flex;
+      padding: 0 20px 0 20px;
+      margin: 0 auto 5px auto;
     }
-
+  
     .mob-hide {
-        display: initial;
+      display: initial;
     }
-
+  
     .mob-scroll {
-        overflow: scroll;
-        height: initial;
+      overflow: scroll;
+      height: initial;
     }
-
+  
     .fixed-height {
-        height: 455px;
+      height: 455px;
     }
-
+  
     .results-btn-image {
-        height: 150px;
+      height: 150px;
     }
-
+  
     .results-cell {
-        height: 300px;
+      height: 300px;
     }
-
-    .weather-container, .list-container  {
-        height: 455px;
+  
+    .weather-container,
+    .list-container {
+      height: 455px;
     }
-
+  
     .pagination {
-        display: initial;
-        justify-content: space-between;
+      display: initial;
+      justify-content: space-between;
     }
-
+  
     .pagination-row {
-        padding: 0 20px 0 20px;
+      padding: 0 20px 0 20px;
     }
-
+  
     .pagination button {
-        background-color: #b9b9b9;
-        border: 0;
-        font-size: 16px;
-        height: 30px;
-        width: 80px;
+      background-color: #b9b9b9;
+      border: 0;
+      font-size: 16px;
+      height: 30px;
+      width: 80px;
     }
-
-    .pagination button:hover, .pagination button:focus {
-        background-color: #5a5a5a;
+  
+    .pagination button:hover,
+    .pagination button:focus {
+      background-color: #5a5a5a;
     }
-
+  
     .planner-submit {
-        width: 50px;
+      width: 50px;
     }
-
-}
-
-@media (min-width: 1000px) {
+  
+    .js-landing-page {
+      width: 60%;
+    }
+  }
+  
+  @media (min-width: 1000px) {
     .search {
-        width: 300px;
+      width: 300px;
     }
-
-    form button, button.js-hide-noAutho {
-        width: 200px;
+  
+    form button {
+      width: 200px;
     }
-
+  
     .planner-view {
-        margin-left: 2px;
-        width: 160px;
+      margin-left: 2px;
+      width: 160px;
     }
-}
+  }

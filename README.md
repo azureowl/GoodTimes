@@ -1,6 +1,6 @@
 ## Goodtimes Dashboard for one-stop planning
 
-Goodtimes aims to be a one-stop social planner. The dashboard allows users to plan a hangout around an event in a specific location, which includes 10 recommended restaurants for that destination so planning is simplified. Local weather data for the current day is helpful in reminding users on what is the most weather-appropriate attire. Goodtimes uses Eventbrite, Foursquare, and Darksky APIs.
+Goodtimes aims to be a one-stop social planner. The dashboard allows users to plan a hangout around an event in a specific location which includes 10 recommended restaurants for that destination so planning is simplified. Local weather data for the current day is helpful in reminding users on what is the most weather-appropriate attire. Goodtimes uses Eventbrite, Foursquare, and Darksky APIs.
 
 
 

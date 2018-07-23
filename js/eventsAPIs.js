@@ -220,7 +220,7 @@ app.eventsAPIs = function () {
 
     function updateLocationHeading (city_region, country) {
         const html = `${city_region}, ${country}`;
-        $('.user-loc').html(html);
+        $('.js-user-loc').html(html);
     }
 
     function pageCountDisplay () {

@@ -1,6 +1,5 @@
 'use strict';
 
-// planner should be able to add thing to do
 function addToPlanner () {
     $('.planner').submit(function (e) {
         e.preventDefault();
@@ -19,6 +18,22 @@ function createPlan () {
     appendPlan(html);
 }
 
+function appendPlan (html) {
+    $('.plan-list').append(html);
+    toggleList();
+}
+
+function deletePlan () {
+    $('.planner-viewer').on('click', '.delete', function (e) {
+        e.preventDefault();
+        const li = $(this).closest('li');
+        const identifier = li.attr('id');
+        li.remove();
+        deleteListItemFromStorage(identifier);
+        toggleList();
+    });
+}
+
 function getRandomId () {
     var alph = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     var number = '012345678910';
@@ -33,7 +48,7 @@ function getRandomId () {
     return id;
 }
 
-// if local Storage exist use the content to populate on page load
+// If local Storage exists, use the content to populate on page load
 function hasLocalStorage () {
     if (window.localStorage.length > 0) {
         const localStorageObj = window.localStorage;
@@ -52,23 +67,7 @@ function saveListItemToStorage (id, html) {
 }
 
 function deleteListItemFromStorage (id) {
-    localStorage.removeItem(id);
-}
-
-function appendPlan (html) {
-    $('.plan-list').append(html);
-    toggleList();
-}
-
-function deletePlan () {
-    $('.planner-viewer').on('click', '.delete', function (e) {
-        e.preventDefault();
-        const li = $(this).closest('li');
-        const identifier = li.attr('id');
-        li.remove();
-        deleteListItemFromStorage(identifier);
-        toggleList();
-    });
+    localStorage.removeItem(`goodtimes-${id}`);
 }
 
 function timeWithMeridiem (time) {
@@ -93,6 +92,13 @@ function toggleList () {
     }
 }
 
+$('.js-start-search').on('click', function (e) {
+    if ($("main").is(':hidden')) {
+        $("main").show();
+        $('.js-landing-page').hide();
+    }
+});
+
 function mainPlanner () {
     hasLocalStorage();
     addToPlanner();
@@ -101,9 +107,9 @@ function mainPlanner () {
 }
 
 function main () {
-    // app.eventsAPIs();
-    // app.darksky.getUserLocWeather();
-    // mainPlanner();
+    app.eventsAPIs();
+    app.darksky.getUserLocWeather();
+    mainPlanner();
 }
 
 $(main);
