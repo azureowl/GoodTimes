@@ -368,6 +368,15 @@ aside .results-margin {
     margin-left: 20px;
 }
 
+.page-count {
+    margin-left: 10px;
+}
+
+.count {
+    display: flex;
+    justify-content: space-between;
+}
+
 @media (max-width: 425px) {
     .inner-row-mb {
         padding: 0
