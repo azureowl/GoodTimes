@@ -101,9 +101,9 @@ function mainPlanner () {
 }
 
 function main () {
-    app.eventsAPIs();
-    app.darksky.getUserLocWeather();
-    mainPlanner();
+    // app.eventsAPIs();
+    // app.darksky.getUserLocWeather();
+    // mainPlanner();
 }
 
 $(main);

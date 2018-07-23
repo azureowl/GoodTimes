@@ -46,7 +46,7 @@ app.eventsAPIs = function () {
         foursquareMakeAJAXCall(query);
     }
 
-    function requestEventbriteData () {
+    function requestEventbriteData (bool) {
         const location = $('#location').val();
         const term = $('#search').val();
         const dateRange = $("#date").val();
@@ -63,7 +63,12 @@ app.eventsAPIs = function () {
                 xhr.setRequestHeader("Authorization", `Bearer ${config.eventbrite.oAuth}`);
             }
         };
-        eventbriteMakeAJAXCall(settings, true);
+
+        if (bool) {
+            eventbriteMakeAJAXCall(settings, true);
+        } else {
+            eventbriteMakeAJAXCall(settings, false);
+        }
     }
 
     function requestFoursquareData () {
@@ -227,20 +232,20 @@ app.eventsAPIs = function () {
         e.preventDefault();
         storedData.server.page_number = 1;
         $('.top-match').html('');
-        requestEventbriteData();
+        requestEventbriteData(true);
     });
 
     $('.js-next').on('click', function () {
         if (storedData.server.page_number < storedData.server.pageNumberTotal) {
             storedData.server.page_number += 1;
-            requestEventbriteData();
+            requestEventbriteData(false);
         }
     });
 
     $('.js-prev').on('click', function () {
         if (storedData.server.page_number > 1) {
             storedData.server.page_number -= 1;
-            requestEventbriteData();
+            requestEventbriteData(false);
         }
     });
 
