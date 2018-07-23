@@ -21,6 +21,7 @@ app.eventsAPIs = function () {
             data: {
                 q: 'jazz',
                 ['location.address']: storedData.seed.city,
+                ['start_date.keyword']: $("#date").val(),
                 ['location.within']: '25mi',
                 page: storedData.server.page_number
             },
@@ -47,13 +48,15 @@ app.eventsAPIs = function () {
 
     function requestEventbriteData () {
         const location = $('#location').val();
+        const term = $('#search').val();
+        const dateRange = $("#date").val();
         const settings = {
             url: eventbriteEndpoint.userEndpoint,
             data: {
-                q: $('#search').val(),
+                q: term !== "" ? term : storedData.seed.term,
                 ['location.address']: location !== "" ? location : storedData.seed.city,
                 ['start_date.keyword']: $("#date").val(),
-                ['location.within']: '50mi',
+                ['location.within']: '25mi',
                 page: storedData.server.page_number
             },
             beforeSend: function (xhr) {
@@ -82,7 +85,8 @@ app.eventsAPIs = function () {
             storeData(storedData.server, data);
             app.darksky.getLocalWeatherSearch(storedData.server.location.latitude, storedData.server.location.longitude);
             updateLocationHeading(storedData.server.location.currentLocation, storedData.server.location.country);
-            console.log(storedData, data);
+            togglePaginationButtons();
+            console.log(storedData, data, settings);
 
             if (bool) {
                 requestFoursquareData();
@@ -233,6 +237,21 @@ app.eventsAPIs = function () {
             requestEventbriteData();
         }
     });
+
+    function togglePaginationButtons () {
+        if (storedData.server.page_number === 1) {
+            $('.js-prev').hide();
+        }
+        if (storedData.server.page_number > 1) {
+            $('.js-prev').show();
+        }
+        if (storedData.server.page_number === storedData.server.pageNumberTotal) {
+            $('.js-next').hide();
+        }
+        if (storedData.server.page_number < storedData.server.pageNumberTotal) {
+            $('.js-next').show();
+        }
+    }
 
     function main () {
         seedEventbriteEvents();
