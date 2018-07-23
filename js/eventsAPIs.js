@@ -219,7 +219,7 @@ app.eventsAPIs = function () {
     }
 
     function pageCountDisplay () {
-        $('.js-current-page').html(`${storedData.server.pageNumberTotal}`);
+        $('.js-current-page').html(`${storedData.server.page_number}`);
         $('.js-total-page').html(`${storedData.server.pageNumberTotal}`);
     }
 
