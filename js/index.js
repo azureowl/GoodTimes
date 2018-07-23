@@ -14,12 +14,12 @@ function createPlan () {
     const time = $("#time").val();
     const newTime = timeWithMeridiem(time);
     const html = `<li><span class="detail">${detail}</span><div class="detail-date"><span class="cal-date">${date}</span>, <span class="time-date">${newTime}</span></div><button class="delete">Delete</button></li>`;
-
     appendPlan(html);
 }
 
 function appendPlan (html) {
     $('.plan-list').append(html);
+    toggleList();
 }
 
 function deletePlan () {
@@ -27,6 +27,7 @@ function deletePlan () {
         e.preventDefault();
         const li = $(this).closest('li');
         li.remove();
+        toggleList();
     });
 }
 
@@ -43,21 +44,19 @@ function timeWithMeridiem (time) {
     }
 }
 
-function togglePlanner () {
-    $('.planner-view').on('click', function () {
-        $('.planner-viewer').toggle();
-        if ($('.planner-viewer').is(':hidden') === false) {
-            $('body').css({overflow: 'hidden'});
-        } else {
-            $('body').css({overflow: 'auto'});
-        }
-    });
+function toggleList () {
+    var childLength = $('.planner-viewer').find('.plan-list').children().length;
+    if (childLength > 0) {
+        $('.planner-viewer').show();
+    } else {
+        $('.planner-viewer').hide();
+    }
 }
 
 function mainPlanner () {
     addToPlanner();
     deletePlan();
-    togglePlanner();
+    toggleList();
 }
 
 function main () {
