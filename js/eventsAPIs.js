@@ -34,8 +34,8 @@ app.eventsAPIs = function () {
     function seedFoursquarePlaces() {
         const query = {
             near: storedData.seed.city,
-            client_id: config.fourSquare.id,
-            client_secret: config.fourSquare.secret,
+            client_id: config.fourSquare.id2,
+            client_secret: config.fourSquare.secret2,
             section: 'food',
             limit: 10,
             v: '20180323'
@@ -74,9 +74,9 @@ app.eventsAPIs = function () {
         const query = {
             ll: `${storedData.server.location.latitude},${storedData.server.location.longitude}`,
             limit: 10,
-            client_id: config.fourSquare.id,
+            client_id: config.fourSquare.id2,
             section: 'food',
-            client_secret: config.fourSquare.secret,
+            client_secret: config.fourSquare.secret2,
             v: '20180323'
         };
 
@@ -104,7 +104,6 @@ app.eventsAPIs = function () {
 
     function foursquareMakeAJAXCall(query) {
         $.getJSON(foursquareEndpoints.explore, query, function (response) {
-            console.count('called foursquareMakeAJAXCall');
             const venues = response.response.groups[0].items;
             generatePlacesMarkup(venues);
         }).fail(function (error) {
@@ -173,14 +172,13 @@ app.eventsAPIs = function () {
 
     function getVenueDetailsFoursquare(venueID, html, venueName) {
         const query = {
-            client_id: config.fourSquare.id,
-            client_secret: config.fourSquare.secret,
+            client_id: config.fourSquare.id2,
+            client_secret: config.fourSquare.secret2,
             v: '20180323'
         };
 
         $.getJSON(`${foursquareEndpoints.venues}/${venueID}`, query, function (place) {
             const url = place.response.venue.canonicalUrl;
-            console.count('called getVenueDetailsFoursquare');
             getVenuePhotosFoursquare(venueID, html, url, venueName);
         }).fail(function (error) {
             console.log(error);
@@ -189,14 +187,13 @@ app.eventsAPIs = function () {
 
     function getVenuePhotosFoursquare(venueID, html, url, venueName) {
         const query = {
-            client_id: config.fourSquare.id,
-            client_secret: config.fourSquare.secret,
+            client_id: config.fourSquare.id2,
+            client_secret: config.fourSquare.secret2,
             limit: 10,
             v: '20180323'
         };
 
         $.getJSON(`${foursquareEndpoints.venues}/${venueID}/photos`, query, function (photoData) {
-            console.count('called getVenuePhotosFoursquare');
             const image = `${photoData.response.photos.items[0].prefix}width600${photoData.response.photos.items[0].suffix}`;
             const joinedHTML = `<div class="col col-4 results-margin"><div class="results-cell"><a href="${url}" target="_blank" class="results-link-image"><img src="${image}" alt="Photo of ${venueName}"></a>${html}`;
             appendFoursquarePlaces(joinedHTML);
