@@ -1,13 +1,13 @@
 'use strict';
 
-function addToPlanner () {
+function addToPlanner() {
     $('.planner').submit(function (e) {
         e.preventDefault();
         createPlan();
     });
 }
 
-function createPlan () {
+function createPlan() {
     const id = getRandomId();
     const detail = $("#todo").val();
     const date = $("#planner-date").val();
@@ -18,12 +18,12 @@ function createPlan () {
     appendPlan(html);
 }
 
-function appendPlan (html) {
+function appendPlan(html) {
     $('.plan-list').append(html);
     toggleList();
 }
 
-function deletePlan () {
+function deletePlan() {
     $('.planner-viewer').on('click', '.delete', function (e) {
         e.preventDefault();
         const li = $(this).closest('li');
@@ -34,7 +34,7 @@ function deletePlan () {
     });
 }
 
-function getRandomId () {
+function getRandomId() {
     var alph = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     var number = '012345678910';
     var ln = 3;
@@ -49,7 +49,7 @@ function getRandomId () {
 }
 
 // If local Storage exists, use the content to populate on page load
-function hasLocalStorage () {
+function hasLocalStorage() {
     if (window.localStorage.length > 0) {
         const localStorageObj = window.localStorage;
         const html = Object.keys(localStorageObj).map(key => {
@@ -61,16 +61,16 @@ function hasLocalStorage () {
     }
 }
 
-function saveListItemToStorage (id, html) {
+function saveListItemToStorage(id, html) {
     id = `goodtimes-${id}`;
     localStorage.setItem(id, html);
 }
 
-function deleteListItemFromStorage (id) {
+function deleteListItemFromStorage(id) {
     localStorage.removeItem(`goodtimes-${id}`);
 }
 
-function timeWithMeridiem (time) {
+function timeWithMeridiem(time) {
     const hour = Number(time.split(':')[0]);
     if (hour >= 12 && hour <= 23) {
         return `${time} PM`;
@@ -83,7 +83,7 @@ function timeWithMeridiem (time) {
     }
 }
 
-function toggleList () {
+function toggleList() {
     var childLength = $('.planner-viewer').find('.plan-list').children().length;
     if (childLength > 0) {
         $('.planner-viewer').show();
@@ -99,14 +99,14 @@ $('.js-start-search').on('click', function (e) {
     }
 });
 
-function mainPlanner () {
+function mainPlanner() {
     hasLocalStorage();
     addToPlanner();
     deletePlan();
     toggleList();
 }
 
-function main () {
+function main() {
     app.eventsAPIs();
     app.darksky.getUserLocWeather();
     mainPlanner();

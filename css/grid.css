@@ -8,7 +8,8 @@
     margin: 0 auto 5px auto;
 }
 
-.row::before, .row::after {
+.row::before,
+.row::after {
     display: table;
     content: '';
 }
@@ -23,18 +24,18 @@
 }
 
 /* Mobile defaults */
-.col-4, .col-8, .col-12 {
+
+.col-4,
+.col-8,
+.col-12 {
     width: 100%;
 }
 
 @media only screen and (min-width: 768px) {
-
     .col-4 {
         width: 33.333333333%;
     }
-
     .col-8 {
         width: 66.6666667%;
     }
-
 }
