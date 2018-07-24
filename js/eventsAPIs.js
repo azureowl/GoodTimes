@@ -1,6 +1,5 @@
-'use strict';
-
 app.eventsAPIs = function () {
+    'use strict';
 
     const eventbriteEndpoint = {
         userEndpoint: 'https://www.eventbriteapi.com/v3/events/search/',
@@ -82,7 +81,7 @@ app.eventsAPIs = function () {
         };
 
         foursquareMakeAJAXCall(query);
-    };
+    }
 
     function eventbriteMakeAJAXCall (settings, bool) {
 

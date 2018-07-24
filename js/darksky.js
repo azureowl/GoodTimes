@@ -1,5 +1,3 @@
-'use strict';
-
 app.darksky = {
     getUserLocWeather: function () {
         var loc_data = {
