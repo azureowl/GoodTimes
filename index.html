@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ"
+        crossorigin="anonymous">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -10,9 +12,11 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:200,600" rel="stylesheet">
     <title>Goodtimes - Find events and places</title>
 </head>
+
 <body>
     <header role="banner">
-        <h1><i class="far fa-smile-beam"></i> Goodtimes</h1>
+        <h1>
+            <i class="far fa-smile-beam"></i> Goodtimes</h1>
     </header>
 
     <main role="main" aria-live="polite" hidden>
@@ -53,7 +57,9 @@
 
             <div class="row">
                 <div class="col col-12">
-                    <h2 class="location-heading">Experiences near <span class="js-user-loc">City, State</span></h2>
+                    <h2 class="location-heading">Experiences near
+                        <span class="js-user-loc">City, State</span>
+                    </h2>
                 </div>
             </div>
 
@@ -62,12 +68,17 @@
                 <div class="col col-8">
                     <section role="region" class="">
                         <div class="row">
-                            <div class="col col-12"><h2>Explore Eventbrite</h2></div>
+                            <div class="col col-12">
+                                <h2>Explore Eventbrite</h2>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col col-12 count">
                                 <span class="results-count"></span>
-                                <span class="page-count">Page <span class="js-current-page">0</span> of <span class="js-total-page">0</span></span>
+                                <span class="page-count">Page
+                                    <span class="js-current-page">0</span> of
+                                    <span class="js-total-page">0</span>
+                                </span>
                             </div>
                         </div>
                         <div class="row">
@@ -77,13 +88,26 @@
                         </div>
                         <div class="mob-scroll fixed-height">
                             <div class="row inner-row-mb js-autho-results">
-                                    <div class="col col-4 results-margin"><div class="results-cell"><a href="https://www.eventbrite.com/e/jazz-piano-mass-at-cyprians-tickets-46549444642?aff=ebapi" target="_blank" class="results-link-image"><img src="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F23601701%2F119606375657%2F1%2Foriginal.jpg?auto=compress&amp;s=b53c78a27f819f08a5e0f116e417fa19" alt="Photos of event Jazz Piano Mass at Cyprian's"></a><div class="venue-info"><p class="result-title">Jazz Piano Mass at Cyprian's</p><p class="result-add">2097 Turk Street, San Francisco, CA 94115</p></div></div></div>
+                                <div class="col col-4 results-margin">
+                                    <div class="results-cell">
+                                        <a href="https://www.eventbrite.com/e/jazz-piano-mass-at-cyprians-tickets-46549444642?aff=ebapi"
+                                            target="_blank" class="results-link-image">
+                                            <img src="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F23601701%2F119606375657%2F1%2Foriginal.jpg?auto=compress&amp;s=b53c78a27f819f08a5e0f116e417fa19"
+                                                alt="Photos of event Jazz Piano Mass at Cyprian's">
+                                        </a>
+                                        <div class="venue-info">
+                                            <p class="result-title">Jazz Piano Mass at Cyprian's</p>
+                                            <p class="result-add">2097 Turk Street, San Francisco, CA 94115</p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
                         <div class="row pagination-row">
                             <div class="col col-12 pagination" hidden>
-                                <button class="js-prev" aria-label="previous results">Prev</button> <button class="js-next" aria-label="next results">Next</button>
+                                <button class="js-prev" aria-label="previous results">Prev</button>
+                                <button class="js-next" aria-label="next results">Next</button>
                             </div>
                         </div>
 
@@ -93,13 +117,26 @@
                     <aside role="complementary">
                         <div class="results-margin">
                             <div class="row">
-                                <div class="col col-12"><h2>Local weather today</h2></div>
+                                <div class="col col-12">
+                                    <h2>Local weather today</h2>
+                                </div>
                             </div>
                             <div class="weather-container">
-                                <div><canvas id="js-weather-icon"></canvas></div>
+                                <div>
+                                    <canvas id="js-weather-icon"></canvas>
+                                </div>
                                 <div class="weather-details">
-                                    <div><span class="js-temp"></span><span>&deg;</span> <span class="js-summary"></span></div>
-                                    <div><span>Feels like:</span> <span class="js-feels-like"></span><span>&deg;</span> <span class="whitespace">Precipitation:</span> <span class="js-precip"></span>%</div>
+                                    <div>
+                                        <span class="js-temp"></span>
+                                        <span>&deg;</span>
+                                        <span class="js-summary"></span>
+                                    </div>
+                                    <div>
+                                        <span>Feels like:</span>
+                                        <span class="js-feels-like"></span>
+                                        <span>&deg;</span>
+                                        <span class="whitespace">Precipitation:</span>
+                                        <span class="js-precip"></span>%</div>
                                 </div>
                             </div>
                         </div>
@@ -112,7 +149,9 @@
                 <div class="col col-8">
                     <section role="region" class="">
                         <div class="row">
-                            <div class="col col-12"><h2>Recommended restaurants in the area</h2></div>
+                            <div class="col col-12">
+                                <h2>Recommended restaurants in the area</h2>
+                            </div>
                         </div>
                         <div class="mob-scroll fixed-height">
                             <div class="row inner-row-mb js-foursq-results"></div>
@@ -129,7 +168,9 @@
                     <aside role="complementary">
                         <div class="results-margin">
                             <div class="row">
-                                <div class="col col-12"><h2>Social Planner</h2></div>
+                                <div class="col col-12">
+                                    <h2>Social Planner</h2>
+                                </div>
                             </div>
                             <div class="list-container">
                                 <form class="planner">
@@ -170,8 +211,12 @@
             </div>
             <div class="row">
                 <div class="col col-12 contact">
-                    <a href="https://github.com/azureowl" title="github.com/azureowl"><i class="fab fa-github"></i></a>
-                    <a href="https://www.linkedin.com/in/rochellm" title="linkedin.com/in/rochellm"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/azureowl" title="github.com/azureowl">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/rochellm" title="linkedin.com/in/rochellm">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
                 </div>
             </div>
         </footer>
@@ -179,13 +224,19 @@
     </main>
 
     <aside role="complementary" class="js-landing-page">
-        <p>Goodtimes aims to be a one-stop social planner. The dashboard allows users to plan a hangout around an event in a specific location which includes 10 recommended restaurants for that destination so planning is simplified. Local weather data for the current day is helpful in reminding users on what is the most weather-appropriate attire. The social planner saves a user's notes in localStorage so it will always be there until they clear their browser's history.</p>
-        <p>After starting, begin your search! Simply type in an event that interests you. Goodtimes uses Eventbrite, Foursquare, and Darksky APIs.</p>
+        <p>Goodtimes aims to be a one-stop event finder and social planner. The dashboard allows users to plan a hangout around
+            an event in a specific location which includes 10 recommended restaurants for that destination so planning is
+            simplified. Local weather data for the current day is helpful in reminding users on what is the most weather-appropriate
+            attire. The social planner saves a user's notes in localStorage so it will always be there until they clear their
+            browser's history.</p>
+        <p>After starting, begin your search! Simply type in an event that interests you. Goodtimes uses Eventbrite, Foursquare,
+            and Darksky APIs.</p>
         <p>Goodtimes is my API Capstone Project for Thinkful.</p>
         <button class="js-start-search" type="button">Start</button>
     </aside>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
     <script src="js/config/config.js"></script>
     <script src="js/storedData.js"></script>
     <script src="js/countryCode.js"></script>
@@ -197,4 +248,5 @@
     <script src="js/eventsAPIs.js"></script>
     <script src="js/darksky.js"></script>
 </body>
+
 </html>

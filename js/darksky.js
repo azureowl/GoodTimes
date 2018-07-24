@@ -29,7 +29,9 @@ app.darksky = {
         });
     },
     depictWeather: function (icon) {
-        var skycons = new Skycons({"monochrome": false});
+        var skycons = new Skycons({
+            "monochrome": false
+        });
         skycons.add("js-weather-icon", icon);
         skycons.play();
     }
