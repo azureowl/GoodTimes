@@ -76,7 +76,7 @@ function timeWithMeridiem (time) {
         return `${time} PM`;
     } else if (hour >= 0 && hour <= 11) {
         if (hour === 0) {
-            return `12:${time.split(':')[1]} AM`
+            return `12:${time.split(':')[1]} AM`;
         } else {
             return `${time} AM`;
         }
