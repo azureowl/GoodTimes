@@ -198,7 +198,7 @@ app.eventsAPIs = function () {
             appendFoursquarePlaces(joinedHTML);
         }).fail(function (error) {
             console.log(error);
-        });;
+        });
     }
 
     // Gets venue address
