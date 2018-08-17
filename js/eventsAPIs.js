@@ -11,135 +11,136 @@ app.eventsAPIs = function () {
         venues: 'https://api.foursquare.com/v2/venues/'
     };
 
-    // Seed with Eventbrite data based on user location on page load
-    function seedEventbriteEvents(page) {
+    const page = {
+        page_number: 1,
+        pageNumberTotal: null,
+        pageObjectCount: null,
+        storePagination: function (pagination) {
+            this.pageNumberTotal = pagination.page_count;
+            this.pageObjectCount = pagination.object_count;
+        }
+    };
+
+    function getEBdefaultData() {
         const settings = {
             url: eventbriteEndpoint.userEndpoint,
             data: {
                 q: 'jazz',
-                ['location.address']: storedData.seed.city,
-                ['start_date.keyword']: $("#date").val(),
+                ['location.address']: 'San Francisco',
+                ['start_date.keyword']: $('#date').val(),
                 ['location.within']: '25mi',
-                page: storedData.server.page_number
+                page: page.page_number
             },
             beforeSend: function (xhr) {
-                xhr.setRequestHeader("Authorization", `Bearer ${config.eventbrite.oAuth}`);
+                xhr.setRequestHeader('Authorization', `Bearer ${config.eventbrite.oAuth}`);
             }
         };
 
-        eventbriteMakeAJAXCall(settings, false);
+        makeAJAXCall(settings, 'eventbrite', false);
     }
 
     // Seed with Recommended places data based on user location on page load
-    function seedFoursquarePlaces() {
-        const query = {
-            near: storedData.seed.city,
-            client_id: config.fourSquare.id2,
-            client_secret: config.fourSquare.secret2,
-            section: 'food',
-            limit: 10,
-            v: '20180323'
+    function getFSDefaultData() {
+        const settings = {
+            url: foursquareEndpoints.explore,
+            data: {
+                near: 'San Francisco',
+                client_id: config.fourSquare.id2,
+                client_secret: config.fourSquare.secret2,
+                section: 'food',
+                limit: 10,
+                v: '20180323'
+            }
         };
 
-        foursquareMakeAJAXCall(query);
+        makeAJAXCall(settings, 'foursquare');
     }
 
     function requestEventbriteData(bool) {
-        const location = $('#location').val();
-        const term = $('#search').val();
-        const dateRange = $("#date").val();
+        const { location, term, dataRange } = getFormData();
+
         const settings = {
             url: eventbriteEndpoint.userEndpoint,
             data: {
-                q: term !== "" ? term : storedData.seed.term,
-                ['location.address']: location !== "" ? location : storedData.seed.city,
-                ['start_date.keyword']: $("#date").val(),
+                q: term !== '' ? term : 'jazz',
+                ['location.address']: location !== '' ? location : 'San Francisco',
+                ['start_date.keyword']: $('#date').val(),
                 ['location.within']: '25mi',
-                page: storedData.server.page_number
+                page: page.page_number
             },
             beforeSend: function (xhr) {
-                xhr.setRequestHeader("Authorization", `Bearer ${config.eventbrite.oAuth}`);
+                xhr.setRequestHeader('Authorization', `Bearer ${config.eventbrite.oAuth}`);
             }
         };
 
-        if (bool) {
-            eventbriteMakeAJAXCall(settings, true);
-        } else {
-            // Prevent calling Foursquare API if just paginating through results
-            eventbriteMakeAJAXCall(settings, false);
+        // No calling Foursquare API if bool is false--not a form submission
+        makeAJAXCall(settings, 'eventbrite', bool);
+    }
+
+    function getFormData() {
+        return {
+            location: $('#location').val(),
+            term: $('#search').val(),
+            dateRange: $('#date').val()
+        };
+    }
+
+    function requestFoursquareData(location) {
+        const settings = {
+            url: foursquareEndpoints.explore,
+            data: {
+                ll: `${location.latitude}, ${location.longitude}`,
+                client_id: config.fourSquare.id2,
+                client_secret: config.fourSquare.secret2,
+                section: 'food',
+                limit: 10,
+                v: '20180323'
+            }
+        };
+
+        makeAJAXCall(settings, 'foursquare');
+    }
+
+    function makeAJAXCall(settings, source, isNewSubmission) {
+        const promise = $.ajax(settings);
+
+        if (source === 'eventbrite') {
+            promise.done(function (data) {
+                const { events, location, pagination } = data;
+                handlePagination(pagination);
+                handleLocation(location);
+                containsEvents(events);
+
+                if (isNewSubmission) {
+                    requestFoursquareData(location);
+                    console.count('Requesting Foursquare!');
+                }
+                console.log(events, location, pagination);
+            });
+
         }
-    }
 
-    function requestFoursquareData() {
-        const query = {
-            ll: `${storedData.server.location.latitude},${storedData.server.location.longitude}`,
-            limit: 10,
-            client_id: config.fourSquare.id2,
-            section: 'food',
-            client_secret: config.fourSquare.secret2,
-            v: '20180323'
-        };
+        if (source === 'foursquare') {
+            promise.done(function (response) {
+                console.log(response);
+                const venues = response.response.groups[0].items;
+                generatePlacesMarkup(venues);
+            });
+        }
 
-        foursquareMakeAJAXCall(query);
-    }
-
-    function eventbriteMakeAJAXCall(settings, bool) {
-
-        $.ajax(settings).done(function (data) {
-            storeData(storedData.server, data);
-            getStoredLocData();
-            togglePaginationButtons();
-            pageCountDisplay();
-
-            if (bool) {
-                requestFoursquareData();
-            }
-
-            checkIfEventArrayExist(data);
-
-        }).fail(function (e) {
-            console.log(e.statusText, e.responseText, "Call failed!");
+        promise.fail(function (e) {
+            console.log(e.statusText, e.responseText, 'Call failed!');
         });
     }
 
-    function foursquareMakeAJAXCall(query) {
-        $.getJSON(foursquareEndpoints.explore, query, function (response) {
-            const venues = response.response.groups[0].items;
-            generatePlacesMarkup(venues);
-        }).fail(function (error) {
-            console.log(error);
-        });
-    }
-
-    function storeData(obj, data) {
-        obj.pageNumberTotal = data.pagination.page_count;
-        obj.pageObjectCount = data.pagination.object_count;
-        obj.location = {
-            latitude: data.location.latitude
-        };
-        obj.location.longitude = data.location.longitude;
-        obj.location.currentLocation = data.location.augmented_location.city !== undefined ? data.location.augmented_location.city : data.location.augmented_location.region;
-        obj.location.country = getCountryCode(data.location.augmented_location.country);
-    }
-
-    function getStoredLocData() {
-        app.darksky.getLocalWeatherSearch(storedData.server.location.latitude, storedData.server.location.longitude);
-        updateLocationHeading(storedData.server.location.currentLocation, storedData.server.location.country);
-    }
-
-    function checkIfEventArrayExist(data) {
-        let events;
-        if (data.events && data.events.length !== 0) {
-            events = data.events;
-        } else if (data.top_match_events && data.top_match_events.length !== 0) {
-            events = data.top_match_events;
-            $('.top-match').html("There are no exact matches. What about these events?");
+    function containsEvents(events) {
+        if (events && events.length !== 0) {
+            generateEventsMarkup(events);
         } else {
             $('.results-count').html('0 results');
-            $('.js-autho-results').html('Eventbrite found no results.');
+            $('.js-autho-results').html('Eventbrite found no events matching your search.');
             return;
         }
-        generateEventsMarkup(events);
     }
 
     // Generate Eventbrite with event information
@@ -147,8 +148,8 @@ app.eventsAPIs = function () {
         $('.js-autho-results').html('');
 
         const results = events.forEach(function (event, i) {
-            const image = event.logo === null ? "https://azureowl.github.io/good-times-eventbrite-foursquare-ipstack-darksky-capstone/images/no-image-available.jpg" : event.logo.original.url;
-            const title = event.name.text ? event.name.text : "No Title";
+            const image = event.logo === null ? 'https://azureowl.github.io/good-times-eventbrite-foursquare-ipstack-darksky-capstone/images/no-image-available.jpg' : event.logo.original.url;
+            const title = event.name.text ? event.name.text : 'No Title';
             const id = event.venue_id;
             const html = `<div class="col col-4 results-margin"><div class="results-cell"><a href="${event.url}" target="_blank" class="results-link-image"><img src="${image}" alt="Photos of event ${title}"></a><div class="venue-info"><p class="result-title">${title}</p>`;
             if (id !== undefined) {
@@ -162,8 +163,8 @@ app.eventsAPIs = function () {
         $('.js-foursq-results').html('');
 
         const results = venues.forEach(function (place, i) {
-            const placeholder = "../images/no-image-available.jpg";
-            const venueName = place.venue.name ? place.venue.name : "No Title";
+            const placeholder = '../images/no-image-available.jpg';
+            const venueName = place.venue.name ? place.venue.name : 'No Title';
             const venueAdd = `${place.venue.location.address}, ${place.venue.location.city}`;
             const html = `<div class="venue-info"><p class="result-title">${venueName}</p><p class="result-add">${venueAdd}</p></div></div></div>`;
             getVenueDetailsFoursquare(place.venue.id, html, venueName);
@@ -207,7 +208,7 @@ app.eventsAPIs = function () {
         const settings = {
             url: `https://www.eventbriteapi.com/v3/venues/${id}/`,
             beforeSend: function (xhr) {
-                xhr.setRequestHeader("Authorization", `Bearer ${config.eventbrite.oAuth}`);
+                xhr.setRequestHeader('Authorization', `Bearer ${config.eventbrite.oAuth}`);
             }
         };
         $.ajax(settings).done(function (data) {
@@ -219,7 +220,7 @@ app.eventsAPIs = function () {
     }
 
     function appendEventbriteEvents(html) {
-        $('.results-count').html(`${storedData.server.pageObjectCount} results`);
+        $('.results-count').html(`${page.pageObjectCount} results`);
         pageCountDisplay();
         $('.js-autho-results').append(html);
     }
@@ -228,55 +229,67 @@ app.eventsAPIs = function () {
         $('.js-foursq-results').append(html);
     }
 
-    function updateLocationHeading(city_region, country) {
-        const html = `${city_region}, ${country}`;
-        $('.js-user-loc').html(html);
+    function handlePagination(pagination) {
+        togglePaginationButtons();
+        page.storePagination(pagination);
+        pageCountDisplay();
+    }
+
+    function handleLocation(location) {
+        app.darksky.makeRequest(location.latitude, location.longitude);
+        updateLocationHeading(location);
+    }
+
+    function updateLocationHeading(location) {
+        const city_region = location.augmented_location.city !== undefined ? location.augmented_location.city : location.augmented_location.region;
+        const country = getCountryCode(location.augmented_location.country);
+        $('.js-user-loc').html(`${city_region}, ${country}`);
     }
 
     function pageCountDisplay() {
-        $('.js-current-page').html(`${storedData.server.page_number}`);
-        $('.js-total-page').html(`${storedData.server.pageNumberTotal}`);
+        $('.js-current-page').html(`${page.page_number}`);
+        $('.js-total-page').html(`${page.pageNumberTotal}`);
     }
 
     $('.main-form').on('submit', function (e) {
         e.preventDefault();
-        storedData.server.page_number = 1;
+        page.page_number = 1;
         $('.top-match').html('');
         requestEventbriteData(true);
     });
 
     $('.js-next').on('click', function () {
-        if (storedData.server.page_number < storedData.server.pageNumberTotal) {
-            storedData.server.page_number += 1;
+        if (page.page_number < page.pageNumberTotal) {
+            page.page_number += 1;
             requestEventbriteData(false);
         }
     });
 
     $('.js-prev').on('click', function () {
-        if (storedData.server.page_number > 1) {
-            storedData.server.page_number -= 1;
+        if (page.page_number > 1) {
+            page.page_number -= 1;
             requestEventbriteData(false);
         }
     });
 
     function togglePaginationButtons() {
-        if (storedData.server.page_number === 1) {
+        if (page.page_number === 1) {
             $('.js-prev').hide();
         }
-        if (storedData.server.page_number > 1) {
+        if (page.page_number > 1) {
             $('.js-prev').show();
         }
-        if (storedData.server.page_number === storedData.server.pageNumberTotal) {
+        if (page.page_number === page.pageNumberTotal) {
             $('.js-next').hide();
         }
-        if (storedData.server.page_number < storedData.server.pageNumberTotal) {
+        if (page.page_number < page.pageNumberTotal) {
             $('.js-next').show();
         }
     }
 
     function main() {
-        seedEventbriteEvents();
-        seedFoursquarePlaces();
+        getEBdefaultData();
+        getFSDefaultData();
     }
 
     $(main);
