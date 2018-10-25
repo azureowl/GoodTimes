@@ -115,14 +115,12 @@ app.eventsAPIs = function () {
                     requestFoursquareData(location);
                     console.count('Requesting Foursquare!');
                 }
-                console.log(events, location, pagination);
             });
 
         }
 
         if (source === 'foursquare') {
             promise.done(function (response) {
-                console.log(response);
                 const venues = response.response.groups[0].items;
                 generatePlacesMarkup(venues);
             });

@@ -19,8 +19,15 @@ v1.0
 
 ***
 
+### Demo
+
+[Demo](https://azureowl.github.io/good-times-eventbrite-foursquare-ipstack-darksky-capstone/)
+
+Caveat: Foursquare quota limits for free accounts are very small.
+
+***
+
 ## Roadmap
-Because I feel very passionate about this app and hope to share it with my friends when it's fully completed, I plan to add more features as I progress through the program.
 
 #### Version 1.1
 * Include update/edit button to edit list
@@ -38,13 +45,6 @@ Because I feel very passionate about this app and hope to share it with my frien
 
 ![alt text](images/screenshot/ss1.png)
 ![alt text](images/screenshot/ss2.png)
-
-***
-
-Try it out:
-[Live version](https://azureowl.github.io/good-times-eventbrite-foursquare-ipstack-darksky-capstone/)
-
-caveat: Foursquare quota limits for free accounts are very small  :)
 
 ***
 
