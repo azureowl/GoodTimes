@@ -4,20 +4,19 @@
 <head>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ"
         crossorigin="anonymous">
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/grid.css">
     <link rel="stylesheet" href="css/index.css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:200,600" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:200,600|Roboto" rel="stylesheet">
     <title>Goodtimes - Find events and places</title>
 </head>
 
-<body>
+<body class="landing">
     <header role="banner">
-        <h1>
-            <i class="far fa-smile-beam"></i> Goodtimes</h1>
+        <h1><i class="far fa-smile-beam"></i> Goodtimes</h1>
     </header>
 
     <main role="main" aria-live="polite" hidden>
@@ -32,7 +31,8 @@
                                 <fieldset>
                                     <legend>Finding fun is easy.</legend>
                                     <label for="search" class="search">
-                                        <input type="search" id="search" placeholder="e.g. jazz, tacos, painting" aria-label="Search for Events" required>
+                                        <input type="search" id="search" placeholder="e.g. jazz, tacos, painting"
+                                            aria-label="Search for Events" required>
                                     </label>
                                     <label for="date" class="mob-hide">
                                         <select name="date" id="date" class="safari-only" aria-label="Pick date range">
@@ -46,7 +46,8 @@
                                         </select>
                                     </label>
                                     <label for="location" class="location">
-                                        <input type="text" name="location" id="location" placeholder="San Francisco, CA" aria-label="Search City, State" required>
+                                        <input type="text" name="location" id="location" placeholder="San Francisco, CA"
+                                            aria-label="Search City, State" required>
                                     </label>
                                 </fieldset>
                                 <button id='js-explore-event' type="submit">Search</button>
@@ -178,10 +179,12 @@
                                     <fieldset>
                                         <legend>What's Happening?</legend>
                                         <label for="todo" class="todo">Add To-do
-                                            <textarea name="todo" id="todo" placeholder="Meet friends at Santana Concert" maxlength="200" required></textarea>
+                                            <textarea name="todo" id="todo" placeholder="Meet friends at Santana Concert"
+                                                maxlength="200" required></textarea>
                                         </label>
                                         <label for="planner-date" class="planner-date">Date
-                                            <input type="date" id="planner-date" min="1900-01-01" max="2100-04-30" required>
+                                            <input type="date" id="planner-date" min="1900-01-01" max="2100-04-30"
+                                                required>
                                         </label>
                                         <label for="time" class="time">Time
                                             <input type="time" id="time" required>
@@ -225,15 +228,21 @@
     </main>
 
     <aside role="complementary" class="js-landing-page">
-        <p>Goodtimes aims to be a one-stop event finder and social planner. The dashboard allows users to plan a hangout around
-            an event in a specific location which includes 10 recommended restaurants for that destination so planning is
-            simplified. Local weather data for the current day is helpful in reminding users on what is the most weather-appropriate
-            attire. The social planner saves a user's notes in localStorage so it will always be there until they clear their
-            browser's history.</p>
-        <p>After starting, begin your search! Simply type in an event that interests you. Goodtimes uses Eventbrite, Foursquare,
-            and Darksky APIs.</p>
-        <p>Goodtimes is my API Capstone Project for Thinkful.</p>
-        <button class="js-start-search" type="button">Start</button>
+        <div>
+            <p><span class="title"><i class="far fa-smile-beam"></i> Goodtimes</span> is a one-stop event finder and
+                social
+                planner. Plan a hangout around an event anywhere in the world and get ten recommended restaurants
+                nearby.
+                Goodtimes includes local weather data for the city you're interested in and a place to jot down your
+                plans.</p>
+            <p>Powered by: </p>
+            <div class="logos">
+                <img src="../images/ev_logo.png" alt="eventbrite logo">
+                <img src="../images/fs_logo.png" alt="foursquare logo">
+                <img src="../images/ds_logo.png" alt="dark sky logo">
+            </div>
+            <button class="js-start-search" type="button">Start</button>
+        </div>
     </aside>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
