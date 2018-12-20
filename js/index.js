@@ -96,6 +96,7 @@ $('.js-start-search').on('click', function (e) {
     if ($("main").is(':hidden')) {
         $("main").show();
         $('.js-landing-page').hide();
+        $('body').toggleClass('landing');
     }
 });
 

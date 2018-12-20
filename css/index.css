@@ -5,6 +5,14 @@
   body {
     background-color: #f1f1f1;
     margin: 0;
+    padding: 10px;
+  }
+
+  body.landing {
+    background: url("../images/alin-meceanu-830-unsplash-short.jpg") no-repeat center center fixed;
+    background-size: cover;
+    height: 100%;
+    overflow: hidden;
   }
 
   body,
@@ -31,7 +39,6 @@
     margin-bottom: 10px;
   }
 
-  header,
   .hero,
   .main-results {
     background-color: #fff;
@@ -40,6 +47,7 @@
   header,
   legend,
   h2,
+  .title,
   .detail-date {
     color: #f26959;
   }
@@ -411,11 +419,31 @@
     justify-content: space-between;
   }
 
+  .logos {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    align-items: center
+  }
+
+  .logos img {
+    margin: 0 6px 10px 6px;
+    width: 100px;
+  }
+
   .js-landing-page {
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.5);
+    font-family: 'Roboto', sans-serif;
     line-height: 24px;
     margin: 0 auto;
-    padding: 20px;
     width: 100%;
+  }
+
+  .js-landing-page div {
+    background-color: rgba(255, 255, 255, 0.5);
+    margin: 20px;
+    padding: 20px;
   }
 
   .search input {
@@ -428,7 +456,19 @@
     }
   }
 
+  @media (min-width: 480px) {
+    .logos {
+      flex-direction: row;
+    }
+    .logos img {
+      margin-bottom: 0;
+    }
+  }
+
   @media (min-width: 768px) {
+    body {
+      padding: 0;
+    }
     body,
     form {
       background-color: #fff;
@@ -563,6 +603,9 @@
     .planner-view {
       margin-left: 2px;
       width: 160px;
+    }
+    .logos img {
+      margin: 0;
     }
   }
 
